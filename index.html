@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ibrahim Adnan — Developer & AI Specialist</title>
+  <meta name="description" content="Portfolio of Ibrahim Adnan - BSCS Student, Developer, Content Creator & Tech Enthusiast" />
+  
+  <!-- Dynamic Pulsing Beacon Favicon -->
+  <link id="dynamic-favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='12' fill='%2310b981' opacity='0.3'/><circle cx='16' cy='16' r='6' fill='%2310b981'/></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyber: {
+              accent: '#00f0ff',
+              emerald: '#10b981',
+              purple: '#a855f7'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-base: #050608;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --card-bg: rgba(255, 255, 255, 0.025);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --card-shine: rgba(255, 255, 255, 0.25);
+      --nav-bg: rgba(5, 6, 8, 0.4);
+      --marquee-bg: rgba(5, 6, 8, 0.6);
+      --badge-bg: rgba(255, 255, 255, 0.04);
+      --badge-border: rgba(255, 255, 255, 0.12);
+      --glow-color: rgba(0, 240, 255, 0.15);
+    }
+
+    html.light {
+      --bg-base: #cdd5e0;
+      --text-main: #0f172a;
+      --text-muted: #334155;
+      --card-bg: rgba(255, 255, 255, 0.35);
+      --card-border: rgba(255, 255, 255, 0.6);
+      --card-shine: rgba(255, 255, 255, 0.85);
+      --nav-bg: rgba(205, 213, 224, 0.55);
+      --marquee-bg: rgba(215, 223, 233, 0.65);
+      --badge-bg: rgba(15, 23, 42, 0.05);
+      --badge-border: rgba(15, 23, 42, 0.14);
+      --glow-color: rgba(14, 165, 233, 0.2);
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      overflow-x: hidden;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.025;
+      background: radial-gradient(#fff 1px, transparent 1px);
+      background-size: 8px 8px;
+    }
+
+    .crystal-card {
+      position: relative;
+      background-color: var(--card-bg);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid var(--card-border);
+      box-shadow: inset 0 1px 1px 0 var(--card-shine), 0 16px 36px -12px var(--glow-color);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, background-color 0.35s ease;
+      overflow: hidden;
+    }
+    .crystal-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(650px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 240, 255, 0.12), transparent 45%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .crystal-card:hover::before {
+      opacity: 1;
+    }
+    .crystal-card:hover {
+      border-color: rgba(0, 240, 255, 0.5);
+      box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.4), 0 22px 45px -10px rgba(0, 240, 255, 0.25);
+    }
+
+    #cursor-dot {
+      width: 6px;
+      height: 6px;
+      background: #00f0ff;
+      box-shadow: 0 0 12px #00f0ff, 0 0 24px #00f0ff;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+    }
+    #cursor-ring {
+      width: 34px;
+      height: 34px;
+      border: 1.5px solid rgba(0, 240, 255, 0.5);
+      background: rgba(0, 240, 255, 0.03);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    body.cursor-hover #cursor-ring {
+      width: 52px;
+      height: 52px;
+      border-color: #00f0ff;
+      background: rgba(0, 240, 255, 0.14);
+      box-shadow: 0 0 24px rgba(0, 240, 255, 0.35);
+    }
+
+    .reveal-3d {
+      opacity: 0;
+      transform: perspective(1000px) rotateX(14deg) translateY(45px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-3d.revealed {
+      opacity: 1;
+      transform: perspective(1000px) rotateX(0deg) translateY(0px);
+    }
+
+    .card-3d-wrap {
+      perspective: 1100px;
+    }
+    .card-3d {
+      transition: transform 0.15s ease-out;
+      transform-style: preserve-3d;
+    }
+
+    /* Seamless Never-Ending Infinite Marquee Loop (GPU Accelerated & Flicker-Free) */
+    @keyframes marquee {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+      animation: marquee 25s linear infinite;
+    }
+
+    #copy-toast {
+      transform: translateY(120%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+    }
+    #copy-toast.toast-active {
+      transform: translateY(0%);
+    }
+
+    /* Modal Overlay Animation */
+    #cert-modal {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #cert-modal.modal-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body class="font-sans selection:bg-cyber-accent selection:text-black relative">
+
+  <div class="noise-overlay"></div>
+
+  <!-- Custom Cursor -->
+  <div id="cursor-dot" class="hidden md:block"></div>
+  <div id="cursor-ring" class="hidden md:block"></div>
+
+  <!-- Toast Notification -->
+  <div id="copy-toast" class="fixed bottom-6 right-6 z-[9999] opacity-0 pointer-events-none">
+    <div class="crystal-card px-4 py-2.5 rounded-xl border border-cyber-accent/40 flex items-center gap-2.5 shadow-2xl">
+      <i class="fa-solid fa-circle-check text-cyber-emerald text-sm"></i>
+      <span id="toast-text" class="font-mono text-xs text-white">Copied to clipboard</span>
+    </div>
+  </div>
+
+  <!-- Certificate Modal Viewer -->
+  <div id="cert-modal" class="fixed inset-0 z-[10000] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-xl">
+    <div class="crystal-card border border-cyber-accent/30 rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-[0_0_50px_rgba(0,240,255,0.2)]">
+      <div class="flex items-center justify-between p-4 sm:p-5 border-b border-[var(--card-border)] bg-[var(--nav-bg)]">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-certificate text-cyber-accent text-sm"></i>
+          <span id="modal-title" class="font-mono text-xs sm:text-sm text-[var(--text-main)] font-bold">Certificate Viewer</span>
+        </div>
+        <button onclick="closeCertModal()" class="w-8 h-8 rounded-lg crystal-card flex items-center justify-center text-[var(--text-muted)] hover:text-cyber-accent transition">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+      <div id="modal-content" class="p-6 overflow-y-auto space-y-6">
+        <!-- Rendered Dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 3D Three.js WebGL Canvas -->
+  <div id="canvas-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+  <!-- Ambient Light Wells -->
+  <div class="fixed top-1/4 left-1/5 w-[36rem] h-[36rem] bg-cyan-500/15 rounded-full blur-[150px] pointer-events-none z-0"></div>
+  <div class="fixed bottom-1/4 right-1/5 w-[36rem] h-[36rem] bg-purple-500/15 rounded-full blur-[150px] pointer-events-none z-0"></div>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 border-b border-[var(--card-border)] bg-[var(--nav-bg)] backdrop-blur-2xl px-6 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <a href="#" class="font-mono text-sm tracking-wider font-bold flex items-center gap-3 group">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-emerald opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyber-emerald"></span>
+        </span>
+        <span class="text-[var(--text-main)] group-hover:text-cyber-accent transition tracking-widest font-extrabold">IBRAHIM ADNAN</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-5 lg:gap-7 font-mono text-xs text-[var(--text-muted)]">
+        <a href="#about" class="hover:text-cyber-accent transition">01//ABOUT</a>
+        <a href="#experience" class="hover:text-cyber-accent transition">02//TIMELINE</a>
+        <a href="#skills" class="hover:text-cyber-accent transition">03//STACK</a>
+        <a href="#education" class="hover:text-cyber-accent transition">04//EDUCATION</a>
+        <a href="#projects" class="hover:text-cyber-accent transition">05//WORK</a>
+        <a href="#contact" class="hover:text-cyber-accent transition">06//CONTACT</a>
+      </div>
+
+      <div class="flex items-center gap-3.5">
+        <div class="hidden lg:flex items-center gap-2 font-mono text-[11px] text-[var(--text-muted)] px-3 py-1 rounded-full crystal-card">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyber-accent"></span>
+          <span id="live-clock">LAHORE 00:00:00 PKT</span>
+        </div>
+        <button id="theme-toggle" aria-label="Toggle theme" class="w-9 h-9 rounded-full crystal-card flex items-center justify-center text-cyber-accent hover:border-cyber-accent transition active:scale-90">
+          <i id="theme-icon" class="fa-solid fa-moon text-xs"></i>
+        </button>
+        <a href="#contact" class="hidden sm:inline-flex px-4 py-1.5 font-mono text-xs rounded-full border border-cyber-accent/50 text-cyber-accent hover:bg-cyber-accent hover:text-black transition duration-300">
+          GET IN TOUCH
+        </a>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Seamless Never-Ending Marquee Ticker -->
+  <div class="pt-14 bg-[var(--marquee-bg)] border-b border-[var(--card-border)] overflow-hidden relative z-10 backdrop-blur-md">
+    <div class="animate-marquee whitespace-nowrap py-1.5 text-[11px] font-mono tracking-widest text-[var(--text-muted)] uppercase flex items-center">
+      <!-- First Track -->
+      <div class="flex items-center shrink-0">
+        <span class="mx-6">✦ AVAILABLE FOR FULL-STACK & QA ROLES</span>
+        <span class="mx-6 text-cyber-accent">✦ BSCS @ UMT</span>
+        <span class="mx-6">✦ E-COMMERCE & YOUTUBE AUTOMATION</span>
+        <span class="mx-6 text-cyber-emerald">✦ BASED IN LAHORE, PAKISTAN · REMOTE WORLDWIDE</span>
+      </div>
+      <!-- Duplicate Track for Seamless Infinite Loop -->
+      <div class="flex items-center shrink-0" aria-hidden="true">
+        <span class="mx-6">✦ AVAILABLE FOR FULL-STACK & QA ROLES</span>
+        <span class="mx-6 text-cyber-accent">✦ BSCS @ UMT</span>
+        <span class="mx-6">✦ E-COMMERCE & YOUTUBE AUTOMATION</span>
+        <span class="mx-6 text-cyber-emerald">✦ BASED IN LAHORE, PAKISTAN · REMOTE WORLDWIDE</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="relative z-10 max-w-7xl mx-auto px-6 pt-4 sm:pt-6 pb-20">
+    
+    <!-- Hero Section -->
+    <section id="about" class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-end">
+      <div class="lg:col-span-7 space-y-3.5">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--badge-border)] bg-[var(--badge-bg)] backdrop-blur-md font-mono text-xs text-[var(--text-muted)]">
+          <span class="w-2 h-2 rounded-full bg-cyber-accent animate-pulse"></span>
+          Software Engineer & Tech Creator
+        </div>
+        
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.15]">
+          Engineering reactive web products & <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-accent via-teal-300 to-emerald-400">scalable digital assets.</span>
+        </h1>
+        
+        <p class="text-sm sm:text-base text-[var(--text-muted)] font-light leading-relaxed max-w-2xl">
+          I am <strong class="text-[var(--text-main)] font-semibold">Ibrahim Adnan</strong>, a Computer Science student at UMT bridging software quality assurance, full-stack web engineering, and digital business operations. Experienced in building production web interfaces, executing test workflows, and producing technical Ruby content.
+        </p>
+
+        <!-- Social Action Cluster -->
+        <div class="flex flex-wrap items-center gap-3 pt-1">
+          <a href="#projects" class="px-5 py-2.5 rounded-xl bg-cyber-accent text-black font-bold font-mono text-xs hover:bg-cyan-300 transition duration-300 flex items-center gap-2 shadow-[0_0_24px_rgba(0,240,255,0.35)] active:scale-95">
+            EXPLORE WORK <i class="fa-solid fa-arrow-down text-xs"></i>
+          </a>
+
+          <div class="flex items-center gap-2">
+            <a href="https://linkedin.com/in/ibrahim-adnan-a945263a2" target="_blank" rel="noopener noreferrer" title="LinkedIn Profile" class="w-10 h-10 rounded-xl crystal-card flex items-center justify-center text-[var(--text-main)] hover:text-cyber-accent hover:scale-105 active:scale-95 transition">
+              <i class="fa-brands fa-linkedin-in text-sm"></i>
+            </a>
+            <a href="https://wa.me/923392320488" target="_blank" rel="noopener noreferrer" title="WhatsApp Message" class="w-10 h-10 rounded-xl crystal-card flex items-center justify-center text-[var(--text-main)] hover:text-emerald-400 hover:scale-105 active:scale-95 transition">
+              <i class="fa-brands fa-whatsapp text-base"></i>
+            </a>
+            <a href="https://github.com/ibrahimadnan2320-commits" target="_blank" rel="noopener noreferrer" title="GitHub Profile" class="w-10 h-10 rounded-xl crystal-card flex items-center justify-center text-[var(--text-main)] hover:text-cyber-accent hover:scale-105 active:scale-95 transition">
+              <i class="fa-brands fa-github text-base"></i>
+            </a>
+            <button onclick="copyToClipboard('ibrahim.linkdin.2320@gmail.com', 'Email copied to clipboard!')" title="Click to copy email" class="w-10 h-10 rounded-xl crystal-card flex items-center justify-center text-[var(--text-main)] hover:text-cyan-400 hover:scale-105 active:scale-95 transition">
+              <i class="fa-solid fa-envelope text-sm"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Photo Card -->
+      <div class="lg:col-span-5 flex justify-center lg:justify-end card-3d-wrap">
+        <div id="hero-card" class="card-3d relative w-full max-w-[260px] sm:max-w-[280px] rounded-2xl crystal-card p-2.5 overflow-hidden">
+          <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gradient-to-b from-white/5 to-black/20 flex items-end justify-center">
+            <img src="profile.png" alt="Ibrahim Adnan" class="w-full h-full object-cover object-top hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80'" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+            <div class="absolute bottom-2.5 left-2.5 right-2.5 p-2 rounded-lg crystal-card border border-[var(--card-border)] text-center flex flex-col items-center justify-center">
+              <p class="font-mono text-[11px] text-cyber-accent font-bold">IBRAHIM ADNAN</p>
+              <p class="text-[10px] text-[var(--text-muted)] mt-0.5">Lahore, Punjab, Pakistan</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 / Metrics & Proof in Numbers -->
+    <section class="mt-5 sm:mt-6">
+      <div class="font-mono text-xs text-cyber-accent tracking-widest mb-2.5">01 // IMPACT & METRICS</div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
+        <div class="crystal-card reveal-3d p-4 rounded-xl">
+          <p class="text-xl sm:text-2xl font-extrabold text-[var(--text-main)] font-mono">
+            <span class="counter" data-target="6">0</span>-Figure
+          </p>
+          <p class="text-[10px] font-mono text-cyber-accent mt-0.5">REVENUE GENERATED</p>
+          <p class="text-xs text-[var(--text-muted)] mt-1.5 leading-snug">Scaled an e-commerce & digital asset venture over one year through operational discipline and performance marketing.</p>
+        </div>
+        <div class="crystal-card reveal-3d p-4 rounded-xl">
+          <p class="text-xl sm:text-2xl font-extrabold text-[var(--text-main)] font-mono">
+            <span class="counter" data-target="5">0</span>+ Internships
+          </p>
+          <p class="text-[10px] font-mono text-cyber-accent mt-0.5">HANDS-ON PRODUCTION</p>
+          <p class="text-xs text-[var(--text-muted)] mt-1.5 leading-snug">Cross-functional industry experience spanning full-stack development, front-end architecture, and SQE testing.</p>
+        </div>
+        <div class="crystal-card reveal-3d p-4 rounded-xl">
+          <p class="text-xl sm:text-2xl font-extrabold text-[var(--text-main)] font-mono">
+            <span class="counter" data-target="100">0</span>%
+          </p>
+          <p class="text-[10px] font-mono text-cyber-accent mt-0.5">RESPONSIVE DELIVERY</p>
+          <p class="text-xs text-[var(--text-muted)] mt-1.5 leading-snug">Pixel-perfect user interfaces built to adapt smoothly from mobile displays to 4K desktop environments.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 / Experience Matrix -->
+    <section id="experience" class="mt-14 sm:mt-16">
+      <div class="font-mono text-xs text-cyber-accent tracking-widest mb-2">02 // TIMELINE & ENGAGEMENTS</div>
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6">Professional Trajectory</h2>
+      
+      <div class="space-y-4">
+        <!-- Big Brains · Lahore -->
+        <div class="crystal-card reveal-3d p-6 rounded-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-lg font-bold text-[var(--text-main)]">Software Quality Engineering Intern</h3>
+              <p class="text-xs font-mono text-cyber-accent">Big Brains · Lahore</p>
+            </div>
+            <div class="flex flex-col sm:items-end gap-1.5 shrink-0">
+              <a href="BigBrains-Certificate-BB-F6ADD430C125.jpg" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium crystal-card text-cyber-accent hover:border-cyber-accent hover:bg-cyber-accent/10 hover:scale-105 active:scale-95 transition shadow-md">
+                <i class="fa-solid fa-certificate text-xs"></i> View Certificate
+              </a>
+              <span class="text-xs font-mono text-[var(--text-muted)]">Aug 2026 – Sep 2026 · 1 Month</span>
+            </div>
+          </div>
+          <p class="text-sm text-[var(--text-muted)] mt-3">
+            Conducted Alpha, Beta, and Unit testing workflows. Validated mobile and web application stability, prepared quality assurance reports, and resolved system edge cases.
+          </p>
+        </div>
+
+        <!-- CodeAlpha · India -->
+        <div class="crystal-card reveal-3d p-6 rounded-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-lg font-bold text-[var(--text-main)]">Web Development Intern</h3>
+              <p class="text-xs font-mono text-cyber-accent">CodeAlpha · India</p>
+            </div>
+            <div class="flex flex-col sm:items-end gap-1.5 shrink-0">
+              <a href="code alpha internship.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium crystal-card text-cyber-accent hover:border-cyber-accent hover:bg-cyber-accent/10 hover:scale-105 active:scale-95 transition shadow-md">
+                <i class="fa-solid fa-certificate text-xs"></i> View Certificate
+              </a>
+              <span class="text-xs font-mono text-[var(--text-muted)]">Apr 2026 – Jul 2026 · 3 Months</span>
+            </div>
+          </div>
+          <p class="text-sm text-[var(--text-muted)] mt-3">
+            Built responsive front-end components, managed clean UI architecture, and contributed to web projects adhering to modern layout standards.
+          </p>
+        </div>
+
+        <!-- DevelopersHub Corporation · Islamabad -->
+        <div class="crystal-card reveal-3d p-6 rounded-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-lg font-bold text-[var(--text-main)]">Full Stack Development Intern</h3>
+              <p class="text-xs font-mono text-cyber-accent">DevelopersHub Corporation · Islamabad</p>
+            </div>
+            <div class="flex flex-col sm:items-end gap-1.5 shrink-0">
+              <a href="developershub internship.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium crystal-card text-cyber-accent hover:border-cyber-accent hover:bg-cyber-accent/10 hover:scale-105 active:scale-95 transition shadow-md">
+                <i class="fa-solid fa-certificate text-xs"></i> View Certificate
+              </a>
+              <span class="text-xs font-mono text-[var(--text-muted)]">Apr 2026 – Jun 2026 · 6 Weeks</span>
+            </div>
+          </div>
+          <p class="text-sm text-[var(--text-muted)] mt-3">
+            Engineered full-stack features and integrated dynamic web applications, focusing on scalable structure and cross-system connectivity.
+          </p>
+        </div>
+
+        <!-- DecodeLabs · India -->
+        <div class="crystal-card reveal-3d p-6 rounded-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-lg font-bold text-[var(--text-main)]">Full Stack Development Intern</h3>
+              <p class="text-xs font-mono text-cyber-accent">DecodeLabs · India</p>
+            </div>
+            <div class="flex flex-col sm:items-end gap-1.5 shrink-0">
+              <a href="DecodeLabs Internship Certificate (2).pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium crystal-card text-cyber-accent hover:border-cyber-accent hover:bg-cyber-accent/10 hover:scale-105 active:scale-95 transition shadow-md">
+                <i class="fa-solid fa-certificate text-xs"></i> View Certificate
+              </a>
+              <span class="text-xs font-mono text-[var(--text-muted)]">Apr 2026 – May 2026 · 1 Month</span>
+            </div>
+          </div>
+          <p class="text-sm text-[var(--text-muted)] mt-3">
+            Contributed to interactive web modules and multi-tier application architectures.
+          </p>
+        </div>
+
+        <!-- SyntecxHub · India -->
+        <div class="crystal-card reveal-3d p-6 rounded-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-lg font-bold text-[var(--text-main)]">Web Development Intern</h3>
+              <p class="text-xs font-mono text-cyber-accent">SyntecxHub · India</p>
+            </div>
+            <div class="flex flex-col sm:items-end gap-1.5 shrink-0">
+              <a href="Certificate_M.Ibrahim_Adnan (1).pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium crystal-card text-cyber-accent hover:border-cyber-accent hover:bg-cyber-accent/10 hover:scale-105 active:scale-95 transition shadow-md">
+                <i class="fa-solid fa-certificate text-xs"></i> View Certificate
+              </a>
+              <span class="text-xs font-mono text-[var(--text-muted)]">Apr 2026 – May 2026 · 1 Month</span>
+            </div>
+          </div>
+          <p class="text-sm text-[var(--text-muted)] mt-3">
+            Constructed modular, responsive interfaces for client deployment.
+          </p>
+        </div>
+
+        <!-- DeMeta · Lahore -->
+        <div class="crystal-card reveal-3d p-6 rounded-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-lg font-bold text-[var(--text-main)]">Software Development Intern</h3>
+              <p class="text-xs font-mono text-cyber-accent">DeMeta · Lahore</p>
+            </div>
+            <div class="flex flex-col sm:items-end gap-1.5 shrink-0">
+              <a href="DeMeta_Internship_Certificate_Ibrahim_Adnan.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium crystal-card text-cyber-accent hover:border-cyber-accent hover:bg-cyber-accent/10 hover:scale-105 active:scale-95 transition shadow-md">
+                <i class="fa-solid fa-certificate text-xs"></i> View Certificate
+              </a>
+              <span class="text-xs font-mono text-[var(--text-muted)]">Jul 2025 – Sep 2025 · 3 Months</span>
+            </div>
+          </div>
+          <p class="text-sm text-[var(--text-muted)] mt-3">
+            Engineered web layouts utilizing HTML, CSS, Flexbox, and CSS Grid to achieve responsive, modern web standards.
+          </p>
+        </div>
+
+        <!-- YouTube Automation / Venture -->
+        <div class="crystal-card reveal-3d p-6 rounded-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h3 class="text-lg font-bold text-[var(--text-main)]">Founder & Freelance Strategist</h3>
+              <p class="text-xs font-mono text-cyber-accent">E-commerce Venture & YouTube Automation</p>
+            </div>
+            <span class="text-xs font-mono text-[var(--text-muted)]">Nov 2024 – Oct 2025 · 1 Year</span>
+          </div>
+          <p class="text-sm text-[var(--text-muted)] mt-3">
+            Generated six-figure revenue through digital asset sales and automated content systems. Managed performance marketing, customer funnels, and continuous operations.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 / Categorized Skills Matrix -->
+    <section id="skills" class="mt-14 sm:mt-16">
+      <div class="font-mono text-xs text-cyber-accent tracking-widest mb-2">03 // CAPABILITIES</div>
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6">Technical & Strategic Architecture</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="crystal-card reveal-3d p-6 rounded-xl flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-cyan-500/15 border border-cyan-500/35 flex items-center justify-center text-cyber-accent mb-4">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <h3 class="font-bold text-lg text-[var(--text-main)] mb-2">Software & Web Engineering</h3>
+            <p class="text-xs text-[var(--text-muted)] mb-4">Core languages, front-end design, and full-stack web applications.</p>
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">C</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">C++</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Ruby</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">HTML5</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">CSS3 Flexbox</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">CSS Grid</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Tailwind CSS</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Responsive Design</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Full-Stack Dev</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Git</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">GitHub</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="crystal-card reveal-3d p-6 rounded-xl flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/15 border border-emerald-500/35 flex items-center justify-center text-cyber-emerald mb-4">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3 class="font-bold text-lg text-[var(--text-main)] mb-2">Quality Assurance & Systems</h3>
+            <p class="text-xs text-[var(--text-muted)] mb-4">Systematic validation, bug mitigation, and architecture testing.</p>
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Alpha Testing</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Beta Testing</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Unit Testing</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">SQA</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Mobile App QA</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Web App QA</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Complex Flowcharts</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Problem Solving</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="crystal-card reveal-3d p-6 rounded-xl flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-lg bg-purple-500/15 border border-purple-500/35 flex items-center justify-center text-cyber-purple mb-4">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <h3 class="font-bold text-lg text-[var(--text-main)] mb-2">AI, Media & Commerce</h3>
+            <p class="text-xs text-[var(--text-muted)] mb-4">Generative AI orchestration, video editing, and digital growth.</p>
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Prompt Engineering</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">ChatGPT</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Gemini</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">NotebookLM</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">YouTube Automation</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Video Editing</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Digital Photography</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Script Writing</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Performance Marketing</span>
+              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Stock Analysis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 / Education & Credentials -->
+    <section id="education" class="mt-14 sm:mt-16">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div>
+          <div class="font-mono text-xs text-cyber-accent tracking-widest mb-2">04A // ACADEMICS</div>
+          <h2 class="text-2xl font-bold mb-6">Education</h2>
+          <div class="space-y-4">
+            <div class="crystal-card reveal-3d p-5 rounded-xl min-h-[128px] flex flex-col justify-center">
+              <h3 class="font-bold text-[var(--text-main)]">University of Management and Technology (UMT)</h3>
+              <p class="text-xs text-cyber-accent font-mono mt-0.5">BS in Computer Science (BSCS)</p>
+              <p class="text-xs text-[var(--text-muted)] font-mono mt-2">2025 – 2029 · Lahore, Pakistan</p>
+            </div>
+            <div class="crystal-card reveal-3d p-5 rounded-xl min-h-[128px] flex flex-col justify-center">
+              <h3 class="font-bold text-[var(--text-main)]">Punjab Group Of Colleges</h3>
+              <p class="text-xs text-cyber-accent font-mono mt-0.5">ICS</p>
+              <p class="text-xs text-[var(--text-muted)] font-mono mt-2">2023 – 2025</p>
+            </div>
+            <div class="crystal-card reveal-3d p-5 rounded-xl min-h-[128px] flex flex-col justify-center">
+              <h3 class="font-bold text-[var(--text-main)]">Lahore Model School</h3>
+              <p class="text-xs text-cyber-accent font-mono mt-0.5">Matriculation</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="font-mono text-xs text-cyber-accent tracking-widest mb-2">04B // CREDENTIALS</div>
+          <h2 class="text-2xl font-bold mb-6">Certifications</h2>
+          <div class="space-y-4">
+            <!-- IBM Skills Network -->
+            <div class="crystal-card reveal-3d p-5 rounded-xl min-h-[128px] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 class="font-bold text-[var(--text-main)]">Prompt Engineering for Everyone</h3>
+                <p class="text-xs text-cyber-accent font-mono mt-1">IBM Skills Network</p>
+              </div>
+              <a href="IBMSkillsNetwork AI0117EN Certificate _ Cognitive Class (1).pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium crystal-card text-cyber-accent hover:border-cyber-accent hover:bg-cyber-accent/10 transition shrink-0">
+                <i class="fa-solid fa-certificate text-[11px]"></i> View Certificate
+              </a>
+            </div>
+
+            <!-- Codecademy (Single Combined File) -->
+            <div class="crystal-card reveal-3d p-5 rounded-xl min-h-[128px] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 class="font-bold text-[var(--text-main)]">HTML, CSS, CSS Flexbox & CSS Grid</h3>
+                <p class="text-xs text-cyber-accent font-mono mt-1">Codecademy · 3 Modules Completed</p>
+              </div>
+              <button onclick="openSingleCertModal('HTML, CSS, CSS Flexbox & CSS Grid (Codecademy)', 'InShot_20260903_195145647.jpg')" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium crystal-card text-cyber-accent hover:border-cyber-accent hover:bg-cyber-accent/10 transition shrink-0">
+                <i class="fa-solid fa-certificate text-[11px]"></i> View Certificate
+              </button>
+            </div>
+
+            <!-- UMT ICFCS Workshop -->
+            <div class="crystal-card reveal-3d p-5 rounded-xl min-h-[128px] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 class="font-bold text-[var(--text-main)]">Grow Online – Practical Digital Marketing</h3>
+                <p class="text-xs text-cyber-accent font-mono mt-1">UMT · ICFCS 2026</p>
+              </div>
+              <button onclick="openSingleCertModal('Grow Online – Practical Digital Marketing (UMT)', 'Grow Online - Practical Digital Marketing.jpg')" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium crystal-card text-cyber-accent hover:border-cyber-accent hover:bg-cyber-accent/10 transition shrink-0">
+                <i class="fa-solid fa-certificate text-[11px]"></i> View Certificate
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 / Featured Project -->
+    <section id="projects" class="mt-14 sm:mt-16">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <div class="font-mono text-xs text-cyber-accent tracking-widest">05 // DELIVERED PROJECTS</div>
+          <h2 class="text-2xl sm:text-3xl font-bold mt-1">Featured Production Build</h2>
+        </div>
+      </div>
+
+      <div class="crystal-card reveal-3d rounded-2xl p-6 lg:p-8 relative overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyber-emerald/15 border border-cyber-emerald/30 text-cyber-emerald font-mono text-[11px]">
+              <i class="fa-solid fa-circle-check"></i> Successfully Delivered · Aug 2026
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-bold text-[var(--text-main)]">IQRA Online Quran Academy</h3>
+            <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+              Architected and built a modern, responsive web presence with a core focus on accessible UX, optimized font hierarchies, clean layouts, and complete cross-device fluid scaling.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="px-2.5 py-1 text-xs font-mono rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Tailwind CSS</span>
+              <span class="px-2.5 py-1 text-xs font-mono rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Responsive Web Design</span>
+              <span class="px-2.5 py-1 text-xs font-mono rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">FontAwesome 6.0</span>
+              <span class="px-2.5 py-1 text-xs font-mono rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">HTML5</span>
+            </div>
+            <div class="flex items-center gap-4 pt-2 font-mono text-xs">
+              <a href="https://iqra-online-quran-academy.vercel.app/" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-lg bg-cyber-accent text-black font-bold hover:bg-cyan-300 transition flex items-center gap-2 active:scale-95 shadow-[0_0_15px_rgba(0,240,255,0.25)]">
+                LIVE PREVIEW <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              </a>
+              <a href="https://github.com/ibrahimadnan2320-commits/IQRA-Online-Quran-Academy" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-lg crystal-card hover:border-cyber-accent transition flex items-center gap-2 text-[var(--text-main)] active:scale-95">
+                GITHUB REPO <i class="fa-brands fa-github"></i>
+              </a>
+            </div>
+          </div>
+          <div class="lg:col-span-5">
+            <div class="relative rounded-xl overflow-hidden border border-[var(--card-border)] crystal-card p-4 font-mono text-xs text-[var(--text-muted)]">
+              <div class="flex items-center justify-between pb-3 border-b border-[var(--card-border)] mb-3">
+                <span class="text-cyber-accent">> deploy_info.log</span>
+                <span class="text-emerald-400 font-semibold">STATUS: 200 OK</span>
+              </div>
+              <p class="text-neutral-300 mb-2">// Platform Deployment</p>
+              <p class="text-cyan-400">iqra-online-quran-academy.vercel.app</p>
+              <p class="text-[var(--text-main)]">BRANCH: main (production)</p>
+              <p class="mt-4 text-neutral-300 mb-2">// Responsive Viewport Target</p>
+              <p class="text-[var(--text-main)]">• Mobile Viewports (360px - 480px)</p>
+              <p class="text-[var(--text-main)]">• Tablets & Laptops (768px - 1440px)</p>
+              <p class="text-[var(--text-main)]">• Ultra-wide & 4K displays</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 / Contact & Terminal -->
+    <section id="contact" class="mt-14 sm:mt-16">
+      <div class="font-mono text-xs text-cyber-accent tracking-widest mb-2">06 // DIRECT TERMINAL</div>
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6">Initiate Connection</h2>
+
+      <div class="crystal-card reveal-3d rounded-2xl p-6 lg:p-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div class="space-y-4">
+            <p class="text-xl font-bold text-[var(--text-main)]">Open to technical internships, engineering roles, and collaborative projects.</p>
+            <p class="text-sm text-[var(--text-muted)]">Direct access via verified channels:</p>
+            <div class="space-y-2 font-mono text-xs">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-envelope text-cyber-accent w-4"></i>
+                <button onclick="copyToClipboard('ibrahim.linkdin.2320@gmail.com', 'Email copied!')" class="hover:text-cyber-accent transition text-left">
+                  ibrahim.linkdin.2320@gmail.com
+                </button>
+              </div>
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-phone text-cyber-accent w-4"></i>
+                <button onclick="copyToClipboard('03392320488', 'Phone number copied!')" class="hover:text-cyber-accent transition text-left">
+                  03392320488
+                </button>
+              </div>
+              <div class="flex items-center gap-3">
+                <i class="fa-brands fa-linkedin text-cyber-accent w-4"></i>
+                <a href="https://linkedin.com/in/ibrahim-adnan-a945263a2" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-accent transition">linkedin.com/in/ibrahim-adnan-a945263a2</a>
+              </div>
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-location-dot text-cyber-accent w-4"></i>
+                <span>Lahore, Punjab, Pakistan</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row md:flex-col gap-4 justify-center">
+            <a href="mailto:ibrahim.linkdin.2320@gmail.com" class="py-4 px-6 rounded-xl bg-cyber-accent text-black font-bold font-mono text-center hover:bg-cyan-300 transition shadow-[0_0_24px_rgba(0,240,255,0.3)] active:scale-95">
+              SEND EMAIL DIRECTLY
+            </a>
+            <a href="https://wa.me/923392320488" target="_blank" rel="noopener noreferrer" class="py-4 px-6 rounded-xl crystal-card border-emerald-500/40 text-emerald-400 font-bold font-mono text-center hover:bg-emerald-500/10 transition active:scale-95">
+              MESSAGE ON WHATSAPP
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Clean Footer -->
+  <footer class="border-t border-[var(--card-border)] py-6 text-center text-xs font-mono text-[var(--text-muted)] relative z-10">
+    <p>© 2026 Ibrahim Adnan</p>
+  </footer>
+
+  <!-- Interactive Three.js & UI Engine -->
+  <script>
+    /* ==========================================================
+       0. REAL-TIME DYNAMIC PULSING GREEN BEACON FAVICON
+       ========================================================= */
+    const favCanvas = document.createElement('canvas');
+    favCanvas.width = 32;
+    favCanvas.height = 32;
+    const favCtx = favCanvas.getContext('2d');
+    const dynamicFaviconLink = document.getElementById('dynamic-favicon');
+    let favStep = 0;
+
+    function renderPulsingFavicon() {
+      favStep += 0.09;
+      favCtx.clearRect(0, 0, 32, 32);
+
+      const pulseFactor = (Math.sin(favStep) + 1) / 2;
+      const rippleRadius = 7 + pulseFactor * 7.5;
+      const rippleAlpha = 0.65 - pulseFactor * 0.55;
+
+      favCtx.beginPath();
+      favCtx.arc(16, 16, rippleRadius, 0, Math.PI * 2);
+      favCtx.fillStyle = `rgba(16, 185, 129, ${rippleAlpha})`;
+      favCtx.fill();
+
+      favCtx.beginPath();
+      favCtx.arc(16, 16, 6, 0, Math.PI * 2);
+      favCtx.fillStyle = '#10b981';
+      favCtx.shadowColor = '#00f0ff';
+      favCtx.shadowBlur = 8;
+      favCtx.fill();
+
+      favCtx.beginPath();
+      favCtx.arc(16, 16, 2.5, 0, Math.PI * 2);
+      favCtx.fillStyle = '#ffffff';
+      favCtx.fill();
+
+      if (dynamicFaviconLink) {
+        dynamicFaviconLink.href = favCanvas.toDataURL('image/png');
+      }
+      setTimeout(renderPulsingFavicon, 100);
+    }
+    renderPulsingFavicon();
+
+    /* ==========================================================
+       1. CERTIFICATE MODAL ENGINE (Zoomed to Cover Width Entirely)
+       ========================================================= */
+    const certModal = document.getElementById('cert-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalContent = document.getElementById('modal-content');
+
+    function closeCertModal() {
+      certModal.classList.remove('modal-active');
+    }
+
+    certModal.addEventListener('click', (e) => {
+      if (e.target === certModal) closeCertModal();
+    });
+
+    function openSingleCertModal(title, imagePath) {
+      modalTitle.textContent = title;
+      modalContent.innerHTML = `
+        <div class="rounded-xl overflow-hidden border border-[var(--card-border)] bg-black/40 w-full flex justify-center items-center">
+          <img src="${imagePath}" alt="${title}" class="w-full h-auto object-cover rounded-xl" />
+        </div>
+      `;
+      certModal.classList.add('modal-active');
+    }
+
+    /* ==========================================================
+       2. THREE.JS 3D SCENE
+       ========================================================= */
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 45;
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    container.appendChild(renderer.domElement);
+
+    const worldGroup = new THREE.Group();
+    scene.add(worldGroup);
+
+    const coreGeo = new THREE.IcosahedronGeometry(23.5, 2);
+    const wireframeMaterial = new THREE.MeshBasicMaterial({
+      color: 0x00f0ff,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.18
+    });
+    const coreMesh = new THREE.Mesh(coreGeo, wireframeMaterial);
+    coreMesh.position.y = -5.5;
+    worldGroup.add(coreMesh);
+
+    const particlesCount = 420;
+    const posArray = new Float32Array(particlesCount * 3);
+    for (let i = 0; i < particlesCount * 3; i++) {
+      posArray[i] = (Math.random() - 0.5) * 150;
+    }
+    const particlesGeometry = new THREE.BufferGeometry();
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const particlesMaterial = new THREE.PointsMaterial({
+      size: 0.32,
+      color: 0xffffff,
+      transparent: true,
+      opacity: 0.55
+    });
+    const particleMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+    worldGroup.add(particleMesh);
+
+    let targetX = 0, targetY = 0;
+    let scrollProgress = 0;
+    const windowHalfX = window.innerWidth / 2;
+    const windowHalfY = window.innerHeight / 2;
+
+    document.addEventListener('mousemove', (e) => {
+      targetX = (e.clientX - windowHalfX) * 0.0006;
+      targetY = (e.clientY - windowHalfY) * 0.0006;
+    });
+
+    document.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        targetX = (event.touches[0].clientX - windowHalfX) * 0.0008;
+        targetY = (event.touches[0].clientY - windowHalfY) * 0.0008;
+      }
+    }, { passive: true });
+
+    window.addEventListener('scroll', () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      scrollProgress = maxScroll > 0 ? (window.scrollY / maxScroll) : 0;
+    });
+
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      const elapsedTime = clock.getElapsedTime();
+
+      coreMesh.rotation.x = elapsedTime * 0.04;
+      coreMesh.rotation.y = elapsedTime * 0.07;
+      particleMesh.rotation.y = -elapsedTime * 0.015;
+
+      worldGroup.rotation.y += (targetX - worldGroup.rotation.y) * 0.05;
+      worldGroup.rotation.x += (targetY - worldGroup.rotation.x) * 0.05;
+
+      camera.position.z = 45 + Math.sin(scrollProgress * Math.PI) * 12;
+      camera.position.y = -scrollProgress * 25;
+      worldGroup.rotation.z = scrollProgress * 0.8;
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    /* ==========================================================
+       3. RADIAL LIGHT SHEEN ACROSS CRYSTAL CARDS
+       ========================================================= */
+    const cards = document.querySelectorAll('.crystal-card');
+    window.addEventListener('mousemove', (e) => {
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    /* ==========================================================
+       4. 1-CLICK CLIPBOARD COPY WITH TOAST
+       ========================================================= */
+    const toast = document.getElementById('copy-toast');
+    const toastText = document.getElementById('toast-text');
+    let toastTimeout;
+
+    function copyToClipboard(text, customMessage) {
+      navigator.clipboard.writeText(text).then(() => {
+        toastText.textContent = customMessage || 'Copied to clipboard!';
+        toast.classList.add('toast-active');
+        toast.style.opacity = '1';
+        toast.style.pointerEvents = 'auto';
+
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('toast-active');
+          toast.style.opacity = '0';
+          toast.style.pointerEvents = 'none';
+        }, 2400);
+      });
+    }
+
+    /* ==========================================================
+       5. LIVE LAHORE (PKT) CLOCK
+       ========================================================= */
+    function updateClock() {
+      const clockEl = document.getElementById('live-clock');
+      if (clockEl) {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-US', {
+          timeZone: 'Asia/Karachi',
+          hour12: true,
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        });
+        clockEl.textContent = `LAHORE ${timeStr} PKT`;
+      }
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    /* ==========================================================
+       6. THEME TOGGLE
+       ========================================================= */
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const htmlEl = document.documentElement;
+
+    function applyTheme(mode) {
+      if (mode === 'light') {
+        htmlEl.classList.remove('dark');
+        htmlEl.classList.add('light');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'light');
+        if (wireframeMaterial) {
+          wireframeMaterial.color.setHex(0x0284c7);
+          wireframeMaterial.opacity = 0.28;
+        }
+      } else {
+        htmlEl.classList.remove('light');
+        htmlEl.classList.add('dark');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'dark');
+        if (wireframeMaterial) {
+          wireframeMaterial.color.setHex(0x00f0ff);
+          wireframeMaterial.opacity = 0.18;
+        }
+      }
+    }
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    applyTheme(savedTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+      const nextTheme = htmlEl.classList.contains('dark') ? 'light' : 'dark';
+      applyTheme(nextTheme);
+    });
+
+    /* ==========================================================
+       7. AUTO-HIDE NAVBAR
+       ========================================================= */
+    const navbar = document.getElementById('navbar');
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        navbar.style.transform = 'translateY(-100%)';
+      } else {
+        navbar.style.transform = 'translateY(0)';
+      }
+      lastScrollY = currentScrollY;
+    });
+
+    /* ==========================================================
+       8. CUSTOM CURSOR
+       ========================================================= */
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+
+    if (cursorDot && cursorRing) {
+      let mouseX = 0, mouseY = 0;
+      let ringX = 0, ringY = 0;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+      });
+
+      function renderCursorRing() {
+        ringX += (mouseX - ringX) * 0.15;
+        ringY += (mouseY - ringY) * 0.15;
+        cursorRing.style.left = `${ringX}px`;
+        cursorRing.style.top = `${ringY}px`;
+        requestAnimationFrame(renderCursorRing);
+      }
+      renderCursorRing();
+
+      document.querySelectorAll('a, button, input, [role="button"]').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+      });
+    }
+
+    /* ==========================================================
+       9. SCROLL 3D REVEAL OBSERVER
+       ========================================================= */
+    const revealElements = document.querySelectorAll('.reveal-3d');
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+          }
+        });
+      }, {
+        threshold: 0.05,
+        rootMargin: '0px 0px -10px 0px'
+      });
+
+      revealElements.forEach(el => revealObserver.observe(el));
+    } else {
+      revealElements.forEach(el => el.classList.add('revealed'));
+    }
+
+    /* ==========================================================
+       10. HERO CARD 3D TILT
+       ========================================================= */
+    const heroCard = document.getElementById('hero-card');
+    if (heroCard) {
+      heroCard.addEventListener('mousemove', (e) => {
+        const rect = heroCard.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const rotateX = (-y / (rect.height / 2)) * 14;
+        const rotateY = (x / (rect.width / 2)) * 14;
+        heroCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      heroCard.addEventListener('mouseleave', () => {
+        heroCard.style.transform = 'rotateX(0deg) rotateY(0deg)';
+      });
+    }
+
+    /* ==========================================================
+       11. REACTIVE SCROLL NUMBER COUNTERS (FROM 0 TO VALUE)
+       ========================================================= */
+    const counters = document.querySelectorAll('.counter');
+    if ('IntersectionObserver' in window) {
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const el = entry.target;
+          const target = parseInt(el.getAttribute('data-target'), 10);
+          
+          if (entry.isIntersecting) {
+            let start = null;
+            const duration = 1400;
+
+            function step(timestamp) {
+              if (!start) start = timestamp;
+              const progress = Math.min((timestamp - start) / duration, 1);
+              const ease = 1 - Math.pow(1 - progress, 3);
+              el.textContent = Math.floor(ease * target);
+
+              if (progress < 1) {
+                el._animId = requestAnimationFrame(step);
+              } else {
+                el.textContent = target;
+              }
+            }
+
+            if (el._animId) cancelAnimationFrame(el._animId);
+            el._animId = requestAnimationFrame(step);
+          } else {
+            if (el._animId) cancelAnimationFrame(el._animId);
+            el.textContent = '0';
+          }
+        });
+      }, { threshold: 0.15 });
+
+      counters.forEach(c => counterObserver.observe(c));
+    } else {
+      counters.forEach(c => c.textContent = c.getAttribute('data-target'));
+    }
+  </script>
+</body>
+</html>
