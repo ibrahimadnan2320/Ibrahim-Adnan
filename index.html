@@ -95,6 +95,7 @@
       content: '';
       position: absolute;
       inset: 0;
+      border-radius: inherit;
       background: radial-gradient(500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 240, 255, 0.12), transparent 45%);
       pointer-events: none;
       opacity: 0;
@@ -106,6 +107,44 @@
     .crystal-card:hover {
       border-color: rgba(0, 240, 255, 0.45);
       box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), 0 12px 30px -8px rgba(0, 240, 255, 0.2);
+    }
+
+    /* Precision Project Mockup Card Clipping: eliminates corner pixel bleed & enforces hardware-isolated boundary on hover */
+    .project-preview-frame {
+      position: relative;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      isolation: isolate;
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
+      mask-image: radial-gradient(white, black);
+      transform: translateZ(0);
+    }
+    .project-browser-bar {
+      border-top-left-radius: 0.75rem;
+      border-top-right-radius: 0.75rem;
+      overflow: hidden;
+    }
+    .project-img-container {
+      border-bottom-left-radius: 0.75rem;
+      border-bottom-right-radius: 0.75rem;
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
+      mask-image: radial-gradient(white, black);
+      transform: translateZ(0);
+    }
+    .project-preview-img {
+      border-bottom-left-radius: 0.75rem;
+      border-bottom-right-radius: 0.75rem;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      will-change: transform;
+    }
+    .project-hover-overlay {
+      border-bottom-left-radius: 0.75rem;
+      border-bottom-right-radius: 0.75rem;
     }
 
     #cursor-dot {
@@ -364,8 +403,8 @@
       <!-- Hero Photo Card -->
       <div class="lg:col-span-5 flex justify-center lg:justify-end card-3d-wrap">
         <div id="hero-card" class="card-3d relative w-full max-w-[260px] sm:max-w-[280px] rounded-2xl crystal-card p-2.5 overflow-hidden">
-          <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gradient-to-b from-white/5 to-black/20 flex items-end justify-center">
-            <img src="profile.png" alt="Ibrahim Adnan" class="w-full h-full object-cover object-top hover:scale-105 transition duration-500" onerror="this.onerror=null; this.style.display='none'" />
+          <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gradient-to-b from-white/5 to-black/20 flex items-end justify-center [isolation:isolate] [-webkit-mask-image:-webkit-radial-gradient(white,black)]">
+            <img src="profile.png" alt="Ibrahim Adnan" class="w-full h-full object-cover object-top rounded-xl hover:scale-105 transition duration-500 will-change-transform" onerror="this.onerror=null; this.style.display='none'" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
             <div class="absolute bottom-2.5 left-2.5 right-2.5 p-2 rounded-lg crystal-card border border-[var(--card-border)] text-center flex flex-col items-center justify-center">
               <p class="font-mono text-[11px] text-cyber-accent font-bold">IBRAHIM ADNAN</p>
@@ -741,9 +780,9 @@
               </div>
             </div>
             <div class="lg:col-span-5">
-              <a href="https://mak-and-sons-construction.vercel.app/" target="_blank" rel="noopener noreferrer" class="group block relative rounded-xl overflow-hidden border border-[var(--card-border)] crystal-card hover:border-cyber-accent/60 transition duration-300 shadow-xl">
+              <a href="https://mak-and-sons-construction.vercel.app/" target="_blank" rel="noopener noreferrer" class="group block relative rounded-xl overflow-hidden border border-[var(--card-border)] crystal-card project-preview-frame hover:border-cyber-accent/60 transition duration-300 shadow-xl">
                 <!-- Browser Bar -->
-                <div class="flex items-center justify-between px-3.5 py-2 border-b border-[var(--card-border)] bg-black/40 backdrop-blur-md">
+                <div class="flex items-center justify-between px-3.5 py-2 border-b border-[var(--card-border)] bg-[#080d16]/95 rounded-t-xl project-browser-bar">
                   <div class="flex items-center gap-1.5">
                     <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
                     <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
@@ -755,9 +794,9 @@
                   </div>
                 </div>
                 <!-- Image Preview -->
-                <div class="relative overflow-hidden bg-black/40">
-                  <img src="mak-and-sons.png" alt="MAK &amp; Sons Construction Website Preview" class="w-full h-auto block object-contain transition duration-500 ease-out group-hover:scale-[1.02]" />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3">
+                <div class="relative overflow-hidden bg-black/40 rounded-b-xl project-img-container">
+                  <img src="mak-and-sons.png" alt="MAK &amp; Sons Construction Website Preview" class="w-full h-auto block object-contain rounded-b-xl project-preview-img transition duration-500 ease-out group-hover:scale-[1.02]" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 rounded-b-xl project-hover-overlay">
                     <span class="font-mono text-[11px] text-cyber-accent font-semibold flex items-center gap-1.5">
                       <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> Visit Live Platform
                     </span>
@@ -795,9 +834,9 @@
               </div>
             </div>
             <div class="lg:col-span-5">
-              <a href="https://iqra-online-quran-academy.vercel.app/" target="_blank" rel="noopener noreferrer" class="group block relative rounded-xl overflow-hidden border border-[var(--card-border)] crystal-card hover:border-cyber-accent/60 transition duration-300 shadow-xl">
+              <a href="https://iqra-online-quran-academy.vercel.app/" target="_blank" rel="noopener noreferrer" class="group block relative rounded-xl overflow-hidden border border-[var(--card-border)] crystal-card project-preview-frame hover:border-cyber-accent/60 transition duration-300 shadow-xl">
                 <!-- Browser Bar -->
-                <div class="flex items-center justify-between px-3.5 py-2 border-b border-[var(--card-border)] bg-black/40 backdrop-blur-md">
+                <div class="flex items-center justify-between px-3.5 py-2 border-b border-[var(--card-border)] bg-[#080d16]/95 rounded-t-xl project-browser-bar">
                   <div class="flex items-center gap-1.5">
                     <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
                     <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
@@ -809,9 +848,9 @@
                   </div>
                 </div>
                 <!-- Image Preview -->
-                <div class="relative overflow-hidden bg-black/40">
-                  <img src="iqra-academy.png" alt="IQRA Online Quran Academy Website Preview" class="w-full h-auto block object-contain transition duration-500 ease-out group-hover:scale-[1.02]" />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3">
+                <div class="relative overflow-hidden bg-black/40 rounded-b-xl project-img-container">
+                  <img src="iqra-academy.png" alt="IQRA Online Quran Academy Website Preview" class="w-full h-auto block object-contain rounded-b-xl project-preview-img transition duration-500 ease-out group-hover:scale-[1.02]" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 rounded-b-xl project-hover-overlay">
                     <span class="font-mono text-[11px] text-cyber-accent font-semibold flex items-center gap-1.5">
                       <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> Visit Live Platform
                     </span>
