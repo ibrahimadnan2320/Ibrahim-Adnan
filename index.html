@@ -231,6 +231,25 @@
     html.low-end #cursor-ring {
       display: none !important;
     }
+    /* Hide compositing layers that serve no purpose without WebGL */
+    html.low-end .noise-overlay,
+    html.low-end .ambient-well {
+      display: none !important;
+    }
+
+    /* ---- Mid-Tier Overrides: Lighter blur for touch-capable devices ---- */
+    html.mid-tier .crystal-card {
+      backdrop-filter: blur(4px) !important;
+      -webkit-backdrop-filter: blur(4px) !important;
+    }
+    html.mid-tier #navbar {
+      backdrop-filter: blur(4px) !important;
+      -webkit-backdrop-filter: blur(4px) !important;
+    }
+    html.mid-tier .noise-overlay {
+      display: none !important;
+    }
+
     #navbar {
       will-change: transform;
     }
@@ -242,6 +261,11 @@
     .cv-section {
       content-visibility: auto;
       contain-intrinsic-size: 0 600px;
+    }
+
+    /* Pause marquee animation when scrolled past it (controlled via JS) */
+    .marquee-paused .animate-marquee {
+      animation-play-state: paused !important;
     }
   </style>
 </head>
@@ -283,8 +307,8 @@
   <div id="canvas-container" class="fixed inset-0 pointer-events-none z-0"></div>
 
   <!-- Ambient Light Wells (Optimized with hardware-accelerated radial gradients) -->
-  <div class="fixed top-1/4 left-1/5 w-[36rem] h-[36rem] rounded-full pointer-events-none z-0" style="background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%);"></div>
-  <div class="fixed bottom-1/4 right-1/5 w-[36rem] h-[36rem] rounded-full pointer-events-none z-0" style="background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%);"></div>
+  <div class="ambient-well fixed top-1/4 left-1/5 w-[36rem] h-[36rem] rounded-full pointer-events-none z-0" style="background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%);"></div>
+  <div class="ambient-well fixed bottom-1/4 right-1/5 w-[36rem] h-[36rem] rounded-full pointer-events-none z-0" style="background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%);"></div>
 
   <!-- Navbar -->
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 border-b border-[var(--card-border)] bg-[var(--nav-bg)] backdrop-blur px-6 py-3">
@@ -918,12 +942,14 @@
        ========================================================= */
     const isTouch = window.matchMedia('(pointer: coarse)').matches;
     const isLowEnd = (
-      isTouch ||
-      (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
-      (navigator.deviceMemory && navigator.deviceMemory <= 4) ||
-      /Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent)
+      (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) ||
+      (navigator.deviceMemory && navigator.deviceMemory <= 2) ||
+      /Opera Mini|IEMobile/i.test(navigator.userAgent)
     );
+    /* Mid-tier: touch devices that aren't flagged as truly low-end (e.g. modern phones/tablets) */
+    const isMidTier = isTouch && !isLowEnd;
     if (isLowEnd) document.documentElement.classList.add('low-end');
+    if (isMidTier) document.documentElement.classList.add('mid-tier');
 
     /* ==========================================================
        1. CERTIFICATE MODAL ENGINE
@@ -953,119 +979,187 @@
     /* ==========================================================
        2. THREE.JS 3D SCENE (ADAPTIVE & HARDWARE-GATED)
        ========================================================= */
+    /* ==========================================================
+       2. THREE.JS 3D SCENE (ADAPTIVE & LIFECYCLE-MANAGED)
+       On low-end: THREE.JS IS COMPLETELY SKIPPED.
+       A lightweight CSS particle field is used instead.
+       On mid-tier/desktop: Uses setAnimationLoop with proper
+       start/stop via IntersectionObserver + visibilitychange.
+       ========================================================= */
     const container = document.getElementById('canvas-container');
-    const scene = new THREE.Scene();
-
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 45;
-
-    const renderer = new THREE.WebGLRenderer({
-      alpha: true,
-      antialias: !isLowEnd,
-      powerPreference: 'high-performance'
-    });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isLowEnd ? 1 : 1.5));
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    container.appendChild(renderer.domElement);
-
-    const worldGroup = new THREE.Group();
-    scene.add(worldGroup);
-
-    let wireframeMaterial = null;
-    let coreMesh = null;
-
-    if (!isLowEnd) {
-      const coreGeo = new THREE.IcosahedronGeometry(23.5, 2);
-      wireframeMaterial = new THREE.MeshBasicMaterial({
-        color: 0x00f0ff,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.18
-      });
-      coreMesh = new THREE.Mesh(coreGeo, wireframeMaterial);
-      coreMesh.position.y = -5.5;
-      worldGroup.add(coreMesh);
-    }
-
-    const particlesCount = isLowEnd ? 80 : 380;
-    const posArray = new Float32Array(particlesCount * 3);
-    for (let i = 0; i < particlesCount * 3; i++) {
-      posArray[i] = (Math.random() - 0.5) * 150;
-    }
-    const particlesGeometry = new THREE.BufferGeometry();
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    const particlesMaterial = new THREE.PointsMaterial({
-      size: isLowEnd ? 0.38 : 0.32,
-      color: 0xffffff,
-      transparent: true,
-      opacity: isLowEnd ? 0.4 : 0.55
-    });
-    const particleMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-    worldGroup.add(particleMesh);
-
-    let targetX = 0, targetY = 0;
     let scrollProgress = 0;
-    let isScrolling = false;
-    let scrollEndTimer = null;
-    const windowHalfX = window.innerWidth / 2;
-    const windowHalfY = window.innerHeight / 2;
+    let threeRunning = false;
 
-    if (!isTouch) {
-      document.addEventListener('mousemove', (e) => {
-        targetX = (e.clientX - windowHalfX) * 0.0006;
-        targetY = (e.clientY - windowHalfY) * 0.0006;
+    if (isLowEnd) {
+      /* --- LOW-END FALLBACK: Pure CSS particle field (zero JS, zero RAF) --- */
+      container.style.cssText = `
+        background: radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.3) 50%, transparent 100%),
+                    radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.2) 50%, transparent 100%),
+                    radial-gradient(1px 1px at 50% 40%, rgba(255,255,255,0.25) 50%, transparent 100%),
+                    radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.2) 50%, transparent 100%),
+                    radial-gradient(1px 1px at 90% 30%, rgba(255,255,255,0.3) 50%, transparent 100%),
+                    radial-gradient(1px 1px at 15% 85%, rgba(255,255,255,0.15) 50%, transparent 100%),
+                    radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.2) 50%, transparent 100%),
+                    radial-gradient(1px 1px at 40% 90%, rgba(255,255,255,0.25) 50%, transparent 100%);
+        background-size: 200% 200%;
+        animation: css-particles 30s ease-in-out infinite alternate;
+      `;
+      const cssParticleKF = document.createElement('style');
+      cssParticleKF.textContent = '@keyframes css-particles { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }';
+      document.head.appendChild(cssParticleKF);
+
+    } else {
+      /* --- MID-TIER & DESKTOP: Full Three.js with lifecycle management --- */
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 45;
+
+      const renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: !isMidTier,
+        powerPreference: 'high-performance'
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMidTier ? 1 : 1.5));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      container.appendChild(renderer.domElement);
+
+      const worldGroup = new THREE.Group();
+      scene.add(worldGroup);
+
+      let wireframeMaterial = null;
+      let coreMesh = null;
+
+      if (!isMidTier) {
+        const coreGeo = new THREE.IcosahedronGeometry(23.5, 2);
+        wireframeMaterial = new THREE.MeshBasicMaterial({
+          color: 0x00f0ff,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.18
+        });
+        coreMesh = new THREE.Mesh(coreGeo, wireframeMaterial);
+        coreMesh.position.y = -5.5;
+        worldGroup.add(coreMesh);
+      }
+
+      const particlesCount = isMidTier ? 120 : 380;
+      const posArray = new Float32Array(particlesCount * 3);
+      for (let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 150;
+      }
+      const particlesGeometry = new THREE.BufferGeometry();
+      particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      const particlesMaterial = new THREE.PointsMaterial({
+        size: isMidTier ? 0.38 : 0.32,
+        color: 0xffffff,
+        transparent: true,
+        opacity: isMidTier ? 0.4 : 0.55
+      });
+      const particleMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+      worldGroup.add(particleMesh);
+
+      let targetX = 0, targetY = 0;
+
+      if (!isTouch) {
+        document.addEventListener('mousemove', (e) => {
+          targetX = (e.clientX - window.innerWidth / 2) * 0.0006;
+          targetY = (e.clientY - window.innerHeight / 2) * 0.0006;
+        }, { passive: true });
+      }
+
+      /* Modular time: wraps every 60 seconds to prevent float precision decay */
+      const MODULAR_PERIOD = 60;
+      let startTime = performance.now() / 1000;
+
+      function getModularTime() {
+        return ((performance.now() / 1000) - startTime) % MODULAR_PERIOD;
+      }
+
+      /* Frame rate cap for mid-tier */
+      const targetFrameMs = isMidTier ? 33.3 : 0;
+      let lastFrameTime = 0;
+
+      function animateLoop(now) {
+        /* FPS throttle for mid-tier (~30 FPS limit) */
+        if (targetFrameMs > 0 && (now - lastFrameTime) < targetFrameMs) return;
+        lastFrameTime = now;
+
+        const t = getModularTime();
+
+        if (coreMesh) {
+          coreMesh.rotation.x = t * 0.04;
+          coreMesh.rotation.y = t * 0.07;
+        }
+        particleMesh.rotation.y = -t * 0.015;
+
+        worldGroup.rotation.y += (targetX - worldGroup.rotation.y) * 0.05;
+        worldGroup.rotation.x += (targetY - worldGroup.rotation.x) * 0.05;
+
+        camera.position.z = 45 + Math.sin(scrollProgress * Math.PI) * 12;
+        camera.position.y = -scrollProgress * 25;
+        worldGroup.rotation.z = scrollProgress * 0.8;
+
+        renderer.render(scene, camera);
+      }
+
+      /* --- START / STOP lifecycle --- */
+      function startThree() {
+        if (threeRunning) return;
+        threeRunning = true;
+        startTime = performance.now() / 1000; /* reset modular clock on restart */
+        renderer.setAnimationLoop(animateLoop);
+      }
+
+      function stopThree() {
+        if (!threeRunning) return;
+        threeRunning = false;
+        renderer.setAnimationLoop(null); /* truly stops RAF — zero CPU/GPU */
+      }
+
+      /* Observe hero section (#about) to pause WebGL whenever scrolled out of view */
+      const heroSection = document.getElementById('about');
+      if (heroSection && 'IntersectionObserver' in window) {
+        const heroObserver = new IntersectionObserver((entries) => {
+          const inView = entries[0].isIntersecting;
+          if (inView && !document.hidden) {
+            startThree();
+          } else {
+            stopThree();
+          }
+        }, { rootMargin: '200px 0px 400px 0px' });
+        heroObserver.observe(heroSection);
+      } else {
+        startThree();
+      }
+
+      /* Also stop when tab is hidden */
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          stopThree();
+        } else {
+          const rect = heroSection ? heroSection.getBoundingClientRect() : null;
+          if (!rect || (rect.bottom > -200 && rect.top < window.innerHeight + 400)) {
+            startThree();
+          }
+        }
+      });
+
+      /* Resize handler: only recreate buffers when width actually changes */
+      let lastWidth = window.innerWidth;
+      window.addEventListener('resize', () => {
+        if (Math.abs(window.innerWidth - lastWidth) > 5) {
+          lastWidth = window.innerWidth;
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        }
       }, { passive: true });
+
+      /* Expose wireframeMaterial for theme toggle */
+      window._wireframeMaterial = wireframeMaterial;
+
+      startThree();
     }
-
-    const clock = new THREE.Clock();
-    const targetFrameMs = isLowEnd ? 33.3 : 0;
-    let lastFrameTime = 0;
-
-    function animate(now) {
-      requestAnimationFrame(animate);
-
-      // On low-end: pause WebGL render DURING active scroll to allocate 100% GPU to scrolling
-      if (isLowEnd && isScrolling) return;
-
-      // When scrolled deep past the hero section, pause WebGL entirely (hero is off-screen)
-      if (window.scrollY > 1400) return;
-
-      // FPS throttle for low-end devices (~30 FPS limit)
-      if (targetFrameMs > 0 && (now - lastFrameTime) < targetFrameMs) return;
-      lastFrameTime = now;
-
-      if (document.hidden) return;
-
-      const elapsedTime = clock.getElapsedTime();
-
-      if (coreMesh) {
-        coreMesh.rotation.x = elapsedTime * 0.04;
-        coreMesh.rotation.y = elapsedTime * 0.07;
-      }
-      particleMesh.rotation.y = -elapsedTime * 0.015;
-
-      worldGroup.rotation.y += (targetX - worldGroup.rotation.y) * 0.05;
-      worldGroup.rotation.x += (targetY - worldGroup.rotation.x) * 0.05;
-
-      camera.position.z = 45 + Math.sin(scrollProgress * Math.PI) * 12;
-      camera.position.y = -scrollProgress * 25;
-      worldGroup.rotation.z = scrollProgress * 0.8;
-
-      renderer.render(scene, camera);
-    }
-    animate(0);
-
-    // Resize handler: only recreate buffers when width actually changes (ignoring mobile address bar height jitter)
-    let lastWidth = window.innerWidth;
-    window.addEventListener('resize', () => {
-      maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      if (Math.abs(window.innerWidth - lastWidth) > 5) {
-        lastWidth = window.innerWidth;
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      }
-    }, { passive: true });
 
     /* ==========================================================
        3. HIGH-PERFORMANCE CARD SHEEN (DESKTOP ONLY & RAF-THROTTLED)
@@ -1158,8 +1252,19 @@
         clockEl.textContent = `LAHORE ${timeStr} PKT`;
       }
     }
-    setInterval(updateClock, 1000);
+    let clockIntervalId = setInterval(updateClock, 1000);
     updateClock();
+
+    /* Pause clock when tab is hidden to avoid wasted DOM writes */
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        clearInterval(clockIntervalId);
+        clockIntervalId = null;
+      } else if (!clockIntervalId) {
+        updateClock();
+        clockIntervalId = setInterval(updateClock, 1000);
+      }
+    });
 
     /* ==========================================================
        6. THEME TOGGLE
@@ -1169,15 +1274,16 @@
     const htmlEl = document.documentElement;
 
     function applyTheme(mode) {
+      const wfm = window._wireframeMaterial;
       if (mode === 'light') {
         htmlEl.classList.remove('dark');
         htmlEl.classList.add('light');
         themeIcon.classList.remove('fa-moon');
         themeIcon.classList.add('fa-sun');
         localStorage.setItem('theme', 'light');
-        if (wireframeMaterial) {
-          wireframeMaterial.color.setHex(0x0284c7);
-          wireframeMaterial.opacity = 0.28;
+        if (wfm) {
+          wfm.color.setHex(0x0284c7);
+          wfm.opacity = 0.28;
         }
       } else {
         htmlEl.classList.remove('light');
@@ -1185,9 +1291,9 @@
         themeIcon.classList.remove('fa-sun');
         themeIcon.classList.add('fa-moon');
         localStorage.setItem('theme', 'dark');
-        if (wireframeMaterial) {
-          wireframeMaterial.color.setHex(0x00f0ff);
-          wireframeMaterial.opacity = 0.18;
+        if (wfm) {
+          wfm.color.setHex(0x00f0ff);
+          wfm.opacity = 0.18;
         }
       }
     }
@@ -1210,10 +1316,6 @@
     let scrollTicking = false;
 
     window.addEventListener('scroll', () => {
-      isScrolling = true;
-      clearTimeout(scrollEndTimer);
-      scrollEndTimer = setTimeout(() => { isScrolling = false; }, 100);
-
       if (!scrollTicking) {
         requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
@@ -1229,6 +1331,11 @@
         });
         scrollTicking = true;
       }
+    }, { passive: true });
+
+    /* Recalculate maxScroll on resize */
+    window.addEventListener('resize', () => {
+      maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     }, { passive: true });
 
     /* ==========================================================
@@ -1271,6 +1378,19 @@
         el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
         el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
       });
+    }
+
+    /* Pause marquee animation when scrolled past it (eliminates infinite background animation) */
+    const marqueeStrip = document.querySelector('.marquee-strip');
+    if (marqueeStrip && 'IntersectionObserver' in window) {
+      const marqueeObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          marqueeStrip.classList.remove('marquee-paused');
+        } else {
+          marqueeStrip.classList.add('marquee-paused');
+        }
+      }, { threshold: 0 });
+      marqueeObserver.observe(marqueeStrip);
     }
 
     /* ==========================================================
