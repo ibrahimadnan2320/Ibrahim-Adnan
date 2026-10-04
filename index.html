@@ -47,28 +47,28 @@
       --bg-base: #050608;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --card-bg: rgba(255, 255, 255, 0.025);
-      --card-border: rgba(255, 255, 255, 0.12);
-      --card-shine: rgba(255, 255, 255, 0.25);
-      --nav-bg: rgba(5, 6, 8, 0.4);
-      --marquee-bg: rgba(5, 6, 8, 0.6);
+      --card-bg: rgba(12, 17, 28, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-shine: rgba(255, 255, 255, 0.12);
+      --nav-bg: rgba(5, 6, 8, 0.82);
+      --marquee-bg: rgba(5, 6, 8, 0.88);
       --badge-bg: rgba(255, 255, 255, 0.04);
-      --badge-border: rgba(255, 255, 255, 0.12);
-      --glow-color: rgba(0, 240, 255, 0.15);
+      --badge-border: rgba(255, 255, 255, 0.1);
+      --glow-color: rgba(0, 240, 255, 0.08);
     }
 
     html.light {
       --bg-base: #cdd5e0;
       --text-main: #0f172a;
       --text-muted: #334155;
-      --card-bg: rgba(255, 255, 255, 0.35);
-      --card-border: rgba(255, 255, 255, 0.6);
-      --card-shine: rgba(255, 255, 255, 0.85);
-      --nav-bg: rgba(205, 213, 224, 0.55);
-      --marquee-bg: rgba(215, 223, 233, 0.65);
+      --card-bg: rgba(245, 248, 252, 0.94);
+      --card-border: rgba(255, 255, 255, 0.85);
+      --card-shine: rgba(255, 255, 255, 0.95);
+      --nav-bg: rgba(205, 213, 224, 0.88);
+      --marquee-bg: rgba(215, 223, 233, 0.92);
       --badge-bg: rgba(15, 23, 42, 0.05);
       --badge-border: rgba(15, 23, 42, 0.14);
-      --glow-color: rgba(14, 165, 233, 0.2);
+      --glow-color: rgba(14, 165, 233, 0.12);
     }
 
     body {
@@ -79,54 +79,48 @@
     }
 
     .noise-overlay {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.02;
-      background: radial-gradient(#fff 1px, transparent 1px);
-      background-size: 8px 8px;
+      display: none;
     }
 
+    /* High-Performance Crystal Cards: 0 GPU Blur Passes, 100% 60 FPS locked on all devices */
     .crystal-card {
       position: relative;
       background-color: var(--card-bg);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       border: 1px solid var(--card-border);
-      box-shadow: inset 0 1px 1px 0 var(--card-shine), 0 16px 36px -12px var(--glow-color);
-      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease, background-color 0.3s ease;
+      box-shadow: inset 0 1px 0 0 var(--card-shine), 0 8px 24px -8px var(--glow-color);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
       overflow: hidden;
     }
     .crystal-card::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 240, 255, 0.12), transparent 45%);
+      background: radial-gradient(500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 240, 255, 0.12), transparent 45%);
       pointer-events: none;
       opacity: 0;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.2s ease;
     }
     .crystal-card:hover::before {
       opacity: 1;
     }
     .crystal-card:hover {
-      border-color: rgba(0, 240, 255, 0.5);
-      box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.4), 0 20px 40px -10px rgba(0, 240, 255, 0.25);
+      border-color: rgba(0, 240, 255, 0.45);
+      box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), 0 12px 30px -8px rgba(0, 240, 255, 0.2);
     }
 
     #cursor-dot {
       width: 6px;
       height: 6px;
       background: #00f0ff;
-      box-shadow: 0 0 12px #00f0ff, 0 0 24px #00f0ff;
+      box-shadow: 0 0 12px #00f0ff;
       border-radius: 50%;
       position: fixed;
+      top: 0;
+      left: 0;
       pointer-events: none;
       z-index: 9999;
-      transform: translate(-50%, -50%);
+      transform: translate3d(-100px, -100px, 0);
+      will-change: transform;
     }
     #cursor-ring {
       width: 34px;
@@ -135,9 +129,12 @@
       background: rgba(0, 240, 255, 0.03);
       border-radius: 50%;
       position: fixed;
+      top: 0;
+      left: 0;
       pointer-events: none;
       z-index: 9998;
-      transform: translate(-50%, -50%);
+      transform: translate3d(-100px, -100px, 0);
+      will-change: transform;
       transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     }
     body.cursor-hover #cursor-ring {
@@ -145,17 +142,18 @@
       height: 52px;
       border-color: #00f0ff;
       background: rgba(0, 240, 255, 0.14);
-      box-shadow: 0 0 24px rgba(0, 240, 255, 0.35);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
     }
 
+    /* Fast hardware-accelerated reveal that flattens compositor layers on reveal */
     .reveal-3d {
       opacity: 0;
-      transform: perspective(1000px) rotateX(14deg) translateY(45px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(22px);
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .reveal-3d.revealed {
       opacity: 1;
-      transform: perspective(1000px) rotateX(0deg) translateY(0px);
+      transform: none;
     }
 
     .card-3d-wrap {
@@ -197,56 +195,17 @@
       pointer-events: auto;
     }
 
-    /* ---- Low-End Device Overrides: Zero GPU Blur Overhead for Permanent 60 FPS ---- */
-    html.low-end .crystal-card {
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      background-color: rgba(10, 14, 22, 0.9) !important;
+    /* Ambient light wells isolated to GPU layer */
+    .ambient-well {
+      transform: translateZ(0);
+      will-change: transform;
     }
-    html.light.low-end .crystal-card {
-      background-color: rgba(224, 231, 240, 0.95) !important;
-    }
-    html.low-end #navbar {
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      background-color: rgba(5, 6, 8, 0.95) !important;
-    }
-    html.light.low-end #navbar {
-      background-color: rgba(205, 213, 224, 0.95) !important;
-    }
-    html.low-end #cert-modal {
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      background-color: rgba(0, 0, 0, 0.92) !important;
-    }
-    html.low-end .marquee-strip {
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      background-color: rgba(5, 6, 8, 0.95) !important;
-    }
-    html.light.low-end .marquee-strip {
-      background-color: rgba(215, 223, 233, 0.95) !important;
-    }
+
     html.low-end #cursor-dot,
     html.low-end #cursor-ring {
       display: none !important;
     }
-    /* Hide compositing layers that serve no purpose without WebGL */
-    html.low-end .noise-overlay,
     html.low-end .ambient-well {
-      display: none !important;
-    }
-
-    /* ---- Mid-Tier Overrides: Lighter blur for touch-capable devices ---- */
-    html.mid-tier .crystal-card {
-      backdrop-filter: blur(4px) !important;
-      -webkit-backdrop-filter: blur(4px) !important;
-    }
-    html.mid-tier #navbar {
-      backdrop-filter: blur(4px) !important;
-      -webkit-backdrop-filter: blur(4px) !important;
-    }
-    html.mid-tier .noise-overlay {
       display: none !important;
     }
 
@@ -255,12 +214,6 @@
     }
     .marquee-strip {
       will-change: transform;
-    }
-
-    /* Content-visibility for below-fold sections: skips paint/layout of off-screen DOM trees */
-    .cv-section {
-      content-visibility: auto;
-      contain-intrinsic-size: 0 600px;
     }
 
     /* Pause marquee animation when scrolled past it (controlled via JS) */
@@ -452,7 +405,7 @@
     </section>
 
     <!-- 02 / Experience Matrix -->
-    <section id="experience" class="cv-section mt-14 sm:mt-16">
+    <section id="experience" class="mt-14 sm:mt-16">
       <div class="font-mono text-xs text-cyber-accent tracking-widest mb-2">02 // TIMELINE & ENGAGEMENTS</div>
       <h2 class="text-2xl sm:text-3xl font-bold mb-6">Professional Trajectory</h2>
       
@@ -605,7 +558,7 @@
     </section>
 
     <!-- 03 / Categorized Skills Matrix -->
-    <section id="skills" class="cv-section mt-14 sm:mt-16">
+    <section id="skills" class="mt-14 sm:mt-16">
       <div class="font-mono text-xs text-cyber-accent tracking-widest mb-2">03 // CAPABILITIES</div>
       <h2 class="text-2xl sm:text-3xl font-bold mb-6">Technical & Strategic Architecture</h2>
 
@@ -684,7 +637,7 @@
     </section>
 
     <!-- 04 / Education & Credentials -->
-    <section id="education" class="cv-section mt-14 sm:mt-16">
+    <section id="education" class="mt-14 sm:mt-16">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div>
           <div class="font-mono text-xs text-cyber-accent tracking-widest mb-2">04A // ACADEMICS</div>
@@ -749,7 +702,7 @@
     </section>
 
     <!-- 05 / Featured Projects -->
-    <section id="projects" class="cv-section mt-14 sm:mt-16">
+    <section id="projects" class="mt-14 sm:mt-16">
       <div class="flex items-center justify-between mb-6">
         <div>
           <div class="font-mono text-xs text-cyber-accent tracking-widest">05 // DELIVERED PROJECTS</div>
@@ -872,7 +825,7 @@
     </section>
 
     <!-- 06 / Contact & Terminal -->
-    <section id="contact" class="cv-section mt-14 sm:mt-16">
+    <section id="contact" class="mt-14 sm:mt-16">
       <div class="font-mono text-xs text-cyber-accent tracking-widest mb-2">06 // DIRECT TERMINAL</div>
       <h2 class="text-2xl sm:text-3xl font-bold mb-6">Initiate Connection</h2>
 
@@ -989,6 +942,7 @@
     const container = document.getElementById('canvas-container');
     let scrollProgress = 0;
     let threeRunning = false;
+    let isScrolling = false;
 
     if (isLowEnd) {
       /* --- LOW-END FALLBACK: Pure CSS particle field (zero JS, zero RAF) --- */
@@ -1016,10 +970,13 @@
 
       const renderer = new THREE.WebGLRenderer({
         alpha: true,
-        antialias: !isMidTier,
-        powerPreference: 'high-performance'
+        antialias: false,
+        powerPreference: 'high-performance',
+        depth: false,
+        stencil: false,
+        precision: 'mediump'
       });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMidTier ? 1 : 1.5));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25));
       renderer.setSize(window.innerWidth, window.innerHeight);
       container.appendChild(renderer.domElement);
 
@@ -1080,6 +1037,9 @@
       let lastFrameTime = 0;
 
       function animateLoop(now) {
+        /* When actively scrolling, skip WebGL render to dedicate 100% GPU to buttery smooth scrolling */
+        if (isScrolling) return;
+
         /* FPS throttle for mid-tier (~30 FPS limit) */
         if (targetFrameMs > 0 && (now - lastFrameTime) < targetFrameMs) return;
         lastFrameTime = now;
@@ -1307,25 +1267,34 @@
     });
 
     /* ==========================================================
-       7. UNIFIED SCROLL ENGINE (RAF-THROTTLED & PASSIVE)
+       7. UNIFIED SCROLL ENGINE (RAF-THROTTLED, PASSIVE & STATE-CACHED)
        Combines progress calculation, navbar auto-hide, and scroll-stop detection.
        ========================================================= */
     const navbar = document.getElementById('navbar');
     let lastScrollY = window.scrollY;
     let maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     let scrollTicking = false;
+    let scrollStopTimer = null;
+    let isNavbarHidden = false;
 
     window.addEventListener('scroll', () => {
+      isScrolling = true;
+      clearTimeout(scrollStopTimer);
+      scrollStopTimer = setTimeout(() => {
+        isScrolling = false;
+      }, 100);
+
       if (!scrollTicking) {
         requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
           scrollProgress = currentScrollY / maxScroll;
 
-          if (currentScrollY > lastScrollY && currentScrollY > 80) {
-            navbar.style.transform = 'translateY(-100%)';
-          } else {
-            navbar.style.transform = 'translateY(0)';
+          const shouldHide = currentScrollY > lastScrollY && currentScrollY > 80;
+          if (shouldHide !== isNavbarHidden) {
+            isNavbarHidden = shouldHide;
+            navbar.style.transform = shouldHide ? 'translateY(-100%)' : 'translateY(0)';
           }
+
           lastScrollY = currentScrollY;
           scrollTicking = false;
         });
@@ -1339,8 +1308,8 @@
     }, { passive: true });
 
     /* ==========================================================
-       8. CUSTOM CURSOR (IDLE-AWARE, DESKTOP ONLY)
-       Shuts off RAF loop completely whenever mouse is stationary.
+       8. CUSTOM CURSOR (IDLE-AWARE, GPU TRANSLATE3D, DESKTOP ONLY)
+       Uses compositor-only transform mutations with zero reflow.
        ========================================================= */
     const cursorDot = document.getElementById('cursor-dot');
     const cursorRing = document.getElementById('cursor-ring');
@@ -1351,10 +1320,9 @@
       let cursorRAF = null;
 
       function updateRing() {
-        ringX += (mouseX - ringX) * 0.18;
-        ringY += (mouseY - ringY) * 0.18;
-        cursorRing.style.left = `${ringX}px`;
-        cursorRing.style.top = `${ringY}px`;
+        ringX += (mouseX - ringX) * 0.2;
+        ringY += (mouseY - ringY) * 0.2;
+        cursorRing.style.transform = `translate3d(${ringX - 17}px, ${ringY - 17}px, 0)`;
 
         if (Math.abs(mouseX - ringX) > 0.5 || Math.abs(mouseY - ringY) > 0.5) {
           cursorRAF = requestAnimationFrame(updateRing);
@@ -1366,8 +1334,7 @@
       window.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
-        cursorDot.style.left = `${mouseX}px`;
-        cursorDot.style.top = `${mouseY}px`;
+        cursorDot.style.transform = `translate3d(${mouseX - 3}px, ${mouseY - 3}px, 0)`;
 
         if (!cursorRAF) {
           cursorRAF = requestAnimationFrame(updateRing);
@@ -1461,7 +1428,7 @@
     }
 
     /* ==========================================================
-       11. REACTIVE SCROLL NUMBER COUNTERS (FROM 0 TO VALUE)
+       11. REACTIVE SCROLL NUMBER COUNTERS (ANIMATE ONCE & UNOBSERVE)
        ========================================================= */
     const counters = document.querySelectorAll('.counter');
     if ('IntersectionObserver' in window) {
@@ -1472,7 +1439,7 @@
 
           if (entry.isIntersecting) {
             let start = null;
-            const duration = 1400;
+            const duration = 1200;
 
             function step(timestamp) {
               if (!start) start = timestamp;
@@ -1481,17 +1448,13 @@
               el.textContent = Math.floor(ease * target);
 
               if (progress < 1) {
-                el._animId = requestAnimationFrame(step);
+                requestAnimationFrame(step);
               } else {
                 el.textContent = target;
+                counterObserver.unobserve(el);
               }
             }
-
-            if (el._animId) cancelAnimationFrame(el._animId);
-            el._animId = requestAnimationFrame(step);
-          } else {
-            if (el._animId) cancelAnimationFrame(el._animId);
-            el.textContent = '0';
+            requestAnimationFrame(step);
           }
         });
       }, { threshold: 0.15 });
