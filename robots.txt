@@ -1,0 +1,6 @@
+# robots.txt for https://ibrahim-adnan.vercel.app/
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://ibrahim-adnan.vercel.app/sitemap.xml
