@@ -128,6 +128,9 @@
   <!-- Dynamic Pulsing Beacon Favicon (Native SVG Animation - Zero JS / Zero Memory Churn) -->
   <link id="dynamic-favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='12' fill='%2310b981' opacity='0.35'><animate attributeName='r' values='7;14;7' dur='2s' repeatCount='indefinite'/><animate attributeName='opacity' values='0.5;0.05;0.5' dur='2s' repeatCount='indefinite'/></circle><circle cx='16' cy='16' r='6' fill='%2310b981'/><circle cx='16' cy='16' r='2.5' fill='%23ffffff'/></svg>" />
 
+  <!-- Preload Critical LCP Asset -->
+  <link rel="preload" as="image" href="profile.png" fetchpriority="high" />
+
   <!-- Resource Preconnects for Optimal Network Delivery -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1113,7 +1116,7 @@
       stencil: false,
       precision: 'mediump'
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25));
+    renderer.setPixelRatio(isLowEnd ? 1.0 : Math.min(window.devicePixelRatio, 1.25));
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
 
@@ -1383,7 +1386,8 @@
       if (!scrollTicking) {
         requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
-          scrollProgress = currentScrollY / maxScroll;
+          const currentMax = document.documentElement.scrollHeight - window.innerHeight;
+          scrollProgress = currentMax > 0 ? currentScrollY / currentMax : 0;
 
           const shouldHide = currentScrollY > lastScrollY && currentScrollY > 80;
           if (shouldHide !== isNavbarHidden) {
