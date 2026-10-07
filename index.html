@@ -131,7 +131,11 @@
   <!-- Preload Critical LCP Asset -->
   <link rel="preload" as="image" href="profile.png" fetchpriority="high" />
 
-  <!-- Resource Preconnects for Optimal Network Delivery -->
+  <!-- Resource Hints & DNS Prefetch for Optimal Network Delivery -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
@@ -201,6 +205,19 @@
       --badge-bg: rgba(15, 23, 42, 0.05);
       --badge-border: rgba(15, 23, 42, 0.14);
       --glow-color: rgba(14, 165, 233, 0.12);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
 
     body {
@@ -1100,7 +1117,7 @@
       modalTitle.textContent = title;
       modalContent.innerHTML = `
         <div class="rounded-xl overflow-hidden border border-[var(--card-border)] bg-black/40 w-full flex justify-center items-center">
-          <img src="${imagePath}" alt="${title}" class="w-full h-auto object-cover rounded-xl" />
+          <img src="${imagePath}" alt="${title}" loading="lazy" decoding="async" class="w-full h-auto object-cover rounded-xl" />
         </div>
       `;
       certModal.classList.add('modal-active');
@@ -1531,7 +1548,7 @@
             tiltScheduled = false;
           });
         }
-      });
+      }, { passive: true });
 
       heroCard.addEventListener('mouseleave', () => {
         heroCard.style.transform = 'rotateX(0deg) rotateY(0deg)';
