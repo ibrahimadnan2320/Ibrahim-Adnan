@@ -364,6 +364,9 @@
       display: flex;
       width: max-content;
       will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       animation: marquee 25s linear infinite;
     }
 
@@ -413,6 +416,17 @@
     }
     .marquee-strip {
       will-change: transform;
+      contain: layout paint style;
+    }
+
+    /* Off-screen Content-Visibility: skips layout & paint tree computation until viewport approach */
+    #experience,
+    #skills,
+    #education,
+    #projects,
+    #contact {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 750px;
     }
 
     /* Pause marquee animation when scrolled past it (controlled via JS) */
