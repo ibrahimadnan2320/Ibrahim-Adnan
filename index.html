@@ -410,6 +410,32 @@
     html.low-end .ambient-well {
       display: none !important;
     }
+    /* Disable expensive GPU multi-pass Gaussian backdrop blurs on low-end hardware */
+    html.low-end *,
+    html.low-end #navbar,
+    html.low-end .marquee-strip,
+    html.low-end #cert-modal {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+    html.low-end #navbar {
+      background-color: var(--nav-bg) !important;
+    }
+    html.low-end .marquee-strip {
+      background-color: var(--marquee-bg) !important;
+    }
+    html.low-end .reveal-3d {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    html.low-end .card-3d-wrap {
+      perspective: none !important;
+    }
+    html.low-end .card-3d {
+      transform: none !important;
+      transition: none !important;
+    }
 
     #navbar {
       will-change: transform;
@@ -1112,8 +1138,9 @@
     const isTouch = window.matchMedia('(pointer: coarse)').matches;
     const isLowEnd = (
       (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) ||
-      (navigator.deviceMemory && navigator.deviceMemory <= 2) ||
-      /Opera Mini|IEMobile/i.test(navigator.userAgent)
+      (navigator.deviceMemory && navigator.deviceMemory <= 3) ||
+      (navigator.connection && navigator.connection.saveData === true) ||
+      /Opera Mini|IEMobile|Android 4|Android 5|Android 6/i.test(navigator.userAgent)
     );
     /* Mid-tier: touch devices that aren't flagged as truly low-end (e.g. modern phones/tablets) */
     const isMidTier = isTouch && !isLowEnd;
