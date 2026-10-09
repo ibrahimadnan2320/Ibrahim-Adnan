@@ -386,6 +386,14 @@
       pointer-events: auto;
     }
 
+    /* Three.js canvas container isolated to dedicated compositor layer */
+    #canvas-container {
+      transform: translateZ(0);
+      will-change: transform;
+      contain: strict;
+      isolation: isolate;
+    }
+
     /* Ambient light wells isolated to GPU layer */
     .ambient-well {
       transform: translateZ(0);
@@ -1406,7 +1414,11 @@
        ========================================================= */
     const navbar = document.getElementById('navbar');
     let lastScrollY = window.scrollY;
-    let maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    let maxScroll = 1;
+    function recalculateMaxScroll() {
+      maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    }
+    recalculateMaxScroll();
     let scrollTicking = false;
     let isNavbarHidden = false;
 
@@ -1414,8 +1426,7 @@
       if (!scrollTicking) {
         requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
-          const currentMax = document.documentElement.scrollHeight - window.innerHeight;
-          scrollProgress = currentMax > 0 ? currentScrollY / currentMax : 0;
+          scrollProgress = maxScroll > 0 ? currentScrollY / maxScroll : 0;
 
           const shouldHide = currentScrollY > lastScrollY && currentScrollY > 80;
           if (shouldHide !== isNavbarHidden) {
@@ -1430,10 +1441,9 @@
       }
     }, { passive: true });
 
-    /* Recalculate maxScroll on resize */
-    window.addEventListener('resize', () => {
-      maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    }, { passive: true });
+    /* Recalculate maxScroll on resize and window load to prevent synchronous layout reads during scroll */
+    window.addEventListener('resize', recalculateMaxScroll, { passive: true });
+    window.addEventListener('load', recalculateMaxScroll, { passive: true });
 
     /* ==========================================================
        8. CUSTOM CURSOR (IDLE-AWARE, GPU TRANSLATE3D, DESKTOP ONLY)
