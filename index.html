@@ -1153,6 +1153,7 @@
     let scrollProgress = 0;
     let currentScrollProgress = 0;
     let threeRunning = false;
+    let scrollTicking = false;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -1300,31 +1301,39 @@
        ========================================================= */
     if (!isTouch && !isLowEnd) {
       let sheenCard = null;
+      let cardRect = null;
       let sheenX = 0, sheenY = 0;
       let sheenScheduled = false;
 
       document.addEventListener('mousemove', (e) => {
+        if (scrollTicking) return;
         const card = e.target.closest('.crystal-card');
         if (!card) {
           sheenCard = null;
+          cardRect = null;
           return;
         }
-        sheenCard = card;
+        if (card !== sheenCard) {
+          sheenCard = card;
+          cardRect = sheenCard.getBoundingClientRect();
+        }
         sheenX = e.clientX;
         sheenY = e.clientY;
 
         if (!sheenScheduled) {
           sheenScheduled = true;
           requestAnimationFrame(() => {
-            if (sheenCard) {
-              const rect = sheenCard.getBoundingClientRect();
-              sheenCard.style.setProperty('--mouse-x', `${sheenX - rect.left}px`);
-              sheenCard.style.setProperty('--mouse-y', `${sheenY - rect.top}px`);
+            if (sheenCard && cardRect) {
+              sheenCard.style.setProperty('--mouse-x', `${sheenX - cardRect.left}px`);
+              sheenCard.style.setProperty('--mouse-y', `${sheenY - cardRect.top}px`);
             }
             sheenScheduled = false;
           });
         }
       }, { passive: true });
+
+      window.addEventListener('scroll', () => { cardRect = null; }, { passive: true });
+      window.addEventListener('resize', () => { cardRect = null; }, { passive: true });
     }
 
     /* ==========================================================
@@ -1451,7 +1460,6 @@
       maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     }
     recalculateMaxScroll();
-    let scrollTicking = false;
     let isNavbarHidden = false;
 
     window.addEventListener('scroll', () => {
