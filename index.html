@@ -1198,8 +1198,9 @@
       }, { passive: true });
     }
 
-    /* Modular time: wraps every 60 seconds to prevent float precision decay */
+    /* Modular time & Clock for frame-rate-independent physics */
     const MODULAR_PERIOD = 60;
+    const clock = new THREE.Clock();
     let startTime = performance.now() / 1000;
 
     function getModularTime() {
@@ -1207,6 +1208,7 @@
     }
 
     function animateLoop() {
+      const delta = Math.min(clock.getDelta(), 0.1);
       const t = getModularTime();
 
       // Continuous, perpetual 3D rotation of the round wireframe ball
@@ -1214,11 +1216,15 @@
       coreMesh.rotation.y = t * 0.07;
       particleMesh.rotation.y = -t * 0.015;
 
-      worldGroup.rotation.y += (targetX - worldGroup.rotation.y) * 0.05;
-      worldGroup.rotation.x += (targetY - worldGroup.rotation.x) * 0.05;
+      // Delta-time independent damping (60Hz / 120Hz / 144Hz parity)
+      const moveDamp = 1 - Math.exp(-6 * delta);
+      const scrollDamp = 1 - Math.exp(-7.5 * delta);
+
+      worldGroup.rotation.y += (targetX - worldGroup.rotation.y) * moveDamp;
+      worldGroup.rotation.x += (targetY - worldGroup.rotation.x) * moveDamp;
 
       // Silky smooth liquid damping during scroll - never stutters or halts
-      currentScrollProgress += (scrollProgress - currentScrollProgress) * 0.08;
+      currentScrollProgress += (scrollProgress - currentScrollProgress) * scrollDamp;
 
       camera.position.z = 45 + Math.sin(currentScrollProgress * Math.PI) * 12;
       camera.position.y = -currentScrollProgress * 25;
@@ -1231,6 +1237,7 @@
     function startThree() {
       if (threeRunning) return;
       threeRunning = true;
+      clock.start();
       startTime = performance.now() / 1000;
       renderer.setAnimationLoop(animateLoop);
     }
@@ -1238,10 +1245,21 @@
     function stopThree() {
       if (!threeRunning) return;
       threeRunning = false;
+      clock.stop();
       renderer.setAnimationLoop(null);
     }
 
     startThree();
+
+    /* WebGL Context Loss & Recovery Handling (Prevents crashes on low-RAM / background tabs) */
+    const glCanvas = renderer.domElement;
+    glCanvas.addEventListener('webglcontextlost', (e) => {
+      e.preventDefault();
+      stopThree();
+    }, false);
+    glCanvas.addEventListener('webglcontextrestored', () => {
+      startThree();
+    }, false);
 
     /* Pause when tab is hidden to eliminate idle power draw */
     document.addEventListener('visibilitychange', () => {
