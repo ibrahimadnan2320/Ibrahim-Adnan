@@ -514,7 +514,7 @@
 
   <!-- Navbar -->
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 border-b border-[var(--card-border)] bg-[var(--nav-bg)] backdrop-blur px-6 py-3">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <div class="max-w-7xl 2xl:max-w-[1400px] mx-auto flex items-center justify-between">
       
       <a href="#" class="font-mono text-sm tracking-wider font-bold flex items-center gap-3 group">
         <span class="relative flex h-2.5 w-2.5">
@@ -569,7 +569,7 @@
     </div>
   </div>
 
-  <main class="relative z-10 max-w-7xl mx-auto px-6 pt-4 sm:pt-6 pb-20">
+  <main class="relative z-10 max-w-7xl 2xl:max-w-[1400px] mx-auto px-6 pt-4 sm:pt-6 pb-20">
     
     <!-- Hero Section -->
     <section id="about" class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-end">
@@ -1146,6 +1146,7 @@
        curtails WebGL draw calls, and bypasses cursor RAF loops).
        ========================================================= */
     const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isLowEnd = (
       (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) ||
       (navigator.deviceMemory && navigator.deviceMemory <= 3) ||
@@ -1204,7 +1205,9 @@
       stencil: false,
       precision: 'mediump'
     });
-    renderer.setPixelRatio(isLowEnd ? 1.0 : Math.min(window.devicePixelRatio, 1.25));
+    const isWidescreen4K = window.innerWidth >= 2160;
+    const optimalRatio = (isLowEnd || isWidescreen4K) ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.25);
+    renderer.setPixelRatio(optimalRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
 
@@ -1264,9 +1267,11 @@
       const t = getModularTime();
 
       // Continuous, perpetual 3D rotation of the round wireframe ball
-      coreMesh.rotation.x = t * 0.04;
-      coreMesh.rotation.y = t * 0.07;
-      particleMesh.rotation.y = -t * 0.015;
+      if (!prefersReducedMotion) {
+        coreMesh.rotation.x = t * 0.04;
+        coreMesh.rotation.y = t * 0.07;
+        particleMesh.rotation.y = -t * 0.015;
+      }
 
       // Delta-time independent damping (60Hz / 120Hz / 144Hz parity)
       const moveDamp = 1 - Math.exp(-6 * delta);
