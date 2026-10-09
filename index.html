@@ -2,7 +2,7 @@
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   
   <!-- Primary SEO Meta Tags -->
   <title>Ibrahim Adnan | Full-Stack Software Engineer &amp; Web Developer</title>
@@ -209,6 +209,8 @@
 
     html {
       scroll-behavior: smooth;
+      touch-action: manipulation;
+      -webkit-text-size-adjust: 100%;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -224,10 +226,18 @@
       background-color: var(--bg-base);
       color: var(--text-main);
       overflow-x: hidden;
+      overscroll-behavior-y: none;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
       transition: background-color 0.4s ease, color 0.4s ease;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    a, button, input, [role="button"] {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .noise-overlay {
