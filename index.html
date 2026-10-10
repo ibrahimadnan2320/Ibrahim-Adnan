@@ -1684,6 +1684,13 @@
           const target = parseInt(el.getAttribute('data-target'), 10);
 
           if (entry.isIntersecting) {
+            counterObserver.unobserve(el);
+
+            if (prefersReducedMotion || isLowEnd) {
+              el.textContent = target;
+              return;
+            }
+
             let start = null;
             const duration = 1200;
 
@@ -1697,7 +1704,6 @@
                 requestAnimationFrame(step);
               } else {
                 el.textContent = target;
-                counterObserver.unobserve(el);
               }
             }
             requestAnimationFrame(step);
