@@ -1583,17 +1583,27 @@
       });
     }
 
-    /* Pause marquee animation when scrolled past it (eliminates infinite background animation) */
+    /* Pause marquee animation when scrolled past it or when browser tab is hidden */
     const marqueeStrip = document.querySelector('.marquee-strip');
     if (marqueeStrip && 'IntersectionObserver' in window) {
+      let marqueeInView = true;
       const marqueeObserver = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
+        marqueeInView = entries[0].isIntersecting;
+        if (marqueeInView && !document.hidden) {
           marqueeStrip.classList.remove('marquee-paused');
         } else {
           marqueeStrip.classList.add('marquee-paused');
         }
       }, { threshold: 0 });
       marqueeObserver.observe(marqueeStrip);
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          marqueeStrip.classList.add('marquee-paused');
+        } else if (marqueeInView) {
+          marqueeStrip.classList.remove('marquee-paused');
+        }
+      });
     }
 
     /* ==========================================================
