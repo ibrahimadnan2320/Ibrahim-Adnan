@@ -1232,8 +1232,8 @@
     worldGroup.add(coreMesh);
     window._wireframeMaterial = wireframeMaterial;
 
-    // Ambient floating starfield particles
-    const particlesCount = (isLowEnd || isTouch) ? 120 : 340;
+    // Ambient floating starfield particles (density auto-scaled by device performance tier)
+    const particlesCount = isLowEnd ? 60 : (isTouch ? 120 : 340);
     const posArray = new Float32Array(particlesCount * 3);
     for (let i = 0; i < particlesCount * 3; i++) {
       posArray[i] = (Math.random() - 0.5) * 150;
@@ -1331,6 +1331,17 @@
         startThree();
       }
     });
+
+    /* Clean up WebGL GPU buffers & context on page unload (prevents mobile VRAM retention) */
+    window.addEventListener('beforeunload', () => {
+      stopThree();
+      coreGeo.dispose();
+      wireframeMaterial.dispose();
+      particlesGeometry.dispose();
+      particlesMaterial.dispose();
+      renderer.dispose();
+      if (renderer.forceContextLoss) renderer.forceContextLoss();
+    }, { once: true });
 
     /* Resize handler: only recreate buffers when width actually changes */
     let lastWidth = window.innerWidth;
