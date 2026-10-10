@@ -1640,27 +1640,37 @@
     if (!isTouch && !isLowEnd && heroCard) {
       let tiltScheduled = false;
       let tiltClientX = 0, tiltClientY = 0;
+      let heroRect = null;
+
+      heroCard.addEventListener('mouseenter', () => {
+        heroRect = heroCard.getBoundingClientRect();
+      }, { passive: true });
 
       heroCard.addEventListener('mousemove', (e) => {
+        if (!heroRect) heroRect = heroCard.getBoundingClientRect();
         tiltClientX = e.clientX;
         tiltClientY = e.clientY;
         if (!tiltScheduled) {
           tiltScheduled = true;
           requestAnimationFrame(() => {
-            const rect = heroCard.getBoundingClientRect();
-            const x = tiltClientX - rect.left - rect.width / 2;
-            const y = tiltClientY - rect.top - rect.height / 2;
-            const rotateX = (-y / (rect.height / 2)) * 14;
-            const rotateY = (x / (rect.width / 2)) * 14;
-            heroCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            if (heroRect) {
+              const x = tiltClientX - heroRect.left - heroRect.width / 2;
+              const y = tiltClientY - heroRect.top - heroRect.height / 2;
+              const rotateX = (-y / (heroRect.height / 2)) * 14;
+              const rotateY = (x / (heroRect.width / 2)) * 14;
+              heroCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            }
             tiltScheduled = false;
           });
         }
       }, { passive: true });
 
       heroCard.addEventListener('mouseleave', () => {
+        heroRect = null;
         heroCard.style.transform = 'rotateX(0deg) rotateY(0deg)';
-      });
+      }, { passive: true });
+
+      window.addEventListener('resize', () => { heroRect = null; }, { passive: true });
     }
 
     /* ==========================================================
