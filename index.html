@@ -1437,19 +1437,20 @@
     }
 
     /* ==========================================================
-       5. LIVE LAHORE (PKT) CLOCK
+       5. LIVE LAHORE (PKT) CLOCK (CACHED INTL FORMATTER)
        ========================================================= */
+    const pktFormatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Asia/Karachi',
+      hour12: true,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+
     function updateClock() {
       const clockEl = document.getElementById('live-clock');
       if (clockEl) {
-        const now = new Date();
-        const timeStr = now.toLocaleTimeString('en-US', {
-          timeZone: 'Asia/Karachi',
-          hour12: true,
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-        });
+        const timeStr = pktFormatter.format(new Date());
         clockEl.textContent = `LAHORE ${timeStr} PKT`;
       }
     }
