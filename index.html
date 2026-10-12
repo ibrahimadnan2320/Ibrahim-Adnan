@@ -245,6 +245,11 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    :focus-visible {
+      outline: 2px solid #00f0ff;
+      outline-offset: 3px;
+    }
+
     .noise-overlay {
       display: none;
     }
@@ -489,7 +494,7 @@
   <div id="cursor-ring" class="hidden md:block"></div>
 
   <!-- Toast Notification -->
-  <div id="copy-toast" class="fixed bottom-6 right-6 z-[9999] opacity-0 pointer-events-none">
+  <div id="copy-toast" class="fixed bottom-6 right-6 z-[9999] opacity-0 pointer-events-none" role="status" aria-live="polite">
     <div class="crystal-card px-4 py-2.5 rounded-xl border border-cyber-accent/40 flex items-center gap-2.5 shadow-2xl">
       <i class="fa-solid fa-circle-check text-cyber-emerald text-sm" aria-hidden="true"></i>
       <span id="toast-text" class="font-mono text-xs text-white">Copied to clipboard</span>
