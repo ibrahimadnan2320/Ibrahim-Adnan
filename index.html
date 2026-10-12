@@ -329,6 +329,7 @@
       z-index: 9999;
       transform: translate3d(-100px, -100px, 0);
       will-change: transform;
+      contain: strict;
     }
     #cursor-ring {
       width: 34px;
@@ -343,6 +344,7 @@
       z-index: 9998;
       transform: translate3d(-100px, -100px, 0);
       will-change: transform;
+      contain: strict;
       transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     }
     body.cursor-hover #cursor-ring {
