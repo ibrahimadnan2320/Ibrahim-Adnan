@@ -1181,10 +1181,17 @@
 
     function closeCertModal() {
       certModal.classList.remove('modal-active');
+      document.body.style.overflow = '';
     }
 
     certModal.addEventListener('click', (e) => {
       if (e.target === certModal) closeCertModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && certModal.classList.contains('modal-active')) {
+        closeCertModal();
+      }
     });
 
     function openSingleCertModal(title, imagePath) {
@@ -1195,6 +1202,7 @@
         </div>
       `;
       certModal.classList.add('modal-active');
+      document.body.style.overflow = 'hidden';
     }
 
     /* ==========================================================
