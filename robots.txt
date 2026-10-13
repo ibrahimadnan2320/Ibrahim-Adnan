@@ -4,3 +4,4 @@ Allow: /
 
 # Sitemaps
 Sitemap: https://ibrahim-adnan.vercel.app/sitemap.xml
+Host: https://ibrahim-adnan.vercel.app
