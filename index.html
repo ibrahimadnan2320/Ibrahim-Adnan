@@ -3,6 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <!-- Anti-FOUC Early Theme Initializer (Zero Paint Flash) -->
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light') {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('light');
+        }
+      } catch (e) {}
+    })();
+  </script>
   
   <!-- Primary SEO Meta Tags -->
   <title>Ibrahim Adnan | Full-Stack Software Engineer &amp; Web Developer</title>
