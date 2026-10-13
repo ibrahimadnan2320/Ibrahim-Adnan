@@ -1537,6 +1537,9 @@
           wfm.opacity = 0.18;
         }
       }
+      document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
+        m.setAttribute('content', mode === 'light' ? '#cdd5e0' : '#050608');
+      });
     }
 
     const savedTheme = localStorage.getItem('theme') || 'dark';
