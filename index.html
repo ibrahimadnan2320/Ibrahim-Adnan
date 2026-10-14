@@ -1454,7 +1454,14 @@
        ========================================================= */
     const toast = document.getElementById('copy-toast');
     const toastText = document.getElementById('toast-text');
-    let toastTimeout;
+    function hideCopyToast() {
+      toast.classList.remove('toast-active');
+      toast.style.opacity = '0';
+      toast.style.pointerEvents = 'none';
+      clearTimeout(toastTimeout);
+    }
+
+    toast.addEventListener('click', hideCopyToast);
 
     function showCopyToast(message) {
       toastText.textContent = message || 'Copied to clipboard!';
@@ -1462,11 +1469,7 @@
       toast.style.opacity = '1';
       toast.style.pointerEvents = 'auto';
       clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        toast.classList.remove('toast-active');
-        toast.style.opacity = '0';
-        toast.style.pointerEvents = 'none';
-      }, 2400);
+      toastTimeout = setTimeout(hideCopyToast, 2400);
     }
 
     async function copyToClipboard(text, customMessage) {
