@@ -2,16 +2,49 @@
   "name": "Ibrahim Adnan | Portfolio",
   "short_name": "Ibrahim Adnan",
   "description": "Official portfolio of Ibrahim Adnan - Full-Stack Developer & Software Quality Assurance Engineer.",
+  "id": "/",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#050608",
   "theme_color": "#050608",
+  "categories": [
+    "portfolio",
+    "developer",
+    "technology"
+  ],
   "icons": [
     {
       "src": "profile.png",
       "sizes": "192x192 512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Explore Work",
+      "short_name": "Work",
+      "description": "Browse production web apps and engineering projects",
+      "url": "/#projects",
+      "icons": [
+        {
+          "src": "profile.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Initiate Connection",
+      "short_name": "Contact",
+      "description": "Get in touch with Ibrahim Adnan",
+      "url": "/#contact",
+      "icons": [
+        {
+          "src": "profile.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }
