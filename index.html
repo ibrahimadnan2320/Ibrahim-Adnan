@@ -1392,15 +1392,21 @@
       if (renderer.forceContextLoss) renderer.forceContextLoss();
     }, { once: true });
 
-    /* Resize handler: only recreate buffers when width actually changes */
+    /* Resize & orientation handler: syncs projection matrix on dimension or orientation shifts */
     let lastWidth = window.innerWidth;
-    window.addEventListener('resize', () => {
-      if (Math.abs(window.innerWidth - lastWidth) > 5) {
+    let lastHeight = window.innerHeight;
+    function updateCanvasSize() {
+      if (Math.abs(window.innerWidth - lastWidth) > 5 || Math.abs(window.innerHeight - lastHeight) > 20) {
         lastWidth = window.innerWidth;
+        lastHeight = window.innerHeight;
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
       }
+    }
+    window.addEventListener('resize', updateCanvasSize, { passive: true });
+    window.addEventListener('orientationchange', () => {
+      setTimeout(updateCanvasSize, 100);
     }, { passive: true });
 
     /* ==========================================================
