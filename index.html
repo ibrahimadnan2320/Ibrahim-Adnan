@@ -1646,6 +1646,17 @@
           document.body.classList.remove('cursor-hover');
         }
       }, { passive: true });
+
+      document.addEventListener('mouseleave', () => {
+        cursorDot.style.opacity = '0';
+        cursorRing.style.opacity = '0';
+        document.body.classList.remove('cursor-hover');
+      });
+
+      document.addEventListener('mouseenter', () => {
+        cursorDot.style.opacity = '1';
+        cursorRing.style.opacity = '1';
+      });
     }
 
     /* Pause marquee animation when scrolled past it or when browser tab is hidden */
