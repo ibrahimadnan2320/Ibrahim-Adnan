@@ -1253,7 +1253,8 @@
     let threeRunning = false;
     let scrollTicking = false;
 
-    const scene = new THREE.Scene();
+    if (typeof THREE !== 'undefined' && container) {
+      const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 45;
 
@@ -1414,6 +1415,7 @@
     window.addEventListener('orientationchange', () => {
       setTimeout(updateCanvasSize, 100);
     }, { passive: true });
+    }
 
     /* ==========================================================
        3. HIGH-PERFORMANCE CARD SHEEN (DESKTOP ONLY & RAF-THROTTLED)
