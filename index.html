@@ -354,8 +354,9 @@
       pointer-events: none;
       z-index: 9999;
       transform: translate3d(-100px, -100px, 0);
-      will-change: transform;
+      will-change: transform, opacity;
       contain: strict;
+      transition: opacity 0.2s ease;
     }
     #cursor-ring {
       width: 34px;
@@ -369,9 +370,9 @@
       pointer-events: none;
       z-index: 9998;
       transform: translate3d(-100px, -100px, 0);
-      will-change: transform;
+      will-change: transform, opacity;
       contain: strict;
-      transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background 0.2s ease, opacity 0.2s ease;
     }
     body.cursor-hover #cursor-ring {
       width: 52px;
