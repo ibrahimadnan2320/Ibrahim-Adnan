@@ -1192,7 +1192,7 @@
     const isLowEnd = (
       (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) ||
       (navigator.deviceMemory && navigator.deviceMemory <= 3) ||
-      (navigator.connection && navigator.connection.saveData === true) ||
+      (navigator.connection && (navigator.connection.saveData === true || navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g')) ||
       /Opera Mini|IEMobile|Android 4|Android 5|Android 6/i.test(navigator.userAgent)
     );
     /* Mid-tier: touch devices that aren't flagged as truly low-end (e.g. modern phones/tablets) */
