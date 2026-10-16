@@ -520,6 +520,11 @@
 </head>
 <body class="font-sans selection:bg-cyber-accent selection:text-black relative">
 
+  <!-- Skip to Content Navigation Shortcut (WCAG 2.4.1 Bypass Blocks) -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[99999] focus:px-4 focus:py-2 focus:bg-cyber-accent focus:text-black focus:font-mono focus:font-bold focus:rounded-lg focus:shadow-[0_0_20px_rgba(0,240,255,0.6)] focus:outline-none">
+    Skip to main content
+  </a>
+
   <div class="noise-overlay"></div>
 
   <!-- Custom Cursor -->
@@ -616,7 +621,7 @@
     </div>
   </div>
 
-  <main class="relative z-10 max-w-7xl 2xl:max-w-[1400px] mx-auto px-6 pt-4 sm:pt-6 pb-20">
+  <main id="main-content" class="relative z-10 max-w-7xl 2xl:max-w-[1400px] mx-auto px-6 pt-4 sm:pt-6 pb-20">
     
     <!-- Hero Section -->
     <section id="about" class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-end" aria-label="About Ibrahim Adnan">
