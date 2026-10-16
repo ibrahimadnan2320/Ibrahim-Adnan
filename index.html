@@ -1273,6 +1273,7 @@
     const certModal = document.getElementById('cert-modal');
     const modalTitle = document.getElementById('modal-title');
     const modalContent = document.getElementById('modal-content');
+    let lastActiveModalTrigger = null;
 
     function closeCertModal() {
       certModal.classList.remove('modal-active');
@@ -1282,6 +1283,10 @@
           modalContent.innerHTML = '';
         }
       }, 350);
+      if (lastActiveModalTrigger && typeof lastActiveModalTrigger.focus === 'function') {
+        lastActiveModalTrigger.focus();
+        lastActiveModalTrigger = null;
+      }
     }
 
     certModal.addEventListener('click', (e) => {
@@ -1295,6 +1300,7 @@
     });
 
     function openSingleCertModal(title, imagePath) {
+      lastActiveModalTrigger = document.activeElement;
       modalTitle.textContent = title;
       modalContent.innerHTML = `
         <div class="rounded-xl overflow-hidden border border-[var(--card-border)] bg-black/40 w-full flex justify-center items-center">
@@ -1303,6 +1309,8 @@
       `;
       certModal.classList.add('modal-active');
       document.body.style.overflow = 'hidden';
+      const modalCloseBtn = certModal.querySelector('button[aria-label]');
+      if (modalCloseBtn) modalCloseBtn.focus();
     }
 
     /* ==========================================================
