@@ -1808,7 +1808,7 @@
        10. HERO CARD 3D TILT (RAF-THROTTLED, DESKTOP ONLY)
        ========================================================= */
     const heroCard = document.getElementById('hero-card');
-    if (!isTouch && !isLowEnd && heroCard) {
+    if (!isTouch && !isLowEnd && !prefersReducedMotion && heroCard) {
       let tiltScheduled = false;
       let tiltClientX = 0, tiltClientY = 0;
       let heroRect = null;
