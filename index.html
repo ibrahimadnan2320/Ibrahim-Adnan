@@ -574,6 +574,22 @@
         content-visibility: visible !important;
       }
     }
+
+    /* High Contrast Mode Optimization (WCAG 2.1 AAA / Windows High Contrast Mode) */
+    @media (forced-colors: active) {
+      .crystal-card {
+        forced-color-adjust: auto;
+        border: 2px solid ButtonBorder !important;
+        box-shadow: none !important;
+      }
+      :focus-visible {
+        outline: 3px solid Highlight !important;
+        outline-offset: 3px !important;
+      }
+      .badge-pill, [role="button"], button {
+        border: 1px solid ButtonText !important;
+      }
+    }
   </style>
 </head>
 <body class="font-sans selection:bg-cyber-accent selection:text-black relative">
