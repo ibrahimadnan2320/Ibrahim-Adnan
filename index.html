@@ -546,6 +546,32 @@
         animation-play-state: paused;
       }
     }
+    /* Print Media Optimization: cleanly format for PDF export & physical resume printing */
+    @media print {
+      #canvas-container,
+      .ambient-well,
+      #cursor-dot,
+      #cursor-ring,
+      #theme-toggle,
+      .marquee-strip,
+      #copy-toast,
+      #cert-modal,
+      .noise-overlay {
+        display: none !important;
+      }
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      .crystal-card {
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: none !important;
+        background: #ffffff !important;
+      }
+      #experience, #skills, #education, #projects, #contact {
+        content-visibility: visible !important;
+      }
+    }
   </style>
 </head>
 <body class="font-sans selection:bg-cyber-accent selection:text-black relative">
