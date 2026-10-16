@@ -1332,7 +1332,7 @@
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: false,
-      powerPreference: 'high-performance',
+      powerPreference: (isLowEnd || isTouch) ? 'low-power' : 'high-performance',
       depth: false,
       stencil: false,
       precision: 'mediump'
