@@ -1295,8 +1295,24 @@
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && certModal.classList.contains('modal-active')) {
+      if (!certModal.classList.contains('modal-active')) return;
+      if (e.key === 'Escape') {
         closeCertModal();
+        return;
+      }
+      if (e.key === 'Tab') {
+        const focusables = certModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusables.length > 0) {
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       }
     });
 
