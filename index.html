@@ -1738,9 +1738,10 @@
       }
     }, { passive: true });
 
-    /* Recalculate maxScroll on resize and window load to prevent synchronous layout reads during scroll */
+    /* Recalculate maxScroll on resize, load, and orientation changes to prevent layout read lag */
     window.addEventListener('resize', recalculateMaxScroll, { passive: true });
     window.addEventListener('load', recalculateMaxScroll, { passive: true });
+    window.addEventListener('orientationchange', recalculateMaxScroll, { passive: true });
 
     /* ==========================================================
        8. CUSTOM CURSOR (IDLE-AWARE, GPU TRANSLATE3D, DESKTOP ONLY)
