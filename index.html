@@ -1352,7 +1352,7 @@
       modalTitle.textContent = title;
       modalContent.innerHTML = `
         <div class="rounded-xl overflow-hidden border border-[var(--card-border)] bg-black/40 w-full flex justify-center items-center">
-          <img src="${imagePath}" alt="${title}" decoding="async" class="w-full h-auto object-cover rounded-xl" />
+          <img src="${imagePath}" alt="${title}" loading="eager" fetchpriority="high" decoding="async" class="w-full h-auto object-cover rounded-xl" />
         </div>
       `;
       certModal.classList.add('modal-active');
