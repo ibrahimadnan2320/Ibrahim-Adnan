@@ -1269,6 +1269,20 @@
     if (isLowEnd) document.documentElement.classList.add('low-end');
     if (isMidTier) document.documentElement.classList.add('mid-tier');
 
+    /* Battery-Aware Power Throttling: dynamically conserve power on low unplugged mobile batteries */
+    if ('getBattery' in navigator) {
+      navigator.getBattery().then((battery) => {
+        function checkBattery() {
+          if (!battery.charging && battery.level <= 0.20) {
+            document.documentElement.classList.add('low-end');
+          }
+        }
+        checkBattery();
+        battery.addEventListener('levelchange', checkBattery);
+        battery.addEventListener('chargingchange', checkBattery);
+      }).catch(() => {});
+    }
+
     /* ==========================================================
        1. CERTIFICATE MODAL ENGINE
        ========================================================= */
