@@ -655,6 +655,7 @@
       </div>
 
     </div>
+    <div id="scroll-progress-bar" class="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-cyber-accent via-cyan-400 to-cyber-emerald origin-left w-full scale-x-0 will-change-transform pointer-events-none"></div>
   </nav>
 
   <!-- Seamless Never-Ending Marquee Ticker -->
@@ -1650,6 +1651,7 @@
        Combines progress calculation, navbar auto-hide, and resize syncing.
        ========================================================= */
     const navbar = document.getElementById('navbar');
+    const scrollProgressBar = document.getElementById('scroll-progress-bar');
     let lastScrollY = window.scrollY;
     let maxScroll = 1;
     function recalculateMaxScroll() {
@@ -1663,6 +1665,9 @@
         requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
           scrollProgress = maxScroll > 0 ? currentScrollY / maxScroll : 0;
+          if (scrollProgressBar) {
+            scrollProgressBar.style.transform = `scaleX(${scrollProgress})`;
+          }
 
           const shouldHide = currentScrollY > lastScrollY && currentScrollY > 80;
           if (shouldHide !== isNavbarHidden) {
