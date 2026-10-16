@@ -6,6 +6,10 @@
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
+  "orientation": "any",
+  "dir": "ltr",
+  "lang": "en-US",
+  "prefer_related_applications": false,
   "background_color": "#050608",
   "theme_color": "#050608",
   "categories": [
