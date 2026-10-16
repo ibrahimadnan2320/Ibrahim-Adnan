@@ -1607,7 +1607,10 @@
           input.value = text;
           input.setAttribute('readonly', '');
           input.style.position = 'fixed';
+          input.style.left = '-9999px';
+          input.style.top = '-9999px';
           input.style.opacity = '0';
+          input.style.fontSize = '16px';
           document.body.appendChild(input);
           input.select();
           const copied = document.execCommand('copy');
