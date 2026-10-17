@@ -25,6 +25,22 @@
       "purpose": "any maskable"
     }
   ],
+  "screenshots": [
+    {
+      "src": "mak-and-sons.png",
+      "sizes": "1024x508",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "MAK & Sons Construction Website - Production Platform by Ibrahim Adnan"
+    },
+    {
+      "src": "iqra-academy.png",
+      "sizes": "1024x509",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "IQRA Online Quran Academy - Educational Platform by Ibrahim Adnan"
+    }
+  ],
   "shortcuts": [
     {
       "name": "Explore Work",
