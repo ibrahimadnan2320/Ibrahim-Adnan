@@ -496,6 +496,20 @@
       transform: translateY(0%);
     }
 
+    /* Floating Back-to-Top Button (Hardware Accelerated & Motion Aware) */
+    #back-to-top {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate3d(0, 16px, 0);
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+      will-change: transform, opacity;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate3d(0, 0, 0);
+    }
+
     /* Modal Overlay Animation */
     #cert-modal {
       opacity: 0;
@@ -653,6 +667,11 @@
       <span id="toast-text" class="font-mono text-xs text-white">Copied to clipboard</span>
     </div>
   </div>
+
+  <!-- Floating Back-to-Top Button (Hardware Accelerated & Motion Aware) -->
+  <button id="back-to-top" aria-label="Scroll back to top" class="fixed bottom-6 left-6 z-[9990] w-10 h-10 rounded-full crystal-card flex items-center justify-center text-cyber-accent hover:border-cyber-accent transition active:scale-95 shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+    <i class="fa-solid fa-arrow-up text-xs" aria-hidden="true"></i>
+  </button>
 
   <!-- Certificate Modal Viewer -->
   <div id="cert-modal" class="fixed inset-0 z-[10000] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -1758,6 +1777,8 @@
        ========================================================= */
     const navbar = document.getElementById('navbar');
     const scrollProgressBar = document.getElementById('scroll-progress-bar');
+    const backToTopBtn = document.getElementById('back-to-top');
+    let isBackToTopVisible = false;
     let lastScrollY = window.scrollY;
     let maxScroll = 1;
     function recalculateMaxScroll() {
@@ -1765,6 +1786,17 @@
     }
     recalculateMaxScroll();
     let isNavbarHidden = false;
+
+    if (backToTopBtn) {
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: (prefersReducedMotion || isLowEnd) ? 'auto' : 'smooth'
+        });
+        const skipLink = document.querySelector('a[href="#main-content"]');
+        if (skipLink) skipLink.focus();
+      });
+    }
 
     window.addEventListener('scroll', () => {
       if (!scrollTicking) {
@@ -1779,6 +1811,12 @@
           if (shouldHide !== isNavbarHidden) {
             isNavbarHidden = shouldHide;
             navbar.style.transform = shouldHide ? 'translateY(-100%)' : 'translateY(0)';
+          }
+
+          const showBackToTop = currentScrollY > 400;
+          if (backToTopBtn && showBackToTop !== isBackToTopVisible) {
+            isBackToTopVisible = showBackToTop;
+            backToTopBtn.classList.toggle('visible', showBackToTop);
           }
 
           lastScrollY = currentScrollY;
