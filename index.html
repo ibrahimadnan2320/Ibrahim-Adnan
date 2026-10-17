@@ -680,7 +680,7 @@
           <span id="live-clock">LAHORE 00:00:00 PKT</span>
         </div>
         <button id="theme-toggle" aria-label="Toggle theme" class="w-10 h-10 sm:w-9 sm:h-9 rounded-full crystal-card flex items-center justify-center text-cyber-accent hover:border-cyber-accent transition active:scale-90">
-          <i id="theme-icon" class="fa-solid fa-moon text-xs"></i>
+          <i id="theme-icon" class="fa-solid fa-moon text-xs" aria-hidden="true"></i>
         </button>
         <a href="#contact" class="hidden sm:inline-flex px-4 py-1.5 font-mono text-xs rounded-full border border-cyber-accent/50 text-cyber-accent hover:bg-cyber-accent hover:text-black transition duration-300">
           GET IN TOUCH
@@ -1703,6 +1703,9 @@
       document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
         m.setAttribute('content', mode === 'light' ? '#cdd5e0' : '#050608');
       });
+      if (themeToggleBtn) {
+        themeToggleBtn.setAttribute('aria-label', mode === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
+      }
     }
 
     const savedTheme = localStorage.getItem('theme');
