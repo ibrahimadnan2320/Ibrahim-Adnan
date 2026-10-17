@@ -1539,6 +1539,9 @@
       if (Math.abs(window.innerWidth - lastWidth) > 5 || Math.abs(window.innerHeight - lastHeight) > 20) {
         lastWidth = window.innerWidth;
         lastHeight = window.innerHeight;
+        const isWidescreen4K = window.innerWidth >= 2160;
+        const optimalRatio = (isLowEnd || isWidescreen4K) ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.25);
+        renderer.setPixelRatio(optimalRatio);
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
