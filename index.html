@@ -1669,6 +1669,12 @@
 
     toast.addEventListener('click', hideCopyToast);
 
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toast.classList.contains('toast-active')) {
+        hideCopyToast();
+      }
+    });
+
     function showCopyToast(message) {
       toastText.textContent = message || 'Copied to clipboard!';
       toast.classList.add('toast-active');
