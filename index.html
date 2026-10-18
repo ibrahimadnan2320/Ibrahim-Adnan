@@ -2059,6 +2059,16 @@
     } else {
       counters.forEach(c => c.textContent = c.getAttribute('data-target'));
     }
+
+    /* ==========================================================
+       12. PROGRESSIVE WEB APP & OFFLINE SERVICE WORKER
+       ========================================================= */
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .catch(() => {});
+      });
+    }
   </script>
 </body>
 </html>
