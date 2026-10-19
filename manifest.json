@@ -3,7 +3,7 @@
   "short_name": "Ibrahim Adnan",
   "description": "Official portfolio of Ibrahim Adnan - Full-Stack Developer & Software Quality Assurance Engineer.",
   "id": "/",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
   "display_override": [
