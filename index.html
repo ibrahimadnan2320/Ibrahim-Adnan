@@ -2096,6 +2096,16 @@
         } catch (e) {}
       });
     }
+
+    /* ==========================================================
+       14. NETWORK CONNECTIVITY STATUS ANNOUNCER
+       ========================================================= */
+    window.addEventListener('offline', () => {
+      showCopyToast('You are currently browsing offline — cached content available');
+    });
+    window.addEventListener('online', () => {
+      showCopyToast('Connection restored — you are back online!');
+    });
   </script>
 </body>
 </html>
