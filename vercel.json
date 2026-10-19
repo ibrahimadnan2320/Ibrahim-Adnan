@@ -10,6 +10,10 @@
           "value": "on"
         },
         {
+          "key": "Accept-CH",
+          "value": "DPR, Width, Viewport-Width, Sec-CH-DPR"
+        },
+        {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
         },
