@@ -74,5 +74,28 @@ self.addEventListener('fetch', (event) => {
         return cachedResponse || fetchPromise;
       })
     );
+    return;
+  }
+
+  // Third-party fonts, stylesheets and CDNs: Cache-first with stale-while-revalidate update
+  if (url.origin.includes('fonts.googleapis.com') ||
+      url.origin.includes('fonts.gstatic.com') ||
+      url.origin.includes('cdnjs.cloudflare.com') ||
+      url.origin.includes('cdn.tailwindcss.com')) {
+    event.respondWith(
+      caches.match(request).then((cachedResponse) => {
+        const fetchPromise = fetch(request)
+          .then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200) {
+              const clone = networkResponse.clone();
+              caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+            }
+            return networkResponse;
+          })
+          .catch(() => cachedResponse);
+
+        return cachedResponse || fetchPromise;
+      })
+    );
   }
 });
