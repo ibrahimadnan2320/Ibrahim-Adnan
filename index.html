@@ -654,6 +654,19 @@
         border: 1px solid ButtonText !important;
       }
     }
+
+    /* Cellular Data Saver Mode (CSS Media Queries Level 4 / User Data Saver Preference) */
+    @media (prefers-reduced-data: reduce) {
+      #canvas-container,
+      .ambient-well {
+        display: none !important;
+      }
+      .reveal-3d {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 <body class="font-sans selection:bg-cyber-accent selection:text-black relative">
