@@ -27,7 +27,11 @@
         },
         {
           "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=(), interest-cohort=(), fullscreen=(self), payment=(), usb=()"
+          "value": "camera=(), microphone=(), geolocation=(), interest-cohort=(), fullscreen=(self), payment=(), usb=(), display-capture=(), midi=(), screen-wake-lock=(self)"
+        },
+        {
+          "key": "Timing-Allow-Origin",
+          "value": "*"
         },
         {
           "key": "Cross-Origin-Opener-Policy",
