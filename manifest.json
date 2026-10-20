@@ -70,6 +70,30 @@
           "sizes": "192x192"
         }
       ]
+    },
+    {
+      "name": "Experience Timeline",
+      "short_name": "Timeline",
+      "description": "View professional trajectory and engineering engagements",
+      "url": "/#experience",
+      "icons": [
+        {
+          "src": "profile.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Technical Stack",
+      "short_name": "Stack",
+      "description": "Explore full-stack tools, frameworks, and architecture",
+      "url": "/#skills",
+      "icons": [
+        {
+          "src": "profile.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }
