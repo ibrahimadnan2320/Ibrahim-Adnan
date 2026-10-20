@@ -303,6 +303,31 @@
       -webkit-text-size-adjust: 100%;
       font-synthesis: none;
       font-optical-sizing: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 240, 255, 0.35) transparent;
+    }
+    html.light {
+      scrollbar-color: rgba(2, 132, 199, 0.45) transparent;
+    }
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 240, 255, 0.3);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 240, 255, 0.6);
+    }
+    html.light ::-webkit-scrollbar-thumb {
+      background: rgba(2, 132, 199, 0.4);
+    }
+    html.light ::-webkit-scrollbar-thumb:hover {
+      background: rgba(2, 132, 199, 0.7);
     }
 
     [id] {
