@@ -35,6 +35,13 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// Allow client to command immediate takeover via message protocol
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   if (request.method !== 'GET') return;
