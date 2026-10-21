@@ -414,12 +414,14 @@
       opacity: 0;
       transition: opacity 0.2s ease;
     }
-    .crystal-card:hover::before {
-      opacity: 1;
-    }
-    .crystal-card:hover {
-      border-color: rgba(0, 240, 255, 0.45);
-      box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), 0 12px 30px -8px rgba(0, 240, 255, 0.2);
+    @media (hover: hover) {
+      .crystal-card:hover::before {
+        opacity: 1;
+      }
+      .crystal-card:hover {
+        border-color: rgba(0, 240, 255, 0.45);
+        box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), 0 12px 30px -8px rgba(0, 240, 255, 0.2);
+      }
     }
 
     /* Precision Project Mockup Card Clipping: eliminates corner pixel bleed & enforces hardware-isolated boundary on hover */
