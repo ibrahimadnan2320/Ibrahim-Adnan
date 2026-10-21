@@ -479,6 +479,25 @@
       }
     }
 
+    /* High-Performance Micro-Interactive Badge Pill Component */
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      background-color: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+      user-select: none;
+    }
+    @media (hover: hover) {
+      .badge-pill:hover {
+        border-color: rgba(0, 240, 255, 0.45);
+        background-color: rgba(0, 240, 255, 0.08);
+        transform: translateY(-1px);
+      }
+    }
+
     /* Precision Project Mockup Card Clipping: eliminates corner pixel bleed & enforces hardware-isolated boundary on hover */
     .project-preview-frame {
       position: relative;
@@ -1147,18 +1166,18 @@
             <h3 class="font-bold text-lg text-[var(--text-main)] mb-2">Software & Web Engineering</h3>
             <p class="text-xs text-[var(--text-muted)] mb-4">Core languages, front-end design, and full-stack web applications.</p>
             <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">C</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">C++</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Ruby</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">HTML5</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">CSS3 Flexbox</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">CSS Grid</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">JavaScript</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Tailwind CSS</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Responsive Design</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Full-Stack Dev</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Git</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">GitHub</span>
+              <span class="badge-pill">C</span>
+              <span class="badge-pill">C++</span>
+              <span class="badge-pill">Ruby</span>
+              <span class="badge-pill">HTML5</span>
+              <span class="badge-pill">CSS3 Flexbox</span>
+              <span class="badge-pill">CSS Grid</span>
+              <span class="badge-pill">JavaScript</span>
+              <span class="badge-pill">Tailwind CSS</span>
+              <span class="badge-pill">Responsive Design</span>
+              <span class="badge-pill">Full-Stack Dev</span>
+              <span class="badge-pill">Git</span>
+              <span class="badge-pill">GitHub</span>
             </div>
           </div>
         </div>
@@ -1171,16 +1190,16 @@
             <h3 class="font-bold text-lg text-[var(--text-main)] mb-2">Quality Assurance & Systems</h3>
             <p class="text-xs text-[var(--text-muted)] mb-4">Systematic validation, bug mitigation, and architecture testing.</p>
             <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Alpha Testing</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Beta Testing</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Unit Testing</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">SQA</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Mobile App QA</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Web App QA</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Manual Testing</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Test Case Execution</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Bug Reporting</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Problem Solving</span>
+              <span class="badge-pill">Alpha Testing</span>
+              <span class="badge-pill">Beta Testing</span>
+              <span class="badge-pill">Unit Testing</span>
+              <span class="badge-pill">SQA</span>
+              <span class="badge-pill">Mobile App QA</span>
+              <span class="badge-pill">Web App QA</span>
+              <span class="badge-pill">Manual Testing</span>
+              <span class="badge-pill">Test Case Execution</span>
+              <span class="badge-pill">Bug Reporting</span>
+              <span class="badge-pill">Problem Solving</span>
             </div>
           </div>
         </div>
@@ -1193,19 +1212,19 @@
             <h3 class="font-bold text-lg text-[var(--text-main)] mb-2">AI, Media & Commerce</h3>
             <p class="text-xs text-[var(--text-muted)] mb-4">Generative AI orchestration, video editing, and digital growth.</p>
             <div class="flex flex-wrap gap-1.5 font-mono text-[11px]">
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Prompt Engineering</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">ChatGPT</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Gemini</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">NotebookLM</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">YouTube Automation</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Video Editing</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Digital Photography</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Script Writing</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Upwork Client Hunting</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">E-commerce Operations</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Social Media Management</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Equity Management</span>
-              <span class="px-2 py-1 rounded bg-[var(--badge-bg)] border border-[var(--badge-border)]">Stock Market Analysis</span>
+              <span class="badge-pill">Prompt Engineering</span>
+              <span class="badge-pill">ChatGPT</span>
+              <span class="badge-pill">Gemini</span>
+              <span class="badge-pill">NotebookLM</span>
+              <span class="badge-pill">YouTube Automation</span>
+              <span class="badge-pill">Video Editing</span>
+              <span class="badge-pill">Digital Photography</span>
+              <span class="badge-pill">Script Writing</span>
+              <span class="badge-pill">Upwork Client Hunting</span>
+              <span class="badge-pill">E-commerce Operations</span>
+              <span class="badge-pill">Social Media Management</span>
+              <span class="badge-pill">Equity Management</span>
+              <span class="badge-pill">Stock Market Analysis</span>
             </div>
           </div>
         </div>
