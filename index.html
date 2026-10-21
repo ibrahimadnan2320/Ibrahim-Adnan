@@ -2197,9 +2197,10 @@
 
     /* ==========================================================
        15. REAL-USER CORE WEB VITALS MONITORING (ZERO OVERHEAD)
+       Captures official Core Web Vitals: LCP, CLS, and INP/FID
        ========================================================= */
     if ('PerformanceObserver' in window) {
-      window.__vitals = { lcp: 0, cls: 0 };
+      window.__vitals = { lcp: 0, cls: 0, inp: 0, fid: 0 };
       try {
         const lcpObserver = new PerformanceObserver((entryList) => {
           const entries = entryList.getEntries();
@@ -2210,10 +2211,25 @@
 
         const clsObserver = new PerformanceObserver((entryList) => {
           for (const entry of entryList.getEntries()) {
-            if (!entry.hadRecentInput) window.__vitals.cls += entry.value;
+            if (!entry.hadRecentInput) {
+              window.__vitals.cls = Number((window.__vitals.cls + entry.value).toFixed(4));
+            }
           }
         });
         clsObserver.observe({ type: 'layout-shift', buffered: true });
+
+        const inpObserver = new PerformanceObserver((entryList) => {
+          for (const entry of entryList.getEntries()) {
+            const delay = entry.processingStart - entry.startTime;
+            if (window.__vitals.fid === 0 && delay > 0) {
+              window.__vitals.fid = Math.round(delay);
+            }
+            if (entry.duration > window.__vitals.inp) {
+              window.__vitals.inp = Math.round(entry.duration);
+            }
+          }
+        });
+        inpObserver.observe({ type: 'first-input', buffered: true });
       } catch (e) {}
     }
   </script>
