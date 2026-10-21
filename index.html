@@ -854,11 +854,24 @@
         <button id="theme-toggle" aria-label="Toggle theme" class="w-10 h-10 sm:w-9 sm:h-9 rounded-full crystal-card flex items-center justify-center text-cyber-accent hover:border-cyber-accent transition active:scale-90">
           <i id="theme-icon" class="fa-solid fa-moon text-xs" aria-hidden="true"></i>
         </button>
+        <button id="mobile-menu-btn" aria-label="Toggle mobile navigation menu" aria-expanded="false" aria-controls="mobile-nav-menu" class="md:hidden w-10 h-10 rounded-full crystal-card flex items-center justify-center text-cyber-accent hover:border-cyber-accent transition active:scale-90">
+          <i id="mobile-menu-icon" class="fa-solid fa-bars text-sm" aria-hidden="true"></i>
+        </button>
         <a href="#contact" class="hidden sm:inline-flex px-4 py-1.5 font-mono text-xs rounded-full border border-cyber-accent/50 text-cyber-accent hover:bg-cyber-accent hover:text-black transition duration-300">
           GET IN TOUCH
         </a>
       </div>
 
+    </div>
+
+    <!-- Responsive Mobile Navigation Drawer (WCAG 2.1 Compliant with Keyboard & Touch Isolation) -->
+    <div id="mobile-nav-menu" class="hidden md:hidden pt-3 pb-2 border-t border-[var(--card-border)] mt-3 space-y-1 font-mono text-xs text-[var(--text-muted)]" role="navigation" aria-label="Mobile Navigation">
+      <a href="#about" class="block py-2.5 px-3 rounded-lg hover:bg-cyber-accent/10 hover:text-cyber-accent transition">01 // ABOUT</a>
+      <a href="#experience" class="block py-2.5 px-3 rounded-lg hover:bg-cyber-accent/10 hover:text-cyber-accent transition">02 // TIMELINE</a>
+      <a href="#skills" class="block py-2.5 px-3 rounded-lg hover:bg-cyber-accent/10 hover:text-cyber-accent transition">03 // STACK</a>
+      <a href="#education" class="block py-2.5 px-3 rounded-lg hover:bg-cyber-accent/10 hover:text-cyber-accent transition">04 // EDUCATION</a>
+      <a href="#projects" class="block py-2.5 px-3 rounded-lg hover:bg-cyber-accent/10 hover:text-cyber-accent transition">05 // WORK</a>
+      <a href="#contact" class="block py-2.5 px-3 rounded-lg hover:bg-cyber-accent/10 hover:text-cyber-accent transition">06 // CONTACT</a>
     </div>
     <div id="scroll-progress-bar" class="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-cyber-accent via-cyan-400 to-cyber-emerald origin-left w-full scale-x-0 will-change-transform pointer-events-none"></div>
   </nav>
@@ -2105,6 +2118,56 @@
           targetElement.focus({ preventScroll: true });
         }
       });
+    });
+
+    /* ==========================================================
+       RESPONSIVE MOBILE NAVIGATION DRAWER CONTROLLER
+       ========================================================= */
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+    const mobileNavMenu = document.getElementById('mobile-nav-menu');
+
+    function toggleMobileMenu(forceClose = false) {
+      if (!mobileNavMenu || !mobileMenuBtn) return;
+      const willOpen = forceClose ? false : mobileNavMenu.classList.contains('hidden');
+      if (willOpen) {
+        mobileNavMenu.classList.remove('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        if (mobileMenuIcon) {
+          mobileMenuIcon.classList.remove('fa-bars');
+          mobileMenuIcon.classList.add('fa-xmark');
+        }
+      } else {
+        mobileNavMenu.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        if (mobileMenuIcon) {
+          mobileMenuIcon.classList.remove('fa-xmark');
+          mobileMenuIcon.classList.add('fa-bars');
+        }
+      }
+    }
+
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', () => toggleMobileMenu());
+    }
+
+    if (mobileNavMenu) {
+      mobileNavMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => toggleMobileMenu(true));
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileNavMenu && !mobileNavMenu.classList.contains('hidden')) {
+        toggleMobileMenu(true);
+        if (mobileMenuBtn) mobileMenuBtn.focus();
+      }
+    });
+
+    window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => {
+      if (e.matches && mobileNavMenu && !mobileNavMenu.classList.contains('hidden')) {
+        toggleMobileMenu(true);
+      }
     });
 
     /* ==========================================================
