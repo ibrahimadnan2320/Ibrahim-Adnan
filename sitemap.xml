@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://ibrahim-adnan.vercel.app/</loc>
-    <lastmod>2026-10-21T19:50:00+05:00</lastmod>
+    <lastmod>2026-10-21T22:00:00+05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://ibrahim-adnan.vercel.app/profile.png</image:loc>
+      <image:title>Ibrahim Adnan - Software Engineer &amp; Full-Stack Developer</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ibrahim-adnan.vercel.app/mak-and-sons.png</image:loc>
+      <image:title>MAK &amp; Sons Construction Website - Production Platform</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ibrahim-adnan.vercel.app/iqra-academy.png</image:loc>
+      <image:title>IQRA Online Quran Academy - EdTech Platform</image:title>
+    </image:image>
   </url>
 </urlset>
