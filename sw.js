@@ -4,7 +4,7 @@
    stale-while-revalidate asset caching for PWA performance.
    ========================================================= */
 
-const CACHE_NAME = 'ibrahim-adnan-v2';
+const CACHE_NAME = 'ibrahim-adnan-v2.1';
 const MAX_CACHE_ITEMS = 50;
 const PRECACHE_ASSETS = [
   '/',
@@ -100,7 +100,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Third-party fonts, stylesheets and CDNs: Cache-first with stale-while-revalidate update
+  // Third-party fonts, stylesheets and CDNs: Cache-first with stale-while-revalidate update (supports opaque responses)
   if (url.origin.includes('fonts.googleapis.com') ||
       url.origin.includes('fonts.gstatic.com') ||
       url.origin.includes('cdnjs.cloudflare.com') ||
@@ -109,7 +109,7 @@ self.addEventListener('fetch', (event) => {
       caches.match(request).then((cachedResponse) => {
         const fetchPromise = fetch(request)
           .then((networkResponse) => {
-            if (networkResponse && networkResponse.status === 200) {
+            if (networkResponse && (networkResponse.status === 200 || networkResponse.type === 'opaque')) {
               const clone = networkResponse.clone();
               caches.open(CACHE_NAME).then((cache) => {
                 cache.put(request, clone);
