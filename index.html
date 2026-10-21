@@ -2192,6 +2192,38 @@
     });
 
     /* ==========================================================
+       ACTIVE SECTION SCROLL SPY (INTERSECTION OBSERVER)
+       Synchronizes active section with nav links & aria-current
+       ========================================================= */
+    const navAnchors = document.querySelectorAll('#navbar a[href^="#"], #mobile-nav-menu a[href^="#"]');
+    const trackedSections = document.querySelectorAll('section[id]');
+
+    if ('IntersectionObserver' in window && trackedSections.length > 0) {
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navAnchors.forEach((a) => {
+              const href = a.getAttribute('href');
+              if (href === `#${id}`) {
+                a.classList.add('text-cyber-accent');
+                a.setAttribute('aria-current', 'page');
+              } else if (href.startsWith('#') && href !== '#' && href !== '#top') {
+                a.classList.remove('text-cyber-accent');
+                a.removeAttribute('aria-current');
+              }
+            });
+          }
+        });
+      }, {
+        rootMargin: '-20% 0px -65% 0px',
+        threshold: 0
+      });
+
+      trackedSections.forEach((sec) => sectionObserver.observe(sec));
+    }
+
+    /* ==========================================================
        10. HERO CARD 3D TILT (RAF-THROTTLED, DESKTOP ONLY)
        ========================================================= */
     const heroCard = document.getElementById('hero-card');
