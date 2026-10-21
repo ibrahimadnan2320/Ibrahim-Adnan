@@ -2194,6 +2194,28 @@
     window.addEventListener('online', () => {
       showCopyToast('Connection restored — you are back online!');
     });
+
+    /* ==========================================================
+       15. REAL-USER CORE WEB VITALS MONITORING (ZERO OVERHEAD)
+       ========================================================= */
+    if ('PerformanceObserver' in window) {
+      window.__vitals = { lcp: 0, cls: 0 };
+      try {
+        const lcpObserver = new PerformanceObserver((entryList) => {
+          const entries = entryList.getEntries();
+          const lastEntry = entries[entries.length - 1];
+          if (lastEntry) window.__vitals.lcp = Math.round(lastEntry.startTime);
+        });
+        lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+
+        const clsObserver = new PerformanceObserver((entryList) => {
+          for (const entry of entryList.getEntries()) {
+            if (!entry.hadRecentInput) window.__vitals.cls += entry.value;
+          }
+        });
+        clsObserver.observe({ type: 'layout-shift', buffered: true });
+      } catch (e) {}
+    }
   </script>
 </body>
 </html>
