@@ -4,7 +4,8 @@
    stale-while-revalidate asset caching for PWA performance.
    ========================================================= */
 
-const CACHE_NAME = 'ibrahim-adnan-v1';
+const CACHE_NAME = 'ibrahim-adnan-v2';
+const MAX_CACHE_ITEMS = 50;
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
@@ -42,6 +43,18 @@ self.addEventListener('message', (event) => {
   }
 });
 
+// Automated cache eviction policy to prevent unbounded mobile storage growth
+async function trimCache(cacheName, maxItems) {
+  try {
+    const cache = await caches.open(cacheName);
+    const keys = await cache.keys();
+    if (keys.length > maxItems) {
+      await cache.delete(keys[0]);
+      await trimCache(cacheName, maxItems);
+    }
+  } catch (e) {}
+}
+
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   if (request.method !== 'GET') return;
@@ -72,7 +85,10 @@ self.addEventListener('fetch', (event) => {
           .then((networkResponse) => {
             if (networkResponse && networkResponse.status === 200) {
               const clone = networkResponse.clone();
-              caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+              caches.open(CACHE_NAME).then((cache) => {
+                cache.put(request, clone);
+                trimCache(CACHE_NAME, MAX_CACHE_ITEMS);
+              });
             }
             return networkResponse;
           })
@@ -95,7 +111,10 @@ self.addEventListener('fetch', (event) => {
           .then((networkResponse) => {
             if (networkResponse && networkResponse.status === 200) {
               const clone = networkResponse.clone();
-              caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+              caches.open(CACHE_NAME).then((cache) => {
+                cache.put(request, clone);
+                trimCache(CACHE_NAME, MAX_CACHE_ITEMS);
+              });
             }
             return networkResponse;
           })
