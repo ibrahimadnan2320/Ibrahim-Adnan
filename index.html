@@ -337,31 +337,31 @@
       --bg-base: #050608;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --card-bg: rgba(12, 17, 28, 0.28);
-      --card-border: rgba(255, 255, 255, 0.14);
-      --card-shine: rgba(255, 255, 255, 0.20);
-      --card-blur: 20px;
-      --nav-bg: rgba(5, 6, 8, 0.22);
-      --nav-blur: 20px;
-      --marquee-bg: rgba(5, 6, 8, 0.25);
-      --badge-bg: rgba(255, 255, 255, 0.03);
-      --badge-border: rgba(255, 255, 255, 0.12);
-      --glow-color: rgba(0, 240, 255, 0.10);
+      --card-bg: rgba(18, 24, 38, 0.32);
+      --card-border: rgba(255, 255, 255, 0.16);
+      --card-shine: rgba(255, 255, 255, 0.24);
+      --card-blur: 24px;
+      --nav-bg: rgba(8, 12, 20, 0.35);
+      --nav-blur: 24px;
+      --marquee-bg: rgba(8, 12, 20, 0.30);
+      --badge-bg: rgba(255, 255, 255, 0.04);
+      --badge-border: rgba(255, 255, 255, 0.14);
+      --glow-color: rgba(0, 240, 255, 0.12);
     }
 
     html.light {
       --bg-base: #cdd5e0;
       --text-main: #0f172a;
       --text-muted: #334155;
-      --card-bg: rgba(245, 248, 252, 0.25);
-      --card-border: rgba(255, 255, 255, 0.70);
-      --card-shine: rgba(255, 255, 255, 0.90);
-      --card-blur: 20px;
-      --nav-bg: rgba(205, 213, 224, 0.22);
-      --nav-blur: 22px;
-      --marquee-bg: rgba(215, 223, 233, 0.28);
-      --badge-bg: rgba(15, 23, 42, 0.03);
-      --badge-border: rgba(15, 23, 42, 0.16);
+      --card-bg: rgba(245, 248, 252, 0.28);
+      --card-border: rgba(255, 255, 255, 0.75);
+      --card-shine: rgba(255, 255, 255, 0.95);
+      --card-blur: 24px;
+      --nav-bg: rgba(205, 213, 224, 0.35);
+      --nav-blur: 24px;
+      --marquee-bg: rgba(215, 223, 233, 0.32);
+      --badge-bg: rgba(15, 23, 42, 0.04);
+      --badge-border: rgba(15, 23, 42, 0.18);
       --glow-color: rgba(14, 165, 233, 0.14);
     }
 
@@ -459,17 +459,29 @@
       display: none;
     }
 
-    /* High-End Frosted Glass Crystal Cards with Layered Depth & Hardware Isolation */
+    /* Ultra-Realistic Frosted Glassmorphism with Specular Rim & Color Saturation */
     .crystal-card {
       position: relative;
-      background-color: var(--card-bg);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.015) 100%), var(--card-bg);
       border: 1px solid var(--card-border);
-      backdrop-filter: blur(var(--card-blur));
-      -webkit-backdrop-filter: blur(var(--card-blur));
-      box-shadow: inset 0 1px 0 0 var(--card-shine), 0 8px 32px -8px var(--glow-color);
-      transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+      border-radius: 1.25rem;
+      backdrop-filter: blur(var(--card-blur)) saturate(180%);
+      -webkit-backdrop-filter: blur(var(--card-blur)) saturate(180%);
+      box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.22),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 14px 34px -10px rgba(0, 0, 0, 0.55),
+        0 2px 8px 0 var(--glow-color);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, transform 0.25s ease;
       overflow: hidden;
       contain: paint style;
+    }
+    html.light .crystal-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.25) 100%), var(--card-bg);
+      box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.9),
+        0 14px 34px -10px rgba(15, 23, 42, 0.12),
+        0 2px 8px 0 var(--glow-color);
     }
     .crystal-card::before {
       content: '';
@@ -486,8 +498,12 @@
         opacity: 1;
       }
       .crystal-card:hover {
-        border-color: rgba(0, 240, 255, 0.5);
-        box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 16px 40px -8px rgba(0, 240, 255, 0.22);
+        border-color: rgba(255, 255, 255, 0.35);
+        box-shadow: 
+          inset 0 1px 1px 0 rgba(255, 255, 255, 0.40),
+          inset 0 0 0 1px rgba(0, 240, 255, 0.20),
+          0 20px 48px -12px rgba(0, 0, 0, 0.65),
+          0 4px 20px -2px rgba(0, 240, 255, 0.25);
       }
     }
 
@@ -495,20 +511,22 @@
     .badge-pill {
       display: inline-flex;
       align-items: center;
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.25rem;
-      background-color: var(--badge-bg);
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%), var(--badge-bg);
       border: 1px solid var(--badge-border);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.18), 0 4px 12px rgba(0, 0, 0, 0.25);
+      transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
       user-select: none;
     }
     @media (hover: hover) {
       .badge-pill:hover {
-        border-color: rgba(0, 240, 255, 0.45);
-        background-color: rgba(0, 240, 255, 0.12);
-        transform: translateY(-1px);
+        border-color: rgba(0, 240, 255, 0.5);
+        background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+        box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.3), 0 0 16px rgba(0, 240, 255, 0.25);
+        transform: translateY(-1.5px);
       }
     }
 
@@ -726,6 +744,9 @@
 
     #navbar {
       will-change: transform;
+      backdrop-filter: blur(var(--nav-blur)) saturate(180%);
+      -webkit-backdrop-filter: blur(var(--nav-blur)) saturate(180%);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4), inset 0 -1px 0 0 var(--card-shine);
     }
     .marquee-strip {
       will-change: transform;
