@@ -446,6 +446,9 @@
     html.light :focus-visible {
       outline-color: #0284c7;
     }
+    :focus:not(:focus-visible) {
+      outline: none;
+    }
 
     .noise-overlay {
       display: none;
