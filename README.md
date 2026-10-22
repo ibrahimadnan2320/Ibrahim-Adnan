@@ -4,7 +4,7 @@
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-ibrahim--adnan.vercel.app-00f0ff?style=for-the-badge&logo=vercel&logoColor=black)](https://ibrahim-adnan.vercel.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](LICENSE)
-[![PWA Ready](https://img.shields.io/badge/PWA-v3.0%20Offline%20Ready-a855f7?style=for-the-badge&logo=pwa&logoColor=white)](https://ibrahim-adnan.vercel.app/)
+[![PWA Ready](https://img.shields.io/badge/PWA-v4.0%20Offline%20Ready-a855f7?style=for-the-badge&logo=pwa&logoColor=white)](https://ibrahim-adnan.vercel.app/)
 [![Lighthouse 100](https://img.shields.io/badge/Lighthouse-100%20Performance-00f0ff?style=for-the-badge&logo=googlechrome&logoColor=white)](https://ibrahim-adnan.vercel.app/)
 
 **A high-performance, 3D WebGL-powered engineering portfolio built with pure modern web technologies, ultra-realistic frosted glassmorphism, hardware-adaptive performance scaling, and zero-overhead offline PWA architecture.**
@@ -18,9 +18,11 @@
 ## ⚡ Highlights & Architectural Innovations
 
 - 🌐 **Interactive 3D WebGL Core**: Real-time rotating crystal wireframe icosahedron with an ambient starfield particle cloud powered by Three.js. Includes delta-time independent damping (60Hz / 120Hz / 144Hz display parity) and modular time tracking to eliminate IEEE-754 precision drift.
+- 🔲 **Cyber Architectural Grid & Space Grotesk Display**: Precision 36px x 36px background grid pattern paired with futuristic `Space Grotesk` display typography for high-impact headlines and numbered cyber telemetry badges.
+- 🎛️ **Interactive Technical Arsenal Bento Filter**: Seamless client-side categorization engine allowing visitors to dynamically filter 36+ competencies across Core Languages, Web & Full-Stack, SQA & Testing, and AI/Tools with zero page reload.
 - 🪟 **Ultra-Realistic Frosted Glassmorphism**: Multi-layered glass styling featuring `linear-gradient` face highlights, 1px specular top rims (`inset 0 1px 1px 0 rgba(255, 255, 255, 0.32)`), deep Gaussian blur (`24px`), and color saturation boost (`saturate(190%)`) that refracts colorful ambient glow orbs directly through the cards.
 - 🛡️ **Hardware-Adaptive Performance Engine**: Dynamic detection for low-spec CPUs (`hardwareConcurrency <= 2`), constrained memory (`deviceMemory <= 3`), cellular throttling (`2g`/`slow-2g`), and battery conservation (`battery.level <= 20%`). Bypasses expensive multi-pass Gaussian blurs automatically to lock 60 FPS on any device.
-- 📱 **Progressive Web App (PWA v3)**: Fully installable desktop and mobile app with Service Worker v3, `stale-while-revalidate` caching, offline navigation fallback, and automatic FIFO cache eviction capped at 50 items to protect mobile flash storage.
+- 📱 **Progressive Web App (PWA v4)**: Fully installable desktop and mobile app with Service Worker v4, `stale-while-revalidate` caching, offline navigation fallback, and automatic FIFO cache eviction capped at 50 items to protect mobile flash storage.
 - 🔍 **SEO & Search Architecture**: Complete Schema.org JSON-LD `@graph` (`Person`, `WebSite`, `ProfilePage`, `SoftwareApplication`, `BreadcrumbList`), OpenGraph metadata, Twitter Cards, international `hreflang` alternates, and XML sitemaps with Google Image extensions (`xmlns:image`).
 - ♿ **WCAG 2.1 AAA Accessibility**: Bypass skip-links, ARIA landmarks, modal keyboard focus traps with `Tab`/`Shift+Tab` cycling, `Escape` key dismissal, high-contrast mode overrides (`forced-colors: active`), and `prefers-reduced-motion` compliance.
 
@@ -31,9 +33,9 @@
 | Layer | Technologies |
 |---|---|
 | **Core Runtime** | HTML5, Modern ECMAScript (ES2023+), Web APIs |
-| **Styling & Design** | Tailwind CSS Engine, Custom CSS Glassmorphism Engine, CSS Containment Level 2 |
+| **Styling & Design** | Tailwind CSS Engine, Cyber Grid Texture, Custom Glassmorphism Engine, CSS Containment Level 2 |
 | **3D & Graphics** | Three.js (WebGL Renderer, BufferGeometry, PointsMaterial, PerspectiveCamera) |
-| **Icons & Typography** | FontAwesome 6.5.1 (Asynchronous delivery), JetBrains Mono, Plus Jakarta Sans |
+| **Icons & Typography** | Space Grotesk, JetBrains Mono, Plus Jakarta Sans, FontAwesome 6.5.1 |
 | **Offline & PWA** | Web App Manifest, Service Worker API (CacheStorage, Clients Claim, Skip Waiting) |
 | **Deployment & Edge** | Vercel Serverless CDN, HTTP/2, HSTS Preload, Immutable Asset Caching |
 
@@ -43,7 +45,7 @@
 
 ```text
 ├── index.html                                 # Single-page application entry point & styles
-├── sw.js                                      # Service Worker (v3 cache & offline engine)
+├── sw.js                                      # Service Worker (v4 cache & offline engine)
 ├── manifest.json                              # PWA installation manifest & shortcuts
 ├── vercel.json                                # Edge caching headers & security policies
 ├── sitemap.xml                                # Google XML sitemap with Image extensions
