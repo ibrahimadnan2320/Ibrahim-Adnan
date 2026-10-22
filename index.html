@@ -2198,6 +2198,14 @@
       }
     });
 
+    document.addEventListener('click', (e) => {
+      if (mobileNavMenu && !mobileNavMenu.classList.contains('hidden')) {
+        if (navbar && !navbar.contains(e.target)) {
+          toggleMobileMenu(true);
+        }
+      }
+    });
+
     /* ==========================================================
        ACTIVE SECTION SCROLL SPY (INTERSECTION OBSERVER)
        Synchronizes active section with nav links & aria-current
