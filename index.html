@@ -334,35 +334,37 @@
 
   <style>
     :root {
-      --bg-base: #050608;
+      --bg-base: #07090e;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --card-bg: rgba(18, 24, 38, 0.32);
-      --card-border: rgba(255, 255, 255, 0.16);
-      --card-shine: rgba(255, 255, 255, 0.24);
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-bg-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%);
+      --card-border: rgba(255, 255, 255, 0.18);
+      --card-shine: rgba(255, 255, 255, 0.32);
       --card-blur: 24px;
-      --nav-bg: rgba(8, 12, 20, 0.35);
+      --nav-bg: rgba(10, 14, 23, 0.55);
       --nav-blur: 24px;
-      --marquee-bg: rgba(8, 12, 20, 0.30);
-      --badge-bg: rgba(255, 255, 255, 0.04);
-      --badge-border: rgba(255, 255, 255, 0.14);
-      --glow-color: rgba(0, 240, 255, 0.12);
+      --marquee-bg: rgba(10, 14, 23, 0.40);
+      --badge-bg: rgba(255, 255, 255, 0.06);
+      --badge-border: rgba(255, 255, 255, 0.16);
+      --glow-color: rgba(0, 240, 255, 0.15);
     }
 
     html.light {
-      --bg-base: #cdd5e0;
+      --bg-base: #d5dce6;
       --text-main: #0f172a;
       --text-muted: #334155;
-      --card-bg: rgba(245, 248, 252, 0.28);
-      --card-border: rgba(255, 255, 255, 0.75);
+      --card-bg: rgba(255, 255, 255, 0.45);
+      --card-bg-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.35) 100%);
+      --card-border: rgba(255, 255, 255, 0.85);
       --card-shine: rgba(255, 255, 255, 0.95);
       --card-blur: 24px;
-      --nav-bg: rgba(205, 213, 224, 0.35);
+      --nav-bg: rgba(255, 255, 255, 0.60);
       --nav-blur: 24px;
-      --marquee-bg: rgba(215, 223, 233, 0.32);
-      --badge-bg: rgba(15, 23, 42, 0.04);
-      --badge-border: rgba(15, 23, 42, 0.18);
-      --glow-color: rgba(14, 165, 233, 0.14);
+      --marquee-bg: rgba(255, 255, 255, 0.45);
+      --badge-bg: rgba(255, 255, 255, 0.60);
+      --badge-border: rgba(255, 255, 255, 0.80);
+      --glow-color: rgba(14, 165, 233, 0.18);
     }
 
     html {
@@ -462,22 +464,22 @@
     /* Ultra-Realistic Frosted Glassmorphism with Specular Rim & Color Saturation */
     .crystal-card {
       position: relative;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.015) 100%), var(--card-bg);
+      background: var(--card-bg-gradient), var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 1.25rem;
-      backdrop-filter: blur(var(--card-blur)) saturate(180%);
-      -webkit-backdrop-filter: blur(var(--card-blur)) saturate(180%);
+      border-radius: 1.5rem;
+      backdrop-filter: blur(var(--card-blur)) saturate(190%);
+      -webkit-backdrop-filter: blur(var(--card-blur)) saturate(190%);
       box-shadow: 
-        inset 0 1px 1px 0 rgba(255, 255, 255, 0.22),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-        0 14px 34px -10px rgba(0, 0, 0, 0.55),
-        0 2px 8px 0 var(--glow-color);
+        inset 0 1px 1px 0 var(--card-shine),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 20px 45px -12px rgba(0, 0, 0, 0.65),
+        0 4px 16px 0 var(--glow-color);
       transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, transform 0.25s ease;
       overflow: hidden;
       contain: paint style;
     }
     html.light .crystal-card {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.25) 100%), var(--card-bg);
+      background: var(--card-bg-gradient), var(--card-bg);
       box-shadow: 
         inset 0 1px 1px 0 rgba(255, 255, 255, 0.9),
         0 14px 34px -10px rgba(15, 23, 42, 0.12),
@@ -498,12 +500,12 @@
         opacity: 1;
       }
       .crystal-card:hover {
-        border-color: rgba(255, 255, 255, 0.35);
+        border-color: rgba(255, 255, 255, 0.45);
         box-shadow: 
-          inset 0 1px 1px 0 rgba(255, 255, 255, 0.40),
-          inset 0 0 0 1px rgba(0, 240, 255, 0.20),
-          0 20px 48px -12px rgba(0, 0, 0, 0.65),
-          0 4px 20px -2px rgba(0, 240, 255, 0.25);
+          inset 0 1px 1px 0 rgba(255, 255, 255, 0.55),
+          inset 0 0 0 1px rgba(0, 240, 255, 0.25),
+          0 24px 50px -12px rgba(0, 0, 0, 0.75),
+          0 6px 24px -2px rgba(0, 240, 255, 0.30);
       }
     }
 
@@ -513,19 +515,19 @@
       align-items: center;
       padding: 0.35rem 0.75rem;
       border-radius: 9999px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%), var(--badge-bg);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%), var(--badge-bg);
       border: 1px solid var(--badge-border);
-      backdrop-filter: blur(16px) saturate(160%);
-      -webkit-backdrop-filter: blur(16px) saturate(160%);
-      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.18), 0 4px 12px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(16px) saturate(170%);
+      -webkit-backdrop-filter: blur(16px) saturate(170%);
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.25), 0 4px 12px rgba(0, 0, 0, 0.25);
       transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
       user-select: none;
     }
     @media (hover: hover) {
       .badge-pill:hover {
         border-color: rgba(0, 240, 255, 0.5);
-        background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
-        box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.3), 0 0 16px rgba(0, 240, 255, 0.25);
+        background: linear-gradient(135deg, rgba(0, 240, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 100%);
+        box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.35), 0 0 16px rgba(0, 240, 255, 0.30);
         transform: translateY(-1.5px);
       }
     }
@@ -881,9 +883,10 @@
   <!-- 3D Three.js WebGL Canvas -->
   <div id="canvas-container" class="fixed inset-0 pointer-events-none z-0"></div>
 
-  <!-- Ambient Light Wells (Optimized with hardware-accelerated radial gradients) -->
-  <div class="ambient-well fixed top-1/4 left-1/5 w-[36rem] h-[36rem] rounded-full pointer-events-none z-0" style="background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%);"></div>
-  <div class="ambient-well fixed bottom-1/4 right-1/5 w-[36rem] h-[36rem] rounded-full pointer-events-none z-0" style="background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%);"></div>
+  <!-- Ambient Light Wells: Luminous colorful glow orbs that refract through frosted glass panels -->
+  <div class="ambient-well fixed top-10 left-10 w-[44rem] h-[44rem] rounded-full pointer-events-none z-0" style="background: radial-gradient(circle, rgba(0,240,255,0.22) 0%, rgba(6,182,212,0.08) 50%, transparent 70%);"></div>
+  <div class="ambient-well fixed top-1/2 right-10 w-[46rem] h-[46rem] rounded-full pointer-events-none z-0" style="background: radial-gradient(circle, rgba(168,85,247,0.22) 0%, rgba(147,51,234,0.08) 50%, transparent 70%);"></div>
+  <div class="ambient-well fixed bottom-10 left-1/3 w-[42rem] h-[42rem] rounded-full pointer-events-none z-0" style="background: radial-gradient(circle, rgba(16,185,129,0.18) 0%, rgba(5,150,105,0.06) 50%, transparent 70%);"></div>
 
   <!-- Navbar -->
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-transform duration-300 border-b border-[var(--card-border)] bg-[var(--nav-bg)] backdrop-blur px-6 py-3">
@@ -2361,9 +2364,18 @@
        12. PROGRESSIVE WEB APP & OFFLINE SERVICE WORKER
        ========================================================= */
     if ('serviceWorker' in navigator) {
+      let swRefreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!swRefreshing) {
+          swRefreshing = true;
+          window.location.reload();
+        }
+      });
+
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
           .then((reg) => {
+            reg.update();
             if (reg.waiting) {
               reg.waiting.postMessage({ type: 'SKIP_WAITING' });
             }
