@@ -337,28 +337,32 @@
       --bg-base: #050608;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --card-bg: rgba(12, 17, 28, 0.85);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --card-shine: rgba(255, 255, 255, 0.12);
-      --nav-bg: rgba(5, 6, 8, 0.82);
-      --marquee-bg: rgba(5, 6, 8, 0.88);
-      --badge-bg: rgba(255, 255, 255, 0.04);
-      --badge-border: rgba(255, 255, 255, 0.1);
-      --glow-color: rgba(0, 240, 255, 0.08);
+      --card-bg: rgba(12, 17, 28, 0.55);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --card-shine: rgba(255, 255, 255, 0.18);
+      --card-blur: 16px;
+      --nav-bg: rgba(5, 6, 8, 0.45);
+      --nav-blur: 20px;
+      --marquee-bg: rgba(5, 6, 8, 0.50);
+      --badge-bg: rgba(255, 255, 255, 0.06);
+      --badge-border: rgba(255, 255, 255, 0.12);
+      --glow-color: rgba(0, 240, 255, 0.10);
     }
 
     html.light {
       --bg-base: #cdd5e0;
       --text-main: #0f172a;
       --text-muted: #334155;
-      --card-bg: rgba(245, 248, 252, 0.94);
-      --card-border: rgba(255, 255, 255, 0.85);
-      --card-shine: rgba(255, 255, 255, 0.95);
-      --nav-bg: rgba(205, 213, 224, 0.88);
-      --marquee-bg: rgba(215, 223, 233, 0.92);
-      --badge-bg: rgba(15, 23, 42, 0.05);
-      --badge-border: rgba(15, 23, 42, 0.14);
-      --glow-color: rgba(14, 165, 233, 0.12);
+      --card-bg: rgba(245, 248, 252, 0.50);
+      --card-border: rgba(255, 255, 255, 0.65);
+      --card-shine: rgba(255, 255, 255, 0.85);
+      --card-blur: 18px;
+      --nav-bg: rgba(205, 213, 224, 0.45);
+      --nav-blur: 22px;
+      --marquee-bg: rgba(215, 223, 233, 0.55);
+      --badge-bg: rgba(15, 23, 42, 0.06);
+      --badge-border: rgba(15, 23, 42, 0.16);
+      --glow-color: rgba(14, 165, 233, 0.14);
     }
 
     html {
@@ -455,13 +459,15 @@
       display: none;
     }
 
-    /* High-Performance Crystal Cards: 0 GPU Blur Passes, 100% 60 FPS locked on all devices */
+    /* High-End Frosted Glass Crystal Cards with Layered Depth & Hardware Isolation */
     .crystal-card {
       position: relative;
       background-color: var(--card-bg);
       border: 1px solid var(--card-border);
-      box-shadow: inset 0 1px 0 0 var(--card-shine), 0 8px 24px -8px var(--glow-color);
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      backdrop-filter: blur(var(--card-blur));
+      -webkit-backdrop-filter: blur(var(--card-blur));
+      box-shadow: inset 0 1px 0 0 var(--card-shine), 0 8px 32px -8px var(--glow-color);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
       overflow: hidden;
       contain: paint style;
     }
@@ -470,18 +476,18 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: radial-gradient(500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 240, 255, 0.12), transparent 45%);
+      background: radial-gradient(550px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 240, 255, 0.14), transparent 45%);
       pointer-events: none;
       opacity: 0;
-      transition: opacity 0.2s ease;
+      transition: opacity 0.25s ease;
     }
     @media (hover: hover) {
       .crystal-card:hover::before {
         opacity: 1;
       }
       .crystal-card:hover {
-        border-color: rgba(0, 240, 255, 0.45);
-        box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), 0 12px 30px -8px rgba(0, 240, 255, 0.2);
+        border-color: rgba(0, 240, 255, 0.5);
+        box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 16px 40px -8px rgba(0, 240, 255, 0.22);
       }
     }
 
@@ -493,13 +499,15 @@
       border-radius: 0.25rem;
       background-color: var(--badge-bg);
       border: 1px solid var(--badge-border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
       user-select: none;
     }
     @media (hover: hover) {
       .badge-pill:hover {
         border-color: rgba(0, 240, 255, 0.45);
-        background-color: rgba(0, 240, 255, 0.08);
+        background-color: rgba(0, 240, 255, 0.12);
         transform: translateY(-1px);
       }
     }
@@ -696,6 +704,12 @@
     }
     html.low-end .marquee-strip {
       background-color: var(--marquee-bg) !important;
+    }
+    html.low-end .crystal-card {
+      background-color: rgba(12, 17, 28, 0.94) !important;
+    }
+    html.light.low-end .crystal-card {
+      background-color: rgba(245, 248, 252, 0.96) !important;
     }
     html.low-end .reveal-3d {
       opacity: 1 !important;
