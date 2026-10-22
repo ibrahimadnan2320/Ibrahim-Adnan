@@ -20,8 +20,11 @@
   "categories": [
     "portfolio",
     "developer",
-    "technology"
+    "technology",
+    "productivity",
+    "education"
   ],
+  "handle_links": "preferred",
   "icons": [
     {
       "src": "profile.png",
