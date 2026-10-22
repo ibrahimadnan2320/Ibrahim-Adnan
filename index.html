@@ -1616,7 +1616,8 @@
     let scrollTicking = false;
 
     if (typeof THREE !== 'undefined' && container) {
-      const scene = new THREE.Scene();
+      try {
+        const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 45;
 
@@ -1780,6 +1781,9 @@
     window.addEventListener('orientationchange', () => {
       setTimeout(updateCanvasSize, 100);
     }, { passive: true });
+      } catch (err) {
+        console.warn('WebGL initialization gracefully bypassed:', err);
+      }
     }
 
     /* ==========================================================
