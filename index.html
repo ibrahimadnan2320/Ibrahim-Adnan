@@ -1862,7 +1862,7 @@
         <div id="coverflow-stage" class="coverflow-stage outline-none" role="region" aria-roledescription="carousel" aria-label="Interactive 3D Projects Showcase">
           
           <!-- Screen Reader Live Status Region -->
-          <div id="coverflow-live-status" class="sr-only" aria-live="polite" aria-atomic="true">Showing project 1 of 3: MAK &amp; Sons Construction</div>
+          <div id="coverflow-live-status" class="sr-only" aria-live="polite" aria-atomic="true">Showing project 2 of 3: IQRA Online Quran Academy</div>
 
           <!-- Ambient Bottom Reflection Light Puddle -->
           <div id="coverflow-glow" class="absolute bottom-1 sm:bottom-2 left-1/2 -translate-x-1/2 w-[300px] sm:w-[460px] md:w-[540px] h-12 sm:h-14 rounded-full pointer-events-none z-10 opacity-80 blur-2xl transition-all duration-700 bg-gradient-to-r from-purple-500/35 via-cyan-400/40 to-purple-500/35"></div>
@@ -2077,7 +2077,7 @@
         <!-- Dot Pagination Indicator -->
         <div class="flex items-center justify-center gap-2 mt-8 sm:mt-10" role="tablist" aria-label="Projects Pagination">
           <button class="coverflow-dot h-2.5 rounded-full transition-all duration-300 bg-white/20 w-2.5 hover:bg-cyber-accent" data-dot="0" aria-label="Go to project 1"></button>
-          <button class="coverflow-dot h-2.5 rounded-full transition-all duration-300 bg-white/20 w-2.5 hover:bg-cyber-accent" data-dot="1" aria-label="Go to project 2"></button>
+          <button class="coverflow-dot h-2.5 rounded-full transition-all duration-300 bg-cyber-accent w-8 hover:bg-cyber-accent" data-dot="1" aria-label="Go to project 2" aria-current="true"></button>
           <button class="coverflow-dot h-2.5 rounded-full transition-all duration-300 bg-white/20 w-2.5 hover:bg-cyber-accent" data-dot="2" aria-label="Go to project 3"></button>
         </div>
 
@@ -3836,7 +3836,7 @@
 
       if (!stage || cards.length === 0) return;
 
-      let currentIndex = 0;
+      let currentIndex = 1;
       const total = cards.length;
       let isDragging = false;
       let startX = 0;
