@@ -1276,27 +1276,44 @@
         </p>
       </div>
 
-      <!-- Filter Tabs Bar -->
-      <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10" role="tablist" aria-label="Skill Categories">
-        <button onclick="filterSkills('all')" data-filter="all" role="tab" aria-selected="true" class="skill-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-bold transition-all duration-300 bg-cyber-accent text-black shadow-[0_0_20px_rgba(0,240,255,0.35)]">
-          All Arsenal (36)
-        </button>
-        <button onclick="filterSkills('languages')" data-filter="languages" role="tab" aria-selected="false" class="skill-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all duration-300 text-[var(--text-muted)] crystal-card hover:text-[var(--text-main)] hover:border-cyber-accent/50">
-          Core Languages
-        </button>
-        <button onclick="filterSkills('web')" data-filter="web" role="tab" aria-selected="false" class="skill-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all duration-300 text-[var(--text-muted)] crystal-card hover:text-[var(--text-main)] hover:border-cyber-accent/50">
-          Web &amp; Full-Stack
-        </button>
-        <button onclick="filterSkills('testing')" data-filter="testing" role="tab" aria-selected="false" class="skill-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all duration-300 text-[var(--text-muted)] crystal-card hover:text-[var(--text-main)] hover:border-cyber-accent/50">
-          SQA &amp; Testing
-        </button>
-        <button onclick="filterSkills('tools')" data-filter="tools" role="tab" aria-selected="false" class="skill-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all duration-300 text-[var(--text-muted)] crystal-card hover:text-[var(--text-main)] hover:border-cyber-accent/50">
-          AI, Media &amp; Tools
-        </button>
+      <!-- Search & Filter Controls -->
+      <div class="max-w-xl mx-auto mb-8 space-y-4">
+        <!-- Live Instant Search Box -->
+        <div class="relative max-w-sm mx-auto">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-xs text-[var(--text-muted)] pointer-events-none" aria-hidden="true"></i>
+          <input id="skill-search-input" type="text" placeholder="Search technologies, tools, testing..." aria-label="Search skills" class="w-full pl-9 pr-9 py-2 rounded-xl text-xs font-mono bg-[var(--card-bg)] border border-[var(--card-border)] text-[var(--text-main)] placeholder-[var(--text-muted)] focus:outline-none focus:border-cyber-accent focus:shadow-[0_0_15px_rgba(0,240,255,0.25)] transition" />
+          <button id="skill-search-clear" aria-label="Clear search" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[var(--text-muted)] hover:text-white transition">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <!-- Filter Tabs Bar -->
+        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5" role="tablist" aria-label="Skill Categories">
+          <button onclick="filterSkills('all')" data-filter="all" role="tab" aria-selected="true" class="skill-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold transition-all duration-300 bg-cyber-accent text-black shadow-[0_0_20px_rgba(0,240,255,0.35)]">
+            All Arsenal (36)
+          </button>
+          <button onclick="filterSkills('languages')" data-filter="languages" role="tab" aria-selected="false" class="skill-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all duration-300 text-[var(--text-muted)] crystal-card hover:text-[var(--text-main)] hover:border-cyber-accent/50">
+            Languages (6)
+          </button>
+          <button onclick="filterSkills('web')" data-filter="web" role="tab" aria-selected="false" class="skill-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all duration-300 text-[var(--text-muted)] crystal-card hover:text-[var(--text-main)] hover:border-cyber-accent/50">
+            Web &amp; Full-Stack (6)
+          </button>
+          <button onclick="filterSkills('testing')" data-filter="testing" role="tab" aria-selected="false" class="skill-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all duration-300 text-[var(--text-muted)] crystal-card hover:text-[var(--text-main)] hover:border-cyber-accent/50">
+            SQA &amp; Testing (10)
+          </button>
+          <button onclick="filterSkills('tools')" data-filter="tools" role="tab" aria-selected="false" class="skill-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all duration-300 text-[var(--text-muted)] crystal-card hover:text-[var(--text-main)] hover:border-cyber-accent/50">
+            AI &amp; Tools (14)
+          </button>
+        </div>
       </div>
 
       <!-- Skill Cards Grid -->
       <div id="skills-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5 sm:gap-4">
+        
+        <div id="skills-empty-state" class="hidden col-span-full py-12 text-center font-mono text-xs text-[var(--text-muted)]">
+          <i class="fa-solid fa-filter-circle-xmark text-lg text-cyber-accent/60 mb-2 block" aria-hidden="true"></i>
+          No technologies match your search query. Try another term.
+        </div>
         
         <!-- Languages -->
         <div class="skill-card-item group relative p-4 rounded-2xl crystal-card hover:border-cyber-accent/60 hover:bg-white/[0.08] hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] flex flex-col justify-between" data-category="languages">
@@ -3388,12 +3405,50 @@
     }
 
     /* ==========================================================
-       16. INTERACTIVE TECHNICAL ARSENAL FILTER
-       Filters skills by category with fluid transition states.
+       16. INTERACTIVE TECHNICAL ARSENAL FILTER & LIVE SEARCH
+       Filters skills by category and keyword with fluid transition states.
        ========================================================= */
-    function filterSkills(category) {
-      const buttons = document.querySelectorAll('.skill-filter-btn');
+    let currentSkillFilter = 'all';
+
+    function applySkillFilters() {
+      const searchInput = document.getElementById('skill-search-input');
+      const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
       const cards = document.querySelectorAll('.skill-card-item');
+      const emptyState = document.getElementById('skills-empty-state');
+      const clearBtn = document.getElementById('skill-search-clear');
+
+      if (clearBtn) {
+        clearBtn.classList.toggle('hidden', query.length === 0);
+      }
+
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-category') || '';
+        const cardText = card.textContent.toLowerCase();
+        const matchesCategory = currentSkillFilter === 'all' || cardCat.split(' ').includes(currentSkillFilter);
+        const matchesQuery = query === '' || cardText.includes(query);
+
+        if (matchesCategory && matchesQuery) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+          card.style.transform = 'scale(1)';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.95)';
+        }
+      });
+
+      if (emptyState) {
+        emptyState.classList.toggle('hidden', visibleCount > 0);
+      }
+    }
+
+    function filterSkills(category) {
+      currentSkillFilter = category;
+      const buttons = document.querySelectorAll('.skill-filter-btn');
 
       buttons.forEach(btn => {
         const isTarget = btn.getAttribute('data-filter') === category;
@@ -3408,19 +3463,26 @@
         }
       });
 
-      cards.forEach(card => {
-        const cardCat = card.getAttribute('data-category') || '';
-        if (category === 'all' || cardCat.split(' ').includes(category)) {
-          card.style.display = 'flex';
-          card.style.opacity = '1';
-          card.style.transform = 'scale(1)';
-        } else {
-          card.style.display = 'none';
-          card.style.opacity = '0';
-          card.style.transform = 'scale(0.95)';
-        }
-      });
+      applySkillFilters();
     }
+
+    // Attach search input listeners
+    (function initSkillSearch() {
+      const searchInput = document.getElementById('skill-search-input');
+      const clearBtn = document.getElementById('skill-search-clear');
+      if (searchInput) {
+        searchInput.addEventListener('input', applySkillFilters);
+      }
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          if (searchInput) {
+            searchInput.value = '';
+            searchInput.focus();
+            applySkillFilters();
+          }
+        });
+      }
+    })();
 
     /* ==========================================================
        17. 3D PERSPECTIVE COVERFLOW CAROUSEL ENGINE
