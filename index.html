@@ -3992,9 +3992,9 @@
                                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         const isWidescreen = window.innerWidth >= 1440;
-        const xStep = isSmallMobile ? 60 : (isMobile ? 68 : (isWidescreen ? 64 : 58));
-        const zStep = isMobile ? 90 : 160;
-        const rot = isMobile ? 18 : 28;
+        const xStep = isSmallMobile ? 60 : (isMobile ? 68 : (isWidescreen ? 72 : 70));
+        const zStep = isMobile ? 80 : 130;
+        const rot = isMobile ? 20 : 30;
 
         cards.forEach((card, idx) => {
           let diff = idx - currentIndex;
