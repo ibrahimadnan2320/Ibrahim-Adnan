@@ -403,10 +403,10 @@
       max-width: 640px;
       height: 560px;
       transform: var(--card-transform);
-      transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1),
-                  opacity 0.7s cubic-bezier(0.2, 0.9, 0.3, 1),
-                  filter 0.7s cubic-bezier(0.2, 0.9, 0.3, 1),
-                  box-shadow 0.7s cubic-bezier(0.2, 0.9, 0.3, 1),
+      transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1),
+                  opacity 0.65s cubic-bezier(0.25, 1, 0.5, 1),
+                  filter 0.65s cubic-bezier(0.25, 1, 0.5, 1),
+                  box-shadow 0.65s cubic-bezier(0.25, 1, 0.5, 1),
                   border-color 0.4s ease;
       will-change: transform, opacity;
       transform-origin: center center;
@@ -435,8 +435,8 @@
     }
 
     .coverflow-card.active-card:hover {
-      transform: var(--card-transform) translate3d(0, -10px, 20px) !important;
-      box-shadow: 0 0 60px var(--card-active-glow, rgba(168, 85, 247, 0.65)), 0 30px 65px rgba(0, 0, 0, 0.9);
+      transform: var(--card-transform) translate3d(0, -12px, 35px) scale(1.02) !important;
+      box-shadow: 0 0 65px var(--card-active-glow, rgba(168, 85, 247, 0.65)), 0 32px 70px rgba(0, 0, 0, 0.9);
     }
 
     /* Interactive Frosted Glass Hover Details Overlay */
