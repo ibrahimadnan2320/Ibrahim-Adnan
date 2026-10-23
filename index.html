@@ -2494,7 +2494,25 @@
           </div>
 
           <div class="space-y-3">
-            <a href="https://wa.me/923218470572" target="_blank" rel="noopener noreferrer" class="w-full px-5 py-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/35 text-cyber-emerald font-mono font-bold text-xs hover:bg-emerald-500 hover:text-black transition duration-300 flex items-center justify-between shadow-sm active:scale-95">
+            <!-- 1-Click Message Topic Selector -->
+            <div>
+              <span class="block text-[11px] font-mono text-[var(--text-muted)] mb-2 uppercase tracking-wider">
+                ✦ Select Inquiry Topic (Auto-Fills Message):
+              </span>
+              <div class="flex flex-wrap gap-1.5" role="group" aria-label="Inquiry Topic Templates">
+                <button onclick="setWhatsAppTopic('role')" data-topic="role" class="wa-topic-btn px-2.5 py-1 rounded-lg text-[11px] font-mono crystal-card border-cyber-accent text-cyber-accent bg-cyber-accent/10 transition active:scale-95">
+                  💼 Engineering Role
+                </button>
+                <button onclick="setWhatsAppTopic('qa')" data-topic="qa" class="wa-topic-btn px-2.5 py-1 rounded-lg text-[11px] font-mono crystal-card text-[var(--text-muted)] hover:text-white transition active:scale-95">
+                  🛡️ SQA &amp; Testing
+                </button>
+                <button onclick="setWhatsAppTopic('project')" data-topic="project" class="wa-topic-btn px-2.5 py-1 rounded-lg text-[11px] font-mono crystal-card text-[var(--text-muted)] hover:text-white transition active:scale-95">
+                  🚀 Web Project
+                </button>
+              </div>
+            </div>
+
+            <a id="whatsapp-link" href="https://wa.me/923218470572?text=Hi%20Ibrahim%2C%20I%20came%20across%20your%20engineering%20portfolio%20and%20would%20like%20to%20discuss%20a%20Software%20Engineering%20opportunity." target="_blank" rel="noopener noreferrer" class="w-full px-5 py-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/35 text-cyber-emerald font-mono font-bold text-xs hover:bg-emerald-500 hover:text-black transition duration-300 flex items-center justify-between shadow-sm active:scale-95">
               <span class="flex items-center gap-2.5">
                 <i class="fa-brands fa-whatsapp text-base" aria-hidden="true"></i> WhatsApp Direct Chat
               </span>
@@ -3803,6 +3821,37 @@
       updateCoverflow();
       startAutoRotate();
     })();
+
+    /* ==========================================================
+       18. INTERACTIVE WHATSAPP INQUIRY TEMPLATE SWITCHER
+       Pre-populates topic-specific messages for seamless recruiter outreach.
+       ========================================================= */
+    function setWhatsAppTopic(topic) {
+      const waLink = document.getElementById('whatsapp-link');
+      const buttons = document.querySelectorAll('.wa-topic-btn');
+      
+      const templates = {
+        role: 'Hi Ibrahim, I came across your engineering portfolio and would like to discuss a Software Engineering opportunity.',
+        qa: 'Hi Ibrahim, I reviewed your profile and would like to discuss a Software Quality Assurance (SQA) engagement.',
+        project: 'Hi Ibrahim, I have a web platform project and would like to collaborate with you.'
+      };
+
+      const text = templates[topic] || templates.role;
+      if (waLink) {
+        waLink.href = `https://wa.me/923218470572?text=${encodeURIComponent(text)}`;
+      }
+
+      buttons.forEach(btn => {
+        const isTarget = btn.getAttribute('data-topic') === topic;
+        if (isTarget) {
+          btn.classList.add('border-cyber-accent', 'text-cyber-accent', 'bg-cyber-accent/10');
+          btn.classList.remove('text-[var(--text-muted)]');
+        } else {
+          btn.classList.remove('border-cyber-accent', 'text-cyber-accent', 'bg-cyber-accent/10');
+          btn.classList.add('text-[var(--text-muted)]');
+        }
+      });
+    }
   </script>
 </body>
 </html>
