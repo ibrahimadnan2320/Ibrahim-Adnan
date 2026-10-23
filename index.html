@@ -1802,13 +1802,16 @@
         </button>
 
         <!-- 3D Perspective Stage -->
-        <div id="coverflow-stage" class="coverflow-stage outline-none" role="region" aria-label="Interactive 3D Projects Showcase">
+        <div id="coverflow-stage" class="coverflow-stage outline-none" role="region" aria-roledescription="carousel" aria-label="Interactive 3D Projects Showcase">
           
+          <!-- Screen Reader Live Status Region -->
+          <div id="coverflow-live-status" class="sr-only" aria-live="polite" aria-atomic="true">Showing project 1 of 5: MAK &amp; Sons Construction</div>
+
           <!-- Ambient Bottom Reflection Light Puddle -->
           <div id="coverflow-glow" class="absolute bottom-2 left-1/2 -translate-x-1/2 w-[320px] sm:w-[440px] h-14 rounded-full pointer-events-none z-10 opacity-75 blur-2xl transition-all duration-700 bg-gradient-to-r from-purple-500/35 via-cyan-400/40 to-purple-500/35"></div>
           
           <!-- Card 1: MAK & Sons Construction -->
-          <article class="coverflow-card crystal-card p-5 sm:p-6 flex flex-col justify-between overflow-hidden shadow-2xl border border-white/15 bg-[#0a0d17]/95" data-index="0">
+          <article class="coverflow-card crystal-card p-5 sm:p-6 flex flex-col justify-between overflow-hidden shadow-2xl border border-white/15 bg-[#0a0d17]/95" data-index="0" role="group" aria-roledescription="slide" aria-label="Slide 1 of 5: MAK &amp; Sons Construction">
             <div>
               <div class="flex items-center justify-between mb-3.5">
                 <span class="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-mono text-cyber-accent font-semibold tracking-wider">
@@ -1847,7 +1850,7 @@
           </article>
 
           <!-- Card 2: IQRA Online Quran Academy -->
-          <article class="coverflow-card crystal-card p-5 sm:p-6 flex flex-col justify-between overflow-hidden shadow-2xl border border-white/15 bg-[#0a0d17]/95" data-index="1">
+          <article class="coverflow-card crystal-card p-5 sm:p-6 flex flex-col justify-between overflow-hidden shadow-2xl border border-white/15 bg-[#0a0d17]/95" data-index="1" role="group" aria-roledescription="slide" aria-label="Slide 2 of 5: IQRA Online Quran Academy">
             <div>
               <div class="flex items-center justify-between mb-3.5">
                 <span class="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-mono text-cyber-emerald font-semibold tracking-wider">
@@ -1886,7 +1889,7 @@
           </article>
 
           <!-- Card 3: Ruby Programming Masterclass -->
-          <article class="coverflow-card crystal-card p-5 sm:p-6 flex flex-col justify-between overflow-hidden shadow-2xl border border-white/15 bg-[#0a0d17]/95" data-index="2">
+          <article class="coverflow-card crystal-card p-5 sm:p-6 flex flex-col justify-between overflow-hidden shadow-2xl border border-white/15 bg-[#0a0d17]/95" data-index="2" role="group" aria-roledescription="slide" aria-label="Slide 3 of 5: Ruby Programming Masterclass">
             <div>
               <div class="flex items-center justify-between mb-3.5">
                 <span class="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-mono text-red-400 font-semibold tracking-wider">
@@ -1938,7 +1941,7 @@
           </article>
 
           <!-- Card 4: Enterprise SQA & Automation Suite -->
-          <article class="coverflow-card crystal-card p-5 sm:p-6 flex flex-col justify-between overflow-hidden shadow-2xl border border-white/15 bg-[#0a0d17]/95" data-index="3">
+          <article class="coverflow-card crystal-card p-5 sm:p-6 flex flex-col justify-between overflow-hidden shadow-2xl border border-white/15 bg-[#0a0d17]/95" data-index="3" role="group" aria-roledescription="slide" aria-label="Slide 4 of 5: Enterprise SQA &amp; QA Suite">
             <div>
               <div class="flex items-center justify-between mb-3.5">
                 <span class="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-mono text-cyber-purple font-semibold tracking-wider">
@@ -1986,7 +1989,7 @@
           </article>
 
           <!-- Card 5: Digital Ventures & Operations -->
-          <article class="coverflow-card crystal-card p-5 sm:p-6 flex flex-col justify-between overflow-hidden shadow-2xl border border-white/15 bg-[#0a0d17]/95" data-index="4">
+          <article class="coverflow-card crystal-card p-5 sm:p-6 flex flex-col justify-between overflow-hidden shadow-2xl border border-white/15 bg-[#0a0d17]/95" data-index="4" role="group" aria-roledescription="slide" aria-label="Slide 5 of 5: E-Commerce &amp; Venture Engine">
             <div>
               <div class="flex items-center justify-between mb-3.5">
                 <span class="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-mono text-amber-400 font-semibold tracking-wider">
@@ -3813,6 +3816,18 @@
         cards.forEach((card, idx) => {
           let diff = idx - currentIndex;
           card.classList.remove('active-card');
+          const isCurrent = diff === 0;
+          card.setAttribute('aria-hidden', isCurrent ? 'false' : 'true');
+
+          // Roving tabindex on interactive child elements to prevent keyboard traps on background slides
+          const focusables = card.querySelectorAll('a, button');
+          focusables.forEach(el => {
+            if (isCurrent) {
+              el.removeAttribute('tabindex');
+            } else {
+              el.setAttribute('tabindex', '-1');
+            }
+          });
 
           if (diff === 0) {
             // Active Center Card
@@ -3910,6 +3925,13 @@
             dot.setAttribute('aria-current', 'false');
           }
         });
+
+        // Announce slide change to assistive technologies
+        const liveStatus = document.getElementById('coverflow-live-status');
+        if (liveStatus && cards[currentIndex]) {
+          const title = cards[currentIndex].querySelector('h3')?.textContent?.trim() || '';
+          liveStatus.textContent = `Showing project ${currentIndex + 1} of ${total}: ${title}`;
+        }
       }
 
       function goTo(index) {
