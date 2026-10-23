@@ -439,6 +439,32 @@
       box-shadow: 0 0 55px rgba(168, 85, 247, 0.65), 0 30px 65px rgba(0, 0, 0, 0.9) !important;
     }
 
+    /* Interactive Frosted Glass Hover Details Overlay */
+    .card-hover-details {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 13, 23, 0.93);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 1rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      z-index: 25;
+      border-radius: 1rem;
+    }
+
+    .coverflow-card:hover .card-hover-details {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
     html.light .coverflow-card.active-card {
       border: 2px solid #00f0ff !important;
       box-shadow: 0 0 30px rgba(0, 240, 255, 0.35), 0 10px 30px rgba(0, 0, 0, 0.15) !important;
@@ -1871,6 +1897,31 @@
                   GITHUB <i class="fa-brands fa-github text-[11px]" aria-hidden="true"></i>
                 </a>
               </div>
+
+              <!-- Interactive Frosted Glass Details Drawer (Reveals on Hover) -->
+              <div class="card-hover-details border border-cyan-500/30 shadow-[0_0_25px_rgba(0,240,255,0.2)]">
+                <div>
+                  <div class="flex items-center justify-between gap-2 mb-1.5">
+                    <span class="text-[10px] font-mono font-bold text-cyber-accent uppercase tracking-wider flex items-center gap-1.5">
+                      <i class="fa-solid fa-microchip text-[11px]"></i> SYSTEM SPECIFICATIONS
+                    </span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">100/100 SPEED</span>
+                  </div>
+                  <p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed mb-2.5">
+                    Custom real-time quotation calculators, bilingual Arabic/English RTL architecture, and semantic Schema.org JSON-LD indexing.
+                  </p>
+                  <div class="flex flex-wrap gap-1.5">
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">Tailwind CSS</span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">ES6+ Modules</span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">Vercel Edge</span>
+                  </div>
+                </div>
+                <div class="pt-2 border-t border-white/10 flex items-center justify-between gap-2">
+                  <button onclick="openProjectModal('mak-and-sons')" class="w-full py-1.5 px-3 rounded-lg bg-cyber-accent text-black font-mono font-bold text-xs hover:bg-cyan-300 transition flex items-center justify-center gap-1.5 shadow-md active:scale-95">
+                    <span>EXPLORE CASE STUDY</span> <i class="fa-solid fa-arrow-right text-[10px]" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
             </div>
           </article>
 
@@ -1910,6 +1961,31 @@
                   GITHUB <i class="fa-brands fa-github text-[11px]" aria-hidden="true"></i>
                 </a>
               </div>
+
+              <!-- Interactive Frosted Glass Details Drawer (Reveals on Hover) -->
+              <div class="card-hover-details border border-emerald-500/30 shadow-[0_0_25px_rgba(16,185,129,0.2)]">
+                <div>
+                  <div class="flex items-center justify-between gap-2 mb-1.5">
+                    <span class="text-[10px] font-mono font-bold text-cyber-emerald uppercase tracking-wider flex items-center gap-1.5">
+                      <i class="fa-solid fa-graduation-cap text-[11px]"></i> SYSTEM SPECIFICATIONS
+                    </span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">GLOBAL EDTECH</span>
+                  </div>
+                  <p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed mb-2.5">
+                    Streamlined student enrollment funnel, timezone scheduling, accessible fluid typography, and multi-region CDN caching.
+                  </p>
+                  <div class="flex flex-wrap gap-1.5">
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">EdTech UX</span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">WCAG AA</span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">WhatsApp API</span>
+                  </div>
+                </div>
+                <div class="pt-2 border-t border-white/10 flex items-center justify-between gap-2">
+                  <button onclick="openProjectModal('iqra-academy')" class="w-full py-1.5 px-3 rounded-lg bg-cyber-emerald text-black font-mono font-bold text-xs hover:bg-emerald-300 transition flex items-center justify-center gap-1.5 shadow-md active:scale-95">
+                    <span>EXPLORE CASE STUDY</span> <i class="fa-solid fa-arrow-right text-[10px]" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
             </div>
           </article>
 
@@ -1937,7 +2013,7 @@
             </div>
 
             <!-- Stylized 3D Abstract Artwork Graphic -->
-            <div class="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-br from-red-950/60 via-purple-950/40 to-black/80 border border-white/10 mt-auto flex items-center justify-center p-4">
+            <div class="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-br from-red-950/60 via-purple-950/40 to-black/80 border border-white/10 mt-auto flex items-center justify-center p-4 group/preview">
               <!-- Radial Glow Orbs -->
               <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(239,68,68,0.25)_0%,transparent_70%)] pointer-events-none"></div>
               
@@ -1961,6 +2037,31 @@
                 <span class="text-[11px] font-mono text-red-300 font-semibold px-2.5 py-1 rounded bg-black/60 border border-red-500/30">
                   YouTube Series
                 </span>
+              </div>
+
+              <!-- Interactive Frosted Glass Details Drawer (Reveals on Hover) -->
+              <div class="card-hover-details border border-red-500/30 shadow-[0_0_25px_rgba(239,68,68,0.2)]">
+                <div>
+                  <div class="flex items-center justify-between gap-2 mb-1.5">
+                    <span class="text-[10px] font-mono font-bold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
+                      <i class="fa-solid fa-gem text-[11px]"></i> SYSTEM SPECIFICATIONS
+                    </span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-red-500/15 text-red-300 border border-red-500/30">VIDEO ACADEMY</span>
+                  </div>
+                  <p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed mb-2.5">
+                    In-depth video walkthroughs deconstructing Ruby OOP paradigms, metaprogramming constructs, and algorithmic thinking.
+                  </p>
+                  <div class="flex flex-wrap gap-1.5">
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">Ruby 3.x</span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">OOP Design</span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">Algorithms</span>
+                  </div>
+                </div>
+                <div class="pt-2 border-t border-white/10 flex items-center justify-between gap-2">
+                  <button onclick="openProjectModal('ruby-masterclass')" class="w-full py-1.5 px-3 rounded-lg bg-red-500 text-white font-mono font-bold text-xs hover:bg-red-400 transition flex items-center justify-center gap-1.5 shadow-md active:scale-95">
+                    <span>EXPLORE CURRICULUM</span> <i class="fa-solid fa-arrow-right text-[10px]" aria-hidden="true"></i>
+                  </button>
+                </div>
               </div>
             </div>
           </article>
@@ -1989,7 +2090,7 @@
             </div>
 
             <!-- Stylized 3D Abstract Circuit Graphic -->
-            <div class="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-br from-purple-950/60 via-cyan-950/40 to-black/80 border border-white/10 mt-auto flex items-center justify-center p-4">
+            <div class="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-br from-purple-950/60 via-cyan-950/40 to-black/80 border border-white/10 mt-auto flex items-center justify-center p-4 group/preview">
               <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.25)_0%,transparent_70%)] pointer-events-none"></div>
               
               <svg viewBox="0 0 200 120" class="w-4/5 h-auto drop-shadow-[0_0_25px_rgba(168,85,247,0.4)]" aria-hidden="true">
@@ -2009,6 +2110,31 @@
                 <span class="text-[11px] font-mono text-purple-300 font-semibold px-2.5 py-1 rounded bg-black/60 border border-purple-500/30">
                   Zero-Defect Goal
                 </span>
+              </div>
+
+              <!-- Interactive Frosted Glass Details Drawer (Reveals on Hover) -->
+              <div class="card-hover-details border border-purple-500/30 shadow-[0_0_25px_rgba(168,85,247,0.2)]">
+                <div>
+                  <div class="flex items-center justify-between gap-2 mb-1.5">
+                    <span class="text-[10px] font-mono font-bold text-cyber-purple uppercase tracking-wider flex items-center gap-1.5">
+                      <i class="fa-solid fa-shield-halved text-[11px]"></i> SYSTEM SPECIFICATIONS
+                    </span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-purple-500/15 text-purple-300 border border-purple-500/30">ZERO DEFECT</span>
+                  </div>
+                  <p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed mb-2.5">
+                    Rigorous Alpha/Beta testing matrix, cross-browser regression test suites, boundary condition audits, and bug lifecycle triage.
+                  </p>
+                  <div class="flex flex-wrap gap-1.5">
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">Test Automation</span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">Cross-Browser</span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">Defect Triage</span>
+                  </div>
+                </div>
+                <div class="pt-2 border-t border-white/10 flex items-center justify-between gap-2">
+                  <button onclick="openProjectModal('sqa-suite')" class="w-full py-1.5 px-3 rounded-lg bg-cyber-purple text-white font-mono font-bold text-xs hover:bg-purple-400 transition flex items-center justify-center gap-1.5 shadow-md active:scale-95">
+                    <span>EXPLORE QA FRAMEWORK</span> <i class="fa-solid fa-arrow-right text-[10px]" aria-hidden="true"></i>
+                  </button>
+                </div>
               </div>
             </div>
           </article>
@@ -2037,7 +2163,7 @@
             </div>
 
             <!-- Stylized 3D Abstract Infinity Ribbon Graphic (Matching Reference Image) -->
-            <div class="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-br from-amber-950/60 via-purple-950/40 to-black/80 border border-white/10 mt-auto flex items-center justify-center p-4">
+            <div class="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-br from-amber-950/60 via-purple-950/40 to-black/80 border border-white/10 mt-auto flex items-center justify-center p-4 group/preview">
               <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.25)_0%,transparent_70%)] pointer-events-none"></div>
               
               <svg viewBox="0 0 200 120" class="w-4/5 h-auto drop-shadow-[0_0_25px_rgba(245,158,11,0.4)]" aria-hidden="true">
@@ -2052,6 +2178,31 @@
                 <span class="text-[11px] font-mono text-amber-300 font-semibold px-2.5 py-1 rounded bg-black/60 border border-amber-500/30">
                   Six-Figure Operations
                 </span>
+              </div>
+
+              <!-- Interactive Frosted Glass Details Drawer (Reveals on Hover) -->
+              <div class="card-hover-details border border-amber-500/30 shadow-[0_0_25px_rgba(245,158,11,0.2)]">
+                <div>
+                  <div class="flex items-center justify-between gap-2 mb-1.5">
+                    <span class="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                      <i class="fa-solid fa-chart-line text-[11px]"></i> SYSTEM SPECIFICATIONS
+                    </span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30">SIX-FIGURE SCALE</span>
+                  </div>
+                  <p class="text-[11px] sm:text-xs text-slate-300 leading-relaxed mb-2.5">
+                    Data-driven acquisition funnels, algorithmic ad budget optimization, automated inventory distribution, and growth telemetry.
+                  </p>
+                  <div class="flex flex-wrap gap-1.5">
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">E-Commerce</span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">Growth Marketing</span>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-white/90 border border-white/10">Logistics</span>
+                  </div>
+                </div>
+                <div class="pt-2 border-t border-white/10 flex items-center justify-between gap-2">
+                  <button onclick="openProjectModal('venture-engine')" class="w-full py-1.5 px-3 rounded-lg bg-amber-500 text-black font-mono font-bold text-xs hover:bg-amber-400 transition flex items-center justify-center gap-1.5 shadow-md active:scale-95">
+                    <span>EXPLORE VENTURE DETAILS</span> <i class="fa-solid fa-arrow-right text-[10px]" aria-hidden="true"></i>
+                  </button>
+                </div>
               </div>
             </div>
           </article>
