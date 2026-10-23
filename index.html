@@ -3992,9 +3992,10 @@
         const isLowEndDevice = document.documentElement.classList.contains('low-end') || 
                                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        const xStep = isSmallMobile ? 55 : (isMobile ? 65 : 75);
-        const zStep = isMobile ? 80 : 130;
-        const rot = isMobile ? 22 : 32;
+        const isWidescreen = window.innerWidth >= 1440;
+        const xStep = isSmallMobile ? 60 : (isMobile ? 68 : (isWidescreen ? 64 : 58));
+        const zStep = isMobile ? 90 : 160;
+        const rot = isMobile ? 18 : 28;
 
         cards.forEach((card, idx) => {
           let diff = idx - currentIndex;
@@ -4070,8 +4071,8 @@
             card.style.pointerEvents = 'auto';
             card.style.cursor = 'pointer';
             const farLeftT = isLowEndDevice 
-              ? `translate3d(-${xStep * 1.65}%, 0, 0) scale(0.74)` 
-              : `translate3d(-${xStep * 1.65}%, 0, -${zStep * 2}px) rotateY(${rot * 1.3}deg) scale(0.74)`;
+              ? `translate3d(-${xStep * 1.48}%, 0, 0) scale(0.74)` 
+              : `translate3d(-${xStep * 1.48}%, 0, -${zStep * 2}px) rotateY(${rot * 1.3}deg) scale(0.74)`;
             card.style.setProperty('--card-transform', farLeftT);
             card.style.transform = farLeftT;
           } else if (diff === 2) {
@@ -4082,8 +4083,8 @@
             card.style.pointerEvents = 'auto';
             card.style.cursor = 'pointer';
             const farRightT = isLowEndDevice 
-              ? `translate3d(${xStep * 1.65}%, 0, 0) scale(0.74)` 
-              : `translate3d(${xStep * 1.65}%, 0, -${zStep * 2}px) rotateY(-${rot * 1.3}deg) scale(0.74)`;
+              ? `translate3d(${xStep * 1.48}%, 0, 0) scale(0.74)` 
+              : `translate3d(${xStep * 1.48}%, 0, -${zStep * 2}px) rotateY(-${rot * 1.3}deg) scale(0.74)`;
             card.style.setProperty('--card-transform', farRightT);
             card.style.transform = farRightT;
           } else {
