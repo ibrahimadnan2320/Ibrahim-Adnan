@@ -439,6 +439,14 @@
       box-shadow: 0 0 65px var(--card-active-glow, rgba(168, 85, 247, 0.65)), 0 32px 70px rgba(0, 0, 0, 0.9);
     }
 
+    /* Stacked background cards hover peek animation */
+    .coverflow-card:not(.active-card):hover {
+      filter: brightness(1.02) !important;
+      opacity: 0.96 !important;
+      transform: var(--card-transform) translate3d(0, -8px, 20px) scale(0.96) !important;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+    }
+
     /* Interactive Frosted Glass Hover Details Overlay */
     .card-hover-details {
       position: absolute;
@@ -465,7 +473,7 @@
       }
     }
 
-    .coverflow-card:hover .card-hover-details {
+    .coverflow-card.active-card:hover .card-hover-details {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
