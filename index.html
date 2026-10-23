@@ -3991,12 +3991,28 @@
       if (prevBtn) prevBtn.addEventListener('click', prev);
       if (nextBtn) nextBtn.addEventListener('click', next);
 
+      let hoverFocusTimer = null;
       cards.forEach((card, idx) => {
         card.addEventListener('click', (e) => {
           if (e.target.closest('a') || e.target.closest('button')) return;
           if (idx !== currentIndex) {
+            clearTimeout(hoverFocusTimer);
             goTo(idx);
           }
+        });
+
+        // Hover-to-focus: hovering over any flanking card brings it front-and-center to reveal details
+        card.addEventListener('mouseenter', () => {
+          if (idx !== currentIndex) {
+            clearTimeout(hoverFocusTimer);
+            hoverFocusTimer = setTimeout(() => {
+              goTo(idx);
+            }, 140);
+          }
+        });
+
+        card.addEventListener('mouseleave', () => {
+          clearTimeout(hoverFocusTimer);
         });
       });
 
