@@ -4,7 +4,7 @@
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-ibrahim--adnan.vercel.app-00f0ff?style=for-the-badge&logo=vercel&logoColor=black)](https://ibrahim-adnan.vercel.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](LICENSE)
-[![PWA Ready](https://img.shields.io/badge/PWA-v8.0%20Offline%20Ready-a855f7?style=for-the-badge&logo=pwa&logoColor=white)](https://ibrahim-adnan.vercel.app/)
+[![PWA Ready](https://img.shields.io/badge/PWA-v9.0%20Offline%20Ready-a855f7?style=for-the-badge&logo=pwa&logoColor=white)](https://ibrahim-adnan.vercel.app/)
 [![Lighthouse 100](https://img.shields.io/badge/Lighthouse-100%20Performance-00f0ff?style=for-the-badge&logo=googlechrome&logoColor=white)](https://ibrahim-adnan.vercel.app/)
 
 **A high-performance, 3D WebGL-powered engineering portfolio built with pure modern web technologies, ultra-realistic frosted glassmorphism, hardware-adaptive performance scaling, and zero-overhead offline PWA architecture.**
@@ -24,7 +24,7 @@
 - 🔲 **Cyber Architectural Grid & Space Grotesk Display**: Precision 36px x 36px background grid pattern paired with futuristic `Space Grotesk` display typography for high-impact headlines and numbered cyber telemetry badges.
 - 🪟 **Ultra-Realistic Frosted Glassmorphism**: Multi-layered glass styling featuring `linear-gradient` face highlights, 1px specular top rims (`inset 0 1px 1px 0 rgba(255, 255, 255, 0.32)`), deep Gaussian blur (`24px`), and color saturation boost (`saturate(190%)`) that refracts colorful ambient glow orbs directly through the cards.
 - 🛡️ **Hardware-Adaptive Performance Engine**: Dynamic detection for low-spec CPUs (`hardwareConcurrency <= 2`), constrained memory (`deviceMemory <= 3`), cellular throttling (`2g`/`slow-2g`), and battery conservation (`battery.level <= 20%`). Bypasses expensive multi-pass Gaussian blurs automatically to lock 60 FPS on any device.
-- 📱 **Progressive Web App (PWA v8)**: Fully installable desktop and mobile app with Service Worker v8, `stale-while-revalidate` caching, offline navigation fallback, and automatic FIFO cache eviction capped at 50 items to protect mobile flash storage.
+- 📱 **Progressive Web App (PWA v9)**: Fully installable desktop and mobile app with Service Worker v9, `stale-while-revalidate` caching, offline navigation fallback, and automatic FIFO cache eviction capped at 50 items to protect mobile flash storage.
 - 🔍 **SEO & Search Architecture**: Complete Schema.org JSON-LD `@graph` (`Person`, `WebSite`, `ProfilePage`, `SoftwareApplication`, `BreadcrumbList`), OpenGraph metadata, Twitter Cards, international `hreflang` alternates, and XML sitemaps with Google Image extensions (`xmlns:image`).
 - ♿ **WCAG 2.1 AAA Accessibility**: Bypass skip-links, ARIA landmarks, carousel live regions, roving tabindex, modal keyboard focus traps with `Tab`/`Shift+Tab` cycling, `Escape` key dismissal, high-contrast mode overrides (`forced-colors: active`), and `prefers-reduced-motion` compliance.
 
