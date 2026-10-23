@@ -402,10 +402,11 @@
       width: 92%;
       max-width: 440px;
       height: 570px;
-      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-                  filter 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-                  box-shadow 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      transform: var(--card-transform);
+      transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  opacity 0.7s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  filter 0.7s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  box-shadow 0.7s cubic-bezier(0.2, 0.9, 0.3, 1),
                   border-color 0.4s ease;
       will-change: transform, opacity;
       transform-origin: center center;
@@ -430,7 +431,12 @@
 
     .coverflow-card.active-card {
       border: 2px solid #a855f7 !important;
-      box-shadow: 0 0 35px rgba(168, 85, 247, 0.45), 0 20px 50px rgba(0, 0, 0, 0.75) !important;
+      box-shadow: 0 0 40px rgba(168, 85, 247, 0.5), 0 20px 55px rgba(0, 0, 0, 0.8) !important;
+    }
+
+    .coverflow-card.active-card:hover {
+      transform: var(--card-transform) translate3d(0, -10px, 20px) !important;
+      box-shadow: 0 0 55px rgba(168, 85, 247, 0.65), 0 30px 65px rgba(0, 0, 0, 0.9) !important;
     }
 
     html.light .coverflow-card.active-card {
@@ -3856,35 +3862,35 @@
             card.style.filter = 'none';
             card.style.pointerEvents = 'auto';
             card.style.cursor = 'default';
-            if (isLowEndDevice) {
-              card.style.transform = 'translate3d(0, 0, 0) scale(1)';
-            } else {
-              card.style.transform = 'translate3d(0, 0, 45px) rotateY(0deg) scale(1)';
-            }
+            const activeT = isLowEndDevice 
+              ? 'translate3d(0, 0, 0) scale(1)' 
+              : 'translate3d(0, 0, 50px) rotateY(0deg) scale(1.02)';
+            card.style.setProperty('--card-transform', activeT);
+            card.style.transform = activeT;
           } else if (diff === -1) {
             // Immediate Left
             card.style.zIndex = '20';
-            card.style.opacity = '0.7';
+            card.style.opacity = '0.75';
             card.style.filter = 'brightness(0.85)';
             card.style.pointerEvents = 'auto';
             card.style.cursor = 'pointer';
-            if (isLowEndDevice) {
-              card.style.transform = `translate3d(-${xStep}%, 0, 0) scale(0.88)`;
-            } else {
-              card.style.transform = `translate3d(-${xStep}%, 0, -${zStep}px) rotateY(${rot}deg) scale(0.88)`;
-            }
+            const leftT = isLowEndDevice 
+              ? `translate3d(-${xStep}%, 0, 0) scale(0.88)` 
+              : `translate3d(-${xStep}%, 0, -${zStep}px) rotateY(${rot}deg) scale(0.88)`;
+            card.style.setProperty('--card-transform', leftT);
+            card.style.transform = leftT;
           } else if (diff === 1) {
             // Immediate Right
             card.style.zIndex = '20';
-            card.style.opacity = '0.7';
+            card.style.opacity = '0.75';
             card.style.filter = 'brightness(0.85)';
             card.style.pointerEvents = 'auto';
             card.style.cursor = 'pointer';
-            if (isLowEndDevice) {
-              card.style.transform = `translate3d(${xStep}%, 0, 0) scale(0.88)`;
-            } else {
-              card.style.transform = `translate3d(${xStep}%, 0, -${zStep}px) rotateY(-${rot}deg) scale(0.88)`;
-            }
+            const rightT = isLowEndDevice 
+              ? `translate3d(${xStep}%, 0, 0) scale(0.88)` 
+              : `translate3d(${xStep}%, 0, -${zStep}px) rotateY(-${rot}deg) scale(0.88)`;
+            card.style.setProperty('--card-transform', rightT);
+            card.style.transform = rightT;
           } else if (diff === -2) {
             // Far Left
             card.style.zIndex = '10';
@@ -3892,11 +3898,11 @@
             card.style.filter = 'brightness(0.65)';
             card.style.pointerEvents = 'auto';
             card.style.cursor = 'pointer';
-            if (isLowEndDevice) {
-              card.style.transform = `translate3d(-${xStep * 1.65}%, 0, 0) scale(0.74)`;
-            } else {
-              card.style.transform = `translate3d(-${xStep * 1.65}%, 0, -${zStep * 2}px) rotateY(${rot * 1.3}deg) scale(0.74)`;
-            }
+            const farLeftT = isLowEndDevice 
+              ? `translate3d(-${xStep * 1.65}%, 0, 0) scale(0.74)` 
+              : `translate3d(-${xStep * 1.65}%, 0, -${zStep * 2}px) rotateY(${rot * 1.3}deg) scale(0.74)`;
+            card.style.setProperty('--card-transform', farLeftT);
+            card.style.transform = farLeftT;
           } else if (diff === 2) {
             // Far Right
             card.style.zIndex = '10';
@@ -3904,18 +3910,20 @@
             card.style.filter = 'brightness(0.65)';
             card.style.pointerEvents = 'auto';
             card.style.cursor = 'pointer';
-            if (isLowEndDevice) {
-              card.style.transform = `translate3d(${xStep * 1.65}%, 0, 0) scale(0.74)`;
-            } else {
-              card.style.transform = `translate3d(${xStep * 1.65}%, 0, -${zStep * 2}px) rotateY(-${rot * 1.3}deg) scale(0.74)`;
-            }
+            const farRightT = isLowEndDevice 
+              ? `translate3d(${xStep * 1.65}%, 0, 0) scale(0.74)` 
+              : `translate3d(${xStep * 1.65}%, 0, -${zStep * 2}px) rotateY(-${rot * 1.3}deg) scale(0.74)`;
+            card.style.setProperty('--card-transform', farRightT);
+            card.style.transform = farRightT;
           } else {
             // Hidden outer cards
             card.style.zIndex = '1';
             card.style.opacity = '0';
             card.style.pointerEvents = 'none';
             const sign = diff > 0 ? 1 : -1;
-            card.style.transform = `translate3d(${sign * xStep * 2.2}%, 0, -350px) scale(0.5)`;
+            const hiddenT = `translate3d(${sign * xStep * 2.2}%, 0, -350px) scale(0.5)`;
+            card.style.setProperty('--card-transform', hiddenT);
+            card.style.transform = hiddenT;
           }
         });
 
