@@ -430,13 +430,13 @@
     }
 
     .coverflow-card.active-card {
-      border: 2px solid #a855f7 !important;
-      box-shadow: 0 0 40px rgba(168, 85, 247, 0.5), 0 20px 55px rgba(0, 0, 0, 0.8) !important;
+      border: 2px solid var(--card-active-border, #a855f7);
+      box-shadow: 0 0 45px var(--card-active-glow, rgba(168, 85, 247, 0.5)), 0 20px 55px rgba(0, 0, 0, 0.8);
     }
 
     .coverflow-card.active-card:hover {
       transform: var(--card-transform) translate3d(0, -10px, 20px) !important;
-      box-shadow: 0 0 55px rgba(168, 85, 247, 0.65), 0 30px 65px rgba(0, 0, 0, 0.9) !important;
+      box-shadow: 0 0 60px var(--card-active-glow, rgba(168, 85, 247, 0.65)), 0 30px 65px rgba(0, 0, 0, 0.9);
     }
 
     /* Interactive Frosted Glass Hover Details Overlay */
@@ -4005,6 +4005,14 @@
             }
           });
 
+          const CARD_THEMES = [
+            { border: '#00f0ff', glow: 'rgba(0, 240, 255, 0.55)' },
+            { border: '#10b981', glow: 'rgba(16, 185, 129, 0.55)' },
+            { border: '#ef4444', glow: 'rgba(239, 68, 68, 0.55)' },
+            { border: '#a855f7', glow: 'rgba(168, 85, 247, 0.55)' },
+            { border: '#f59e0b', glow: 'rgba(245, 158, 11, 0.55)' }
+          ];
+
           if (diff === 0) {
             // Active Center Card
             card.classList.add('active-card');
@@ -4013,6 +4021,11 @@
             card.style.filter = 'none';
             card.style.pointerEvents = 'auto';
             card.style.cursor = 'default';
+
+            const activeTheme = CARD_THEMES[idx] || CARD_THEMES[0];
+            card.style.setProperty('--card-active-border', activeTheme.border);
+            card.style.setProperty('--card-active-glow', activeTheme.glow);
+
             const activeT = isLowEndDevice 
               ? 'translate3d(0, 0, 0) scale(1)' 
               : 'translate3d(0, 0, 50px) rotateY(0deg) scale(1.02)';
