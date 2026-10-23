@@ -968,8 +968,8 @@
     <div class="crystal-card border border-cyber-accent/30 rounded-2xl max-w-4xl w-full max-h-[90vh] max-h-[90dvh] flex flex-col overflow-hidden shadow-[0_0_50px_rgba(0,240,255,0.2)]">
       <div class="flex items-center justify-between p-4 sm:p-5 border-b border-[var(--card-border)] bg-[var(--nav-bg)]">
         <div class="flex items-center gap-3">
-          <i class="fa-solid fa-certificate text-cyber-accent text-sm" aria-hidden="true"></i>
-          <span id="modal-title" class="font-mono text-xs sm:text-sm text-[var(--text-main)] font-bold">Certificate Viewer</span>
+          <i id="modal-icon" class="fa-solid fa-certificate text-cyber-accent text-sm" aria-hidden="true"></i>
+          <span id="modal-title" class="font-mono text-xs sm:text-sm text-[var(--text-main)] font-bold">Modal Viewer</span>
         </div>
         <button onclick="closeCertModal()" aria-label="Close certificate modal" class="w-9 h-9 sm:w-8 sm:h-8 rounded-lg crystal-card flex items-center justify-center text-[var(--text-muted)] hover:text-cyber-accent transition">
           <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
@@ -1824,10 +1824,10 @@
               <p class="text-xs sm:text-sm text-[var(--text-muted)] line-clamp-2 leading-relaxed mb-3">
                 High-performance commercial architecture platform with 10 static pages, estimation calculators, and bilingual RTL support.
               </p>
-              <div class="flex items-center gap-2 text-xs font-mono font-bold text-cyber-accent mb-3 group/link">
-                <span>TAP OR HOVER FOR DETAILS</span>
+              <button onclick="openProjectModal('mak-and-sons')" aria-label="Open project case study for MAK and Sons" class="flex items-center gap-2 text-xs font-mono font-bold text-cyber-accent mb-3 group/link hover:underline text-left cursor-pointer">
+                <span>TAP FOR CASE STUDY</span>
                 <i class="fa-solid fa-arrow-right text-[10px] group-hover/link:translate-x-1 transition-transform" aria-hidden="true"></i>
-              </div>
+              </button>
             </div>
 
             <!-- Preview Image & Actions -->
@@ -1863,10 +1863,10 @@
               <p class="text-xs sm:text-sm text-[var(--text-muted)] line-clamp-2 leading-relaxed mb-3">
                 International EdTech portal engineered for accessible global student onboarding, fluid typography, and localized curriculum access.
               </p>
-              <div class="flex items-center gap-2 text-xs font-mono font-bold text-cyber-emerald mb-3 group/link">
-                <span>TAP OR HOVER FOR DETAILS</span>
+              <button onclick="openProjectModal('iqra-academy')" aria-label="Open project case study for IQRA Online Quran Academy" class="flex items-center gap-2 text-xs font-mono font-bold text-cyber-emerald mb-3 group/link hover:underline text-left cursor-pointer">
+                <span>TAP FOR CASE STUDY</span>
                 <i class="fa-solid fa-arrow-right text-[10px] group-hover/link:translate-x-1 transition-transform" aria-hidden="true"></i>
-              </div>
+              </button>
             </div>
 
             <!-- Preview Image & Actions -->
@@ -1902,10 +1902,10 @@
               <p class="text-xs sm:text-sm text-[var(--text-muted)] line-clamp-2 leading-relaxed mb-3">
                 Curated technical video tutorials on YouTube breaking down Ruby object-oriented design, algorithmic principles, and clean syntax.
               </p>
-              <div class="flex items-center gap-2 text-xs font-mono font-bold text-red-400 mb-3 group/link">
-                <span>TAP OR HOVER FOR DETAILS</span>
+              <button onclick="openProjectModal('ruby-masterclass')" aria-label="Open project case study for Ruby Programming Masterclass" class="flex items-center gap-2 text-xs font-mono font-bold text-red-400 mb-3 group/link hover:underline text-left cursor-pointer">
+                <span>TAP FOR CASE STUDY</span>
                 <i class="fa-solid fa-arrow-right text-[10px] group-hover/link:translate-x-1 transition-transform" aria-hidden="true"></i>
-              </div>
+              </button>
             </div>
 
             <!-- Stylized 3D Abstract Artwork Graphic -->
@@ -1954,10 +1954,10 @@
               <p class="text-xs sm:text-sm text-[var(--text-muted)] line-clamp-2 leading-relaxed mb-3">
                 Full-spectrum software quality verification across Alpha, Beta, and Unit testing with cross-browser and cross-device validation.
               </p>
-              <div class="flex items-center gap-2 text-xs font-mono font-bold text-cyber-purple mb-3 group/link">
-                <span>TAP OR HOVER FOR DETAILS</span>
+              <button onclick="openProjectModal('sqa-suite')" aria-label="Open project case study for Enterprise SQA & Automation Suite" class="flex items-center gap-2 text-xs font-mono font-bold text-cyber-purple mb-3 group/link hover:underline text-left cursor-pointer">
+                <span>TAP FOR CASE STUDY</span>
                 <i class="fa-solid fa-arrow-right text-[10px] group-hover/link:translate-x-1 transition-transform" aria-hidden="true"></i>
-              </div>
+              </button>
             </div>
 
             <!-- Stylized 3D Abstract Circuit Graphic -->
@@ -2002,10 +2002,10 @@
               <p class="text-xs sm:text-sm text-[var(--text-muted)] line-clamp-2 leading-relaxed mb-3">
                 Automated commercial infrastructure generating six-figure revenue through optimized inventory, digital marketing, and equity analysis.
               </p>
-              <div class="flex items-center gap-2 text-xs font-mono font-bold text-amber-400 mb-3 group/link">
-                <span>TAP OR HOVER FOR DETAILS</span>
+              <button onclick="openProjectModal('venture-engine')" aria-label="Open project case study for E-Commerce & Venture Engine" class="flex items-center gap-2 text-xs font-mono font-bold text-amber-400 mb-3 group/link hover:underline text-left cursor-pointer">
+                <span>TAP FOR CASE STUDY</span>
                 <i class="fa-solid fa-arrow-right text-[10px] group-hover/link:translate-x-1 transition-transform" aria-hidden="true"></i>
-              </div>
+              </button>
             </div>
 
             <!-- Stylized 3D Abstract Infinity Ribbon Graphic (Matching Reference Image) -->
@@ -2659,12 +2659,225 @@
 
     function openSingleCertModal(title, imagePath) {
       lastActiveModalTrigger = document.activeElement;
+      const modalIcon = document.getElementById('modal-icon');
+      if (modalIcon) modalIcon.className = 'fa-solid fa-certificate text-cyber-accent text-sm';
       modalTitle.textContent = title;
       modalContent.innerHTML = `
         <div class="rounded-xl overflow-hidden border border-[var(--card-border)] bg-black/40 w-full flex justify-center items-center">
           <img src="${imagePath}" alt="${title}" loading="eager" fetchpriority="high" decoding="async" class="w-full h-auto object-cover rounded-xl" />
         </div>
       `;
+      certModal.classList.add('modal-active');
+      document.body.style.overflow = 'hidden';
+      const modalCloseBtn = certModal.querySelector('button[aria-label]');
+      if (modalCloseBtn) modalCloseBtn.focus();
+    }
+
+    const PROJECT_CASE_STUDIES = {
+      'mak-and-sons': {
+        title: 'MAK & Sons Construction',
+        badge: 'SYS // 01 • ARCHITECTURE & ENGINEERING',
+        color: '#00f0ff',
+        icon: 'fa-solid fa-building-shield',
+        summary: 'High-performance commercial architecture platform built with 10 static pages, bespoke client estimation calculator, and full bilingual RTL support.',
+        image: 'mak-and-sons.png',
+        metrics: [
+          { label: 'PAGE SPEED', value: '100 / 100' },
+          { label: 'ARCHITECTURE', value: '10 Static Pages' },
+          { label: 'LOCALIZATION', value: 'Bilingual RTL' },
+          { label: 'SEO RATING', value: 'A+ Verified' }
+        ],
+        highlights: [
+          'Engineered a bespoke client-side estimation calculator for real-time quotation generation.',
+          'Configured comprehensive semantic SEO, Schema.org LocalBusiness JSON-LD markup, and dynamic meta previews.',
+          'Achieved sub-second First Contentful Paint (FCP) through preloaded assets and optimized responsive images.'
+        ],
+        liveUrl: 'https://mak-and-sons-construction.vercel.app/',
+        githubUrl: 'https://github.com/ibrahimadnan2320/mak-and-sons-website',
+        tags: ['Tailwind CSS', 'JavaScript ES6+', 'Bilingual RTL', 'Vercel Edge']
+      },
+      'iqra-academy': {
+        title: 'IQRA Online Quran Academy',
+        badge: 'SYS // 02 • EDTECH & EDUCATION',
+        color: '#10b981',
+        icon: 'fa-solid fa-graduation-cap',
+        summary: 'International EdTech portal engineered for accessible global student onboarding, fluid typography, and localized curriculum access.',
+        image: 'iqra-academy.png',
+        metrics: [
+          { label: 'GLOBAL ACCESS', value: 'Worldwide' },
+          { label: 'RESPONSIVENESS', value: '100% Fluid' },
+          { label: 'PERFORMANCE', value: 'Sub-second' },
+          { label: 'RETENTION', value: '3x Signup Rate' }
+        ],
+        highlights: [
+          'Designed an accessible onboarding funnel allowing global families to book trial sessions across timezones.',
+          'Implemented fluid typography, semantic accessibility benchmarks (WCAG AA), and contrast compliance.',
+          'Optimized lightweight asset delivery with automated CDN caching for high-speed mobile connectivity.'
+        ],
+        liveUrl: 'https://iqra-online-quran-academy.vercel.app/',
+        githubUrl: 'https://github.com/ibrahimadnan2320/IQRA-Online-Quran-Academy',
+        tags: ['EdTech', 'Responsive UI', 'WhatsApp API', 'Global CDN']
+      },
+      'ruby-masterclass': {
+        title: 'Ruby Programming Masterclass',
+        badge: 'SYS // 03 • VIDEO CURRICULUM',
+        color: '#ef4444',
+        icon: 'fa-solid fa-gem',
+        summary: 'Curated technical video tutorials breaking down Ruby object-oriented design, algorithmic principles, and clean syntax.',
+        metrics: [
+          { label: 'FORMAT', value: 'Video Series' },
+          { label: 'PARADIGM', value: 'Object-Oriented' },
+          { label: 'COMPLEXITY', value: 'Beginner to Adv' },
+          { label: 'PLATFORM', value: 'YouTube' }
+        ],
+        highlights: [
+          'Authored comprehensive video walkthroughs explaining variables, symbols, blocks, procs, and lambdas.',
+          'Step-by-step demonstrations of algorithmic problem solving, clean code idioms, and debugging.',
+          'Shared practical open-source project structures and Ruby coding conventions.'
+        ],
+        liveUrl: 'https://linkedin.com/in/ibrahim-adnan-a945263a2',
+        tags: ['Ruby', 'OOP', 'Algorithms', 'Curriculum Design']
+      },
+      'sqa-suite': {
+        title: 'Enterprise SQA & Automation Suite',
+        badge: 'SYS // 04 • SOFTWARE QUALITY ASSURANCE',
+        color: '#a855f7',
+        icon: 'fa-solid fa-shield-halved',
+        summary: 'Full-spectrum software quality verification across Alpha, Beta, and Unit testing with cross-browser and cross-device validation.',
+        metrics: [
+          { label: 'COVERAGE', value: 'Alpha / Beta / Unit' },
+          { label: 'DEFECT RATE', value: 'Zero-Defect Goal' },
+          { label: 'COMPATIBILITY', value: 'All Modern Browsers' },
+          { label: 'COMPLIANCE', value: 'WCAG 2.1 AA' }
+        ],
+        highlights: [
+          'Developed rigorous cross-browser and responsive device verification matrices.',
+          'Designed automated and manual test suites covering regression, smoke, and boundary value edge-cases.',
+          'Documented detailed bug reproduction steps, severity triage, and verification pipelines.'
+        ],
+        liveUrl: '#capabilities',
+        tags: ['SQA', 'Test Automation', 'Regression Testing', 'Bug Triage']
+      },
+      'venture-engine': {
+        title: 'E-Commerce & Venture Engine',
+        badge: 'SYS // 05 • E-COMMERCE & OPERATIONS',
+        color: '#f59e0b',
+        icon: 'fa-solid fa-chart-line',
+        summary: 'Automated commercial infrastructure generating six-figure revenue through optimized inventory, digital marketing, and equity analysis.',
+        metrics: [
+          { label: 'REVENUE', value: 'Six Figures' },
+          { label: 'MARKETING', value: 'Meta & Google Ads' },
+          { label: 'FULFILLMENT', value: 'Automated Logistics' },
+          { label: 'GROWTH', value: 'Year-over-Year' }
+        ],
+        highlights: [
+          'Scaled e-commerce retail operations to six-figure gross revenue via data-driven marketing campaigns.',
+          'Engineered streamlined fulfillment workflows and real-time inventory management.',
+          'Executed systematic equity analysis and disciplined risk management protocols.'
+        ],
+        liveUrl: '#contact',
+        tags: ['E-Commerce', 'Operations', 'Digital Marketing', 'Growth']
+      }
+    };
+
+    function openProjectModal(key) {
+      const p = PROJECT_CASE_STUDIES[key];
+      if (!p) return;
+      lastActiveModalTrigger = document.activeElement;
+      
+      const modalIcon = document.getElementById('modal-icon');
+      if (modalIcon) {
+        modalIcon.className = `${p.icon} text-sm`;
+        modalIcon.style.color = p.color;
+      }
+      modalTitle.textContent = p.title;
+
+      let imageHtml = '';
+      if (p.image) {
+        imageHtml = `
+          <div class="relative w-full aspect-[16/9] rounded-xl overflow-hidden border border-white/10 bg-black/60 mb-5">
+            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover object-top" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+          </div>
+        `;
+      }
+
+      const metricsHtml = (p.metrics || []).map(m => `
+        <div class="p-3 rounded-xl bg-white/[0.04] border border-white/10 text-center">
+          <div class="text-[10px] font-mono text-[var(--text-muted)] tracking-wider mb-1 uppercase">${m.label}</div>
+          <div class="text-sm sm:text-base font-display font-extrabold text-[var(--text-main)]" style="color: ${p.color};">${m.value}</div>
+        </div>
+      `).join('');
+
+      const highlightsHtml = (p.highlights || []).map(h => `
+        <li class="flex items-start gap-2.5 text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+          <i class="fa-solid fa-circle-check text-xs mt-1 shrink-0" style="color: ${p.color};" aria-hidden="true"></i>
+          <span>${h}</span>
+        </li>
+      `).join('');
+
+      const tagsHtml = (p.tags || []).map(t => `
+        <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/[0.05] border border-white/10 text-[var(--text-muted)]">${t}</span>
+      `).join('');
+
+      let actionLinksHtml = '';
+      if (p.liveUrl) {
+        actionLinksHtml += `
+          <a href="${p.liveUrl}" target="${p.liveUrl.startsWith('#') ? '_self' : '_blank'}" rel="noopener noreferrer" onclick="${p.liveUrl.startsWith('#') ? 'closeCertModal()' : ''}" class="px-4 py-2 rounded-xl font-mono text-xs font-bold text-black flex items-center gap-2 shadow-lg hover:brightness-110 transition active:scale-95" style="background-color: ${p.color};">
+            <span>EXPLORE LIVE</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px]" aria-hidden="true"></i>
+          </a>
+        `;
+      }
+      if (p.githubUrl) {
+        actionLinksHtml += `
+          <a href="${p.githubUrl}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl crystal-card font-mono text-xs text-white flex items-center gap-2 border border-white/15 hover:border-white/30 transition active:scale-95">
+            <i class="fa-brands fa-github text-sm" aria-hidden="true"></i> <span>SOURCE CODE</span>
+          </a>
+        `;
+      }
+
+      modalContent.innerHTML = `
+        <div class="space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span class="px-3 py-1 rounded-full text-[11px] font-mono font-bold tracking-wider border" style="color: ${p.color}; border-color: ${p.color}40; background-color: ${p.color}15;">
+              ${p.badge}
+            </span>
+          </div>
+
+          ${imageHtml}
+
+          <p class="text-sm sm:text-base text-[var(--text-main)] leading-relaxed font-sans">
+            ${p.summary}
+          </p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            ${metricsHtml}
+          </div>
+
+          <div class="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-2.5">
+            <div class="text-xs font-mono font-bold tracking-wider text-[var(--text-main)] uppercase flex items-center gap-2">
+              <i class="fa-solid fa-microchip text-xs" style="color: ${p.color};"></i> ARCHITECTURAL HIGHLIGHTS
+            </div>
+            <ul class="space-y-2">
+              ${highlightsHtml}
+            </ul>
+          </div>
+
+          <div class="flex flex-wrap gap-2 pt-1">
+            ${tagsHtml}
+          </div>
+
+          <div class="flex items-center justify-between gap-3 pt-4 border-t border-[var(--card-border)]">
+            <div class="flex items-center gap-2">
+              ${actionLinksHtml}
+            </div>
+            <button onclick="closeCertModal()" class="px-3.5 py-2 rounded-xl crystal-card text-xs font-mono text-[var(--text-muted)] hover:text-white transition">
+              CLOSE
+            </button>
+          </div>
+        </div>
+      `;
+
       certModal.classList.add('modal-active');
       document.body.style.overflow = 'hidden';
       const modalCloseBtn = certModal.querySelector('button[aria-label]');
