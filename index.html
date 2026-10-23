@@ -420,6 +420,9 @@
     }
 
     /* Hardware/Motion Fallback */
+    html.low-end #coverflow-glow {
+      display: none !important;
+    }
     html.low-end .coverflow-stage,
     @media (prefers-reduced-motion: reduce) {
       .coverflow-stage {
@@ -1783,6 +1786,9 @@
 
         <!-- 3D Perspective Stage -->
         <div id="coverflow-stage" class="coverflow-stage outline-none" role="region" aria-label="Interactive 3D Projects Showcase">
+          
+          <!-- Ambient Bottom Reflection Light Puddle -->
+          <div id="coverflow-glow" class="absolute bottom-2 left-1/2 -translate-x-1/2 w-[320px] sm:w-[440px] h-14 rounded-full pointer-events-none z-10 opacity-75 blur-2xl transition-all duration-700 bg-gradient-to-r from-purple-500/35 via-cyan-400/40 to-purple-500/35"></div>
           
           <!-- Card 1: MAK & Sons Construction -->
           <article class="coverflow-card crystal-card p-5 sm:p-6 flex flex-col justify-between overflow-hidden shadow-2xl border border-white/15 bg-[#0a0d17]/95" data-index="0">
@@ -3520,6 +3526,19 @@
             card.style.transform = `translate3d(${sign * xStep * 2.2}%, 0, -350px) scale(0.5)`;
           }
         });
+
+        // Dynamic Ambient Glow Color per active card
+        const glowEl = document.getElementById('coverflow-glow');
+        if (glowEl) {
+          const glowGradients = [
+            'linear-gradient(90deg, rgba(0,240,255,0.45), rgba(6,182,212,0.5), rgba(0,240,255,0.45))',
+            'linear-gradient(90deg, rgba(16,185,129,0.45), rgba(52,211,153,0.5), rgba(16,185,129,0.45))',
+            'linear-gradient(90deg, rgba(239,68,68,0.45), rgba(168,85,247,0.5), rgba(239,68,68,0.45))',
+            'linear-gradient(90deg, rgba(168,85,247,0.5), rgba(0,240,255,0.45), rgba(168,85,247,0.5))',
+            'linear-gradient(90deg, rgba(245,158,11,0.45), rgba(168,85,247,0.45), rgba(245,158,11,0.45))'
+          ];
+          glowEl.style.background = glowGradients[currentIndex] || glowGradients[0];
+        }
 
         // Update Dots
         dots.forEach((dot, dIdx) => {
