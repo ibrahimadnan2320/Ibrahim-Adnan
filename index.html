@@ -399,9 +399,9 @@
 
     .coverflow-card {
       position: absolute;
-      width: 92%;
-      max-width: 440px;
-      height: 570px;
+      width: 94%;
+      max-width: 860px;
+      height: 670px;
       transform: var(--card-transform);
       transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1),
                   opacity 0.7s cubic-bezier(0.2, 0.9, 0.3, 1),
@@ -414,17 +414,24 @@
       border-radius: 2rem;
     }
 
+    @media (max-width: 1280px) {
+      .coverflow-card {
+        max-width: 780px;
+        height: 640px;
+      }
+    }
+
     @media (max-width: 1024px) {
       .coverflow-card {
-        max-width: 390px;
-        height: 530px;
+        max-width: 680px;
+        height: 600px;
       }
     }
 
     @media (max-width: 640px) {
       .coverflow-card {
-        max-width: 320px;
-        height: 470px;
+        max-width: 92vw;
+        height: 490px;
         border-radius: 1.5rem;
       }
     }
