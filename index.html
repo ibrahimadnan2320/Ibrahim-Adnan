@@ -3611,11 +3611,51 @@
         }
       });
 
+      // Auto-Rotation Timer with Micro-Interaction & Visibility Awareness
+      let autoRotateTimer = null;
+      const AUTO_ROTATE_DELAY = 4800;
+
+      function startAutoRotate() {
+        if (prefersReducedMotion || autoRotateTimer) return;
+        autoRotateTimer = setInterval(() => {
+          next();
+        }, AUTO_ROTATE_DELAY);
+      }
+
+      function stopAutoRotate() {
+        if (autoRotateTimer) {
+          clearInterval(autoRotateTimer);
+          autoRotateTimer = null;
+        }
+      }
+
+      function resetAutoRotate() {
+        stopAutoRotate();
+        startAutoRotate();
+      }
+
+      stage.addEventListener('mouseenter', stopAutoRotate);
+      stage.addEventListener('mouseleave', startAutoRotate);
+      stage.addEventListener('focusin', stopAutoRotate);
+      stage.addEventListener('focusout', startAutoRotate);
+
+      if (prevBtn) prevBtn.addEventListener('click', resetAutoRotate);
+      if (nextBtn) nextBtn.addEventListener('click', resetAutoRotate);
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          stopAutoRotate();
+        } else {
+          startAutoRotate();
+        }
+      });
+
       window.addEventListener('resize', () => {
         updateCoverflow();
       }, { passive: true });
 
       updateCoverflow();
+      startAutoRotate();
     })();
   </script>
 </body>
