@@ -18,13 +18,13 @@
 ## ⚡ Highlights & Architectural Innovations
 
 - 🌐 **Interactive 3D WebGL Core**: Real-time rotating crystal wireframe icosahedron with an ambient starfield particle cloud powered by Three.js. Includes delta-time independent damping (60Hz / 120Hz / 144Hz display parity) and modular time tracking to eliminate IEEE-754 precision drift.
-- 🎴 **3D Overlapping Stacked Deck with Centered Circular Triptych Engine**: Hardware-accelerated sliding deck carousel with balanced 350px high cards and enlarged 220px (2:1) preview frames displaying whole screenshots edge-to-edge without cropping. Features mathematically anchored `inset: 0; margin: auto;` positioning and circular modular arithmetic ensuring the active project card is always dead-center and enlarged (`scale(1.08)` at z-index 35) while flanking background cards sit scaled down at `scale(0.82)` with ~30% size difference and calibrated ~30% slide overlap, preventing viewport edge clipping on laptop displays, alongside interactive hover peek animations, touch swipe, and frosted-glass spec drawers.
+- 🎴 **3D Overlapping Stacked Deck with 100% Unclipped 2:1 Preview Geometry & Smooth Centering**: Hardware-accelerated sliding deck carousel with calibrated 600px wide by 395px high cards and 280px (2.016:1) preview frames displaying entire project screenshots 100% complete without edge cropping or letterboxing. Features mathematically anchored `inset: 0; margin: auto;` stage centering, fluid `cubic-bezier(0.16, 1, 0.3, 1)` transitions that glide whichever project is clicked or hovered directly into the center slot, dramatic focal scale hierarchy (`scale(1.08)` center vs `scale(0.80)` flanking cards), calibrated 36% fanning slide overlap, and preview-triggered bottom spec drawers preserving total screenshot visibility.
 - 🔬 **Instant Live Arsenal Search & Dynamic Counters**: Real-time client-side search input with live reactive category counters, filtering 36+ skills and competencies across Languages, Web & Full-Stack, SQA & Testing, and AI/Tools with zero latency.
 - 💬 **Interactive WhatsApp Inquiry Presets**: One-click recruiter and client message templates pre-filling tailored inquiry briefs directly into WhatsApp.
 - 🔲 **Cyber Architectural Grid & Pure Dark Cyberpunk Aesthetic**: Precision 36px x 36px background grid pattern paired with futuristic `Space Grotesk` display typography for high-impact headlines and numbered cyber telemetry badges in an uncompromising, high-contrast dark crystal design.
 - 🪟 **Ultra-Realistic Frosted Glassmorphism**: Multi-layered glass styling featuring `linear-gradient` face highlights, 1px specular top rims (`inset 0 1px 1px 0 rgba(255, 255, 255, 0.32)`), deep Gaussian blur (`24px`), and color saturation boost (`saturate(190%)`) that refracts colorful ambient glow orbs directly through the cards.
 - 🛡️ **Hardware-Adaptive Performance Engine**: Dynamic detection for low-spec CPUs (`hardwareConcurrency <= 2`), constrained memory (`deviceMemory <= 3`), cellular throttling (`2g`/`slow-2g`), and battery conservation (`battery.level <= 20%`). Bypasses expensive multi-pass Gaussian blurs automatically to lock 60 FPS on any device.
-- 📱 **Progressive Web App (PWA v16)**: Fully installable desktop and mobile app with Service Worker v16, `stale-while-revalidate` caching, offline navigation fallback, and automatic FIFO cache eviction capped at 50 items to protect mobile flash storage.
+- 📱 **Progressive Web App (PWA v17)**: Fully installable desktop and mobile app with Service Worker v17, `stale-while-revalidate` caching, offline navigation fallback, and automatic FIFO cache eviction capped at 50 items to protect mobile flash storage.
 - 🔍 **SEO & Search Architecture**: Complete Schema.org JSON-LD `@graph` (`Person`, `WebSite`, `ProfilePage`, `SoftwareApplication`, `BreadcrumbList`), OpenGraph metadata, Twitter Cards, international `hreflang` alternates, and XML sitemaps with Google Image extensions (`xmlns:image`).
 - ♿ **WCAG 2.1 AAA Accessibility**: Bypass skip-links, ARIA landmarks, carousel live regions, roving tabindex, modal keyboard focus traps with `Tab`/`Shift+Tab` cycling, `Escape` key dismissal, high-contrast mode overrides (`forced-colors: active`), and `prefers-reduced-motion` compliance.
 
@@ -47,7 +47,7 @@
 
 ```text
 ├── index.html                                 # Single-page application entry point & styles
-├── sw.js                                      # Service Worker (v16 cache & offline engine)
+├── sw.js                                      # Service Worker (v17 cache & offline engine)
 ├── manifest.json                              # PWA installation manifest & shortcuts
 ├── vercel.json                                # Edge caching headers & security policies
 ├── sitemap.xml                                # Google XML sitemap with Image extensions
