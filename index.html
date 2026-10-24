@@ -361,8 +361,8 @@
     .coverflow-stage {
       position: relative;
       width: 100%;
-      min-height: 590px;
-      height: 600px;
+      min-height: 330px;
+      height: 340px;
       perspective: 1300px;
       transform-style: preserve-3d;
       display: flex;
@@ -372,16 +372,16 @@
 
     @media (max-width: 1024px) {
       .coverflow-stage {
-        min-height: 530px;
-        height: 540px;
+        min-height: 300px;
+        height: 310px;
         perspective: 1100px;
       }
     }
 
     @media (max-width: 640px) {
       .coverflow-stage {
-        min-height: 480px;
-        height: 490px;
+        min-height: 270px;
+        height: 280px;
         perspective: 850px;
       }
     }
@@ -390,7 +390,7 @@
       position: absolute;
       width: 95%;
       max-width: 760px;
-      height: 540px;
+      height: 280px;
       transform: var(--card-transform);
       transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1),
                   opacity 0.65s cubic-bezier(0.25, 1, 0.5, 1),
@@ -400,20 +400,20 @@
       will-change: transform, opacity;
       transform-origin: center center;
       user-select: none;
-      border-radius: 1.75rem;
+      border-radius: 1.5rem;
     }
 
     @media (max-width: 1024px) {
       .coverflow-card {
         max-width: 640px;
-        height: 500px;
+        height: 260px;
       }
     }
 
     @media (max-width: 640px) {
       .coverflow-card {
         max-width: 94vw;
-        height: 450px;
+        height: 240px;
         border-radius: 1.25rem;
       }
     }
