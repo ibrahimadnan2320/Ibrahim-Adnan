@@ -3757,6 +3757,10 @@
 
         cards.forEach((card, idx) => {
           let diff = idx - currentIndex;
+          // Circular modular wrapping for 3-card deck: active card is always centered, flanked symmetrically
+          if (diff > 1) diff -= total;
+          if (diff < -1) diff += total;
+
           card.classList.remove('active-card');
           const isCurrent = diff === 0;
           card.setAttribute('aria-hidden', isCurrent ? 'false' : 'true');
