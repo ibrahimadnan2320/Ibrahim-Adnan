@@ -4,7 +4,7 @@
    stale-while-revalidate asset caching for PWA performance.
    ========================================================= */
 
-const CACHE_NAME = 'ibrahim-adnan-v12';
+const CACHE_NAME = 'ibrahim-adnan-v13';
 const MAX_CACHE_ITEMS = 50;
 const PRECACHE_ASSETS = [
   '/',
