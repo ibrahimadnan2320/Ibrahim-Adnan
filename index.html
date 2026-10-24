@@ -3895,30 +3895,16 @@
       }
 
       function goTo(index) {
-        if (index < 0) {
-          currentIndex = 0;
-        } else if (index >= total) {
-          currentIndex = total - 1;
-        } else {
-          currentIndex = index;
-        }
+        currentIndex = ((index % total) + total) % total;
         updateCoverflow();
       }
 
       function next() {
-        if (currentIndex < total - 1) {
-          goTo(currentIndex + 1);
-        } else {
-          goTo(0);
-        }
+        goTo(currentIndex + 1);
       }
 
       function prev() {
-        if (currentIndex > 0) {
-          goTo(currentIndex - 1);
-        } else {
-          goTo(total - 1);
-        }
+        goTo(currentIndex - 1);
       }
 
       if (prevBtn) prevBtn.addEventListener('click', prev);
