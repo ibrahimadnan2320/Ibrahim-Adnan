@@ -3750,10 +3750,10 @@
                                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         const isWidescreen = window.innerWidth >= 1440;
-        // Calibrated overlapping stacked deck geometry for expanded 760px cards
-        const xStep = isSmallMobile ? 26 : (isMobile ? 30 : (isWidescreen ? 34 : 35));
-        const zStep = isMobile ? 45 : 75;
-        const rot = isMobile ? 8 : 12;
+        // Calibrated overlapping stacked deck geometry: cards slide smoothly over each other without edge clipping
+        const xStep = isSmallMobile ? 22 : (isMobile ? 26 : (isWidescreen ? 32 : 30));
+        const zStep = isMobile ? 40 : 65;
+        const rot = isMobile ? 6 : 10;
 
         cards.forEach((card, idx) => {
           let diff = idx - currentIndex;
@@ -3794,7 +3794,7 @@
             card.style.setProperty('--card-active-border', activeTheme.border);
             card.style.setProperty('--card-active-glow', activeTheme.glow);
 
-            const activeScale = isMobile ? '1.05' : '1.10';
+            const activeScale = isMobile ? '1.04' : '1.08';
             const activeT = isLowEndDevice 
               ? `translate3d(0, 0, 0) scale(${activeScale})` 
               : `translate3d(0, 0, 75px) rotateY(0deg) scale(${activeScale})`;
@@ -3807,7 +3807,7 @@
             card.style.filter = 'brightness(0.80)';
             card.style.pointerEvents = 'auto';
             card.style.cursor = 'pointer';
-            const sideScale = isMobile ? '0.82' : '0.80';
+            const sideScale = isMobile ? '0.84' : '0.82';
             const leftT = isLowEndDevice 
               ? `translate3d(-${xStep}%, 0, 0) scale(${sideScale})` 
               : `translate3d(-${xStep}%, 0, -${zStep}px) rotateY(${rot}deg) scale(${sideScale})`;
@@ -3820,7 +3820,7 @@
             card.style.filter = 'brightness(0.80)';
             card.style.pointerEvents = 'auto';
             card.style.cursor = 'pointer';
-            const sideScale = isMobile ? '0.82' : '0.80';
+            const sideScale = isMobile ? '0.84' : '0.82';
             const rightT = isLowEndDevice 
               ? `translate3d(${xStep}%, 0, 0) scale(${sideScale})` 
               : `translate3d(${xStep}%, 0, -${zStep}px) rotateY(-${rot}deg) scale(${sideScale})`;
