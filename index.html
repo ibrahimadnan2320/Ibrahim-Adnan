@@ -440,11 +440,14 @@
       box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7);
     }
 
-    /* Interactive Frosted Glass Hover Details Overlay */
+    /* Interactive Frosted Glass Hover Details Drawer */
     .card-hover-details {
       position: absolute;
-      inset: 0;
-      background: rgba(10, 13, 23, 0.95);
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-height: 80%;
+      background: rgba(10, 13, 23, 0.92);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       padding: 0.85rem 1.15rem;
@@ -457,7 +460,7 @@
                   transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
       z-index: 25;
-      border-radius: 0.85rem;
+      border-radius: 0 0 1rem 1rem;
     }
 
     @media (min-width: 640px) {
@@ -466,7 +469,8 @@
       }
     }
 
-    .coverflow-card.active-card:hover .card-hover-details {
+    .coverflow-card.active-card .group\/preview:hover .card-hover-details,
+    .coverflow-card.active-card .group\/preview:focus-within .card-hover-details {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
@@ -1846,7 +1850,7 @@
             <!-- Preview Image & Actions (Calibrated 280px Frame for 100% Complete 2:1 Display) -->
             <div class="relative w-full h-[180px] sm:h-[250px] md:h-[280px] rounded-2xl overflow-hidden bg-black/85 border border-white/10 mt-auto group/preview flex items-center justify-center">
               <img src="mak-and-sons.png" alt="MAK &amp; Sons Construction Website" class="w-full h-full object-contain object-center transition duration-500 group-hover/preview:scale-[1.02]" />
-              <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none"></div>
+              <div class="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none"></div>
               
               <div class="absolute bottom-2 left-2.5 right-2.5 flex items-center justify-between gap-2">
                 <a href="https://mak-and-sons-construction.vercel.app/" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-cyber-accent text-black font-mono font-bold text-[11px] hover:bg-cyan-300 transition flex items-center gap-1.5 shadow-md active:scale-95">
@@ -1910,7 +1914,7 @@
             <!-- Preview Image & Actions (Calibrated 280px Frame for 100% Complete 2:1 Display) -->
             <div class="relative w-full h-[180px] sm:h-[250px] md:h-[280px] rounded-2xl overflow-hidden bg-black/85 border border-white/10 mt-auto group/preview flex items-center justify-center">
               <img src="iqra-academy.png" alt="IQRA Online Quran Academy Website" class="w-full h-full object-contain object-center transition duration-500 group-hover/preview:scale-[1.02]" />
-              <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none"></div>
+              <div class="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none"></div>
               
               <div class="absolute bottom-2 left-2.5 right-2.5 flex items-center justify-between gap-2">
                 <a href="https://iqra-online-quran-academy.vercel.app/" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-cyber-emerald text-black font-mono font-bold text-[11px] hover:bg-emerald-300 transition flex items-center gap-1.5 shadow-md active:scale-95">
