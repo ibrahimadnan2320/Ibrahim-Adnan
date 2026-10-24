@@ -3745,10 +3745,10 @@
                                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         const isWidescreen = window.innerWidth >= 1440;
-        // Overlapping stacked deck offsets: cards overlap by ~50% so they slide on each other
-        const xStep = isSmallMobile ? 28 : (isMobile ? 32 : (isWidescreen ? 36 : 38));
-        const zStep = isMobile ? 50 : 80;
-        const rot = isMobile ? 10 : 14;
+        // Calibrated overlapping stacked deck geometry for expanded 760px cards
+        const xStep = isSmallMobile ? 26 : (isMobile ? 30 : (isWidescreen ? 34 : 35));
+        const zStep = isMobile ? 45 : 75;
+        const rot = isMobile ? 8 : 12;
 
         cards.forEach((card, idx) => {
           let diff = idx - currentIndex;
