@@ -3232,59 +3232,6 @@
     });
 
     /* ==========================================================
-       6. THEME TOGGLE
-       ========================================================= */
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    const htmlEl = document.documentElement;
-
-    function applyTheme(mode) {
-      const wfm = window._wireframeMaterial;
-      if (mode === 'light') {
-        htmlEl.classList.remove('dark');
-        htmlEl.classList.add('light');
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-        localStorage.setItem('theme', 'light');
-        if (wfm) {
-          wfm.color.setHex(0x0284c7);
-          wfm.opacity = 0.28;
-        }
-      } else {
-        htmlEl.classList.remove('light');
-        htmlEl.classList.add('dark');
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-        localStorage.setItem('theme', 'dark');
-        if (wfm) {
-          wfm.color.setHex(0x00f0ff);
-          wfm.opacity = 0.18;
-        }
-      }
-      document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
-        m.setAttribute('content', mode === 'light' ? '#cdd5e0' : '#050608');
-      });
-      if (themeToggleBtn) {
-        themeToggleBtn.setAttribute('aria-label', mode === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
-      }
-    }
-
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    applyTheme(savedTheme || (systemPrefersLight ? 'light' : 'dark'));
-
-    themeToggleBtn.addEventListener('click', () => {
-      const nextTheme = htmlEl.classList.contains('dark') ? 'light' : 'dark';
-      applyTheme(nextTheme);
-    });
-
-    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
-      if (!localStorage.getItem('theme')) {
-        applyTheme(e.matches ? 'light' : 'dark');
-      }
-    });
-
-    /* ==========================================================
        7. UNIFIED SCROLL ENGINE (RAF-THROTTLED, PASSIVE & STATE-CACHED)
        Combines progress calculation, navbar auto-hide, and resize syncing.
        ========================================================= */
