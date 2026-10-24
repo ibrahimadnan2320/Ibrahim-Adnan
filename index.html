@@ -3773,9 +3773,9 @@
           ];
 
           if (diff === 0) {
-            // Active Center Card
+            // Active Center Card: significantly enlarged focal hero
             card.classList.add('active-card');
-            card.style.zIndex = '30';
+            card.style.zIndex = '35';
             card.style.opacity = '1';
             card.style.filter = 'none';
             card.style.pointerEvents = 'auto';
@@ -3785,57 +3785,60 @@
             card.style.setProperty('--card-active-border', activeTheme.border);
             card.style.setProperty('--card-active-glow', activeTheme.glow);
 
+            const activeScale = isMobile ? '1.05' : '1.10';
             const activeT = isLowEndDevice 
-              ? 'translate3d(0, 0, 0) scale(1)' 
-              : 'translate3d(0, 0, 50px) rotateY(0deg) scale(1.02)';
+              ? `translate3d(0, 0, 0) scale(${activeScale})` 
+              : `translate3d(0, 0, 75px) rotateY(0deg) scale(${activeScale})`;
             card.style.setProperty('--card-transform', activeT);
             card.style.transform = activeT;
           } else if (diff === -1) {
-            // Immediate Left: stacked partially behind active card
+            // Immediate Left: compact stacked flanking card
             card.style.zIndex = '20';
-            card.style.opacity = '0.85';
-            card.style.filter = 'brightness(0.88)';
+            card.style.opacity = '0.70';
+            card.style.filter = 'brightness(0.80)';
             card.style.pointerEvents = 'auto';
             card.style.cursor = 'pointer';
+            const sideScale = isMobile ? '0.82' : '0.80';
             const leftT = isLowEndDevice 
-              ? `translate3d(-${xStep}%, 0, 0) scale(0.92)` 
-              : `translate3d(-${xStep}%, 0, -${zStep}px) rotateY(${rot}deg) scale(0.92)`;
+              ? `translate3d(-${xStep}%, 0, 0) scale(${sideScale})` 
+              : `translate3d(-${xStep}%, 0, -${zStep}px) rotateY(${rot}deg) scale(${sideScale})`;
             card.style.setProperty('--card-transform', leftT);
             card.style.transform = leftT;
           } else if (diff === 1) {
-            // Immediate Right: stacked partially behind active card
+            // Immediate Right: compact stacked flanking card
             card.style.zIndex = '20';
-            card.style.opacity = '0.85';
-            card.style.filter = 'brightness(0.88)';
+            card.style.opacity = '0.70';
+            card.style.filter = 'brightness(0.80)';
             card.style.pointerEvents = 'auto';
             card.style.cursor = 'pointer';
+            const sideScale = isMobile ? '0.82' : '0.80';
             const rightT = isLowEndDevice 
-              ? `translate3d(${xStep}%, 0, 0) scale(0.92)` 
-              : `translate3d(${xStep}%, 0, -${zStep}px) rotateY(-${rot}deg) scale(0.92)`;
+              ? `translate3d(${xStep}%, 0, 0) scale(${sideScale})` 
+              : `translate3d(${xStep}%, 0, -${zStep}px) rotateY(-${rot}deg) scale(${sideScale})`;
             card.style.setProperty('--card-transform', rightT);
             card.style.transform = rightT;
           } else if (diff === -2) {
-            // Far Left: stacked beneath left card
+            // Far Left: deeply recessed card
             card.style.zIndex = '10';
-            card.style.opacity = '0.55';
-            card.style.filter = 'brightness(0.75)';
+            card.style.opacity = '0.40';
+            card.style.filter = 'brightness(0.65)';
             card.style.pointerEvents = 'auto';
             card.style.cursor = 'pointer';
             const farLeftT = isLowEndDevice 
-              ? `translate3d(-${xStep * 1.8}%, 0, 0) scale(0.85)` 
-              : `translate3d(-${xStep * 1.8}%, 0, -${zStep * 1.8}px) rotateY(${rot * 1.4}deg) scale(0.85)`;
+              ? `translate3d(-${xStep * 1.8}%, 0, 0) scale(0.68)` 
+              : `translate3d(-${xStep * 1.8}%, 0, -${zStep * 1.8}px) rotateY(${rot * 1.4}deg) scale(0.68)`;
             card.style.setProperty('--card-transform', farLeftT);
             card.style.transform = farLeftT;
           } else if (diff === 2) {
-            // Far Right: stacked beneath right card
+            // Far Right: deeply recessed card
             card.style.zIndex = '10';
-            card.style.opacity = '0.55';
-            card.style.filter = 'brightness(0.75)';
+            card.style.opacity = '0.40';
+            card.style.filter = 'brightness(0.65)';
             card.style.pointerEvents = 'auto';
             card.style.cursor = 'pointer';
             const farRightT = isLowEndDevice 
-              ? `translate3d(${xStep * 1.8}%, 0, 0) scale(0.85)` 
-              : `translate3d(${xStep * 1.8}%, 0, -${zStep * 1.8}px) rotateY(-${rot * 1.4}deg) scale(0.85)`;
+              ? `translate3d(${xStep * 1.8}%, 0, 0) scale(0.68)` 
+              : `translate3d(${xStep * 1.8}%, 0, -${zStep * 1.8}px) rotateY(-${rot * 1.4}deg) scale(0.68)`;
             card.style.setProperty('--card-transform', farRightT);
             card.style.transform = farRightT;
           } else {
