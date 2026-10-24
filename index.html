@@ -4,18 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-  <!-- Anti-FOUC Early Theme Initializer (Zero Paint Flash) -->
+  <!-- Theme Sanitizer: Enforce Pure Dark Cyberpunk Mode -->
   <script>
-    (function() {
-      try {
-        var t = localStorage.getItem('theme');
-        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-        if (t === 'light' || (!t && prefersLight)) {
-          document.documentElement.classList.remove('dark');
-          document.documentElement.classList.add('light');
-        }
-      } catch (e) {}
-    })();
+    try {
+      localStorage.removeItem('theme');
+      document.documentElement.classList.remove('light');
+      document.documentElement.classList.add('dark');
+    } catch (e) {}
   </script>
   
   <!-- Primary SEO Meta Tags -->
@@ -30,10 +25,9 @@
   <link rel="alternate" hreflang="x-default" href="https://ibrahim-adnan.vercel.app/" />
   <link rel="alternate" hreflang="en" href="https://ibrahim-adnan.vercel.app/" />
 
-  <!-- Theme Colors & Color Scheme -->
-  <meta name="color-scheme" content="dark light" />
-  <meta name="theme-color" content="#050608" media="(prefers-color-scheme: dark)" />
-  <meta name="theme-color" content="#cdd5e0" media="(prefers-color-scheme: light)" />
+  <!-- Theme Colors & Color Scheme (Strict Dark Mode) -->
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#050608" />
 
   <!-- Mobile Web App & PWA Capabilities -->
   <meta name="application-name" content="Ibrahim Adnan Portfolio" />
