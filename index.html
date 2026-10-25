@@ -3131,10 +3131,19 @@
     }
 
     async function copyToClipboard(text, customMessage) {
-      try {
-        if (navigator.clipboard && window.isSecureContext) {
+      let copied = false;
+      // 1. Try Modern Async Clipboard API
+      if (navigator.clipboard && window.isSecureContext) {
+        try {
           await navigator.clipboard.writeText(text);
-        } else {
+          copied = true;
+        } catch (err) {
+          // Fall through to legacy execCommand fallback
+        }
+      }
+      // 2. Resilient fallback using temporary textarea
+      if (!copied) {
+        try {
           const input = document.createElement('textarea');
           input.value = text;
           input.setAttribute('readonly', '');
@@ -3144,15 +3153,22 @@
           input.style.opacity = '0';
           input.style.fontSize = '16px';
           document.body.appendChild(input);
+          input.focus();
           input.select();
-          const copied = document.execCommand('copy');
+          input.setSelectionRange(0, 99999);
+          copied = document.execCommand('copy');
           input.remove();
-          if (!copied) throw new Error('Copy failed');
+        } catch (err) {
+          copied = false;
         }
-        showCopyToast(customMessage);
-      } catch (error) {
-        showCopyToast('Copy unavailable — please select and copy manually.');
       }
+      // 3. User feedback toast
+      if (copied) {
+        showCopyToast(customMessage || 'Email copied to clipboard!');
+      } else {
+        showCopyToast(`Email: ${text}`);
+      }
+      return copied;
     }
 
     /* ==========================================================
