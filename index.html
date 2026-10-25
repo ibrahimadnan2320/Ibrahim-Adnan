@@ -2770,9 +2770,8 @@
       let imageHtml = '';
       if (p.image) {
         imageHtml = `
-          <div class="relative w-full aspect-[16/9] rounded-xl overflow-hidden border border-white/10 bg-black/60 mb-5">
-            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover object-top" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+          <div class="relative w-full rounded-xl overflow-hidden border border-white/10 bg-black/80 mb-5 flex items-center justify-center shadow-lg" style="aspect-ratio: 1024 / 508;">
+            <img src="${p.image}" alt="${p.title}" class="w-full h-full object-contain object-center" />
           </div>
         `;
       }
