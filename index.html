@@ -1136,9 +1136,9 @@
             <a href="https://github.com/ibrahimadnan2320" target="_blank" rel="noopener noreferrer" title="GitHub Profile" aria-label="GitHub Profile" class="w-11 h-11 sm:w-10 sm:h-10 rounded-xl crystal-card flex items-center justify-center text-[var(--text-main)] hover:text-cyber-accent hover:border-cyber-accent hover:scale-105 active:scale-95 transition shadow-sm">
               <i class="fa-brands fa-github text-base" aria-hidden="true"></i>
             </a>
-            <button onclick="copyToClipboard('ibrahimadnan2320@gmail.com', 'Email copied to clipboard!')" title="Click to copy email" aria-label="Copy email address to clipboard" class="w-11 h-11 sm:w-10 sm:h-10 rounded-xl crystal-card flex items-center justify-center text-[var(--text-main)] hover:text-cyan-400 hover:border-cyan-400 hover:scale-105 active:scale-95 transition shadow-sm">
+            <a href="mailto:ibrahimadnan2320@gmail.com?subject=Software%20Engineering%20Inquiry%20-%20Ibrahim%20Adnan" onclick="handleEmailClick(event)" title="Send email to ibrahimadnan2320@gmail.com" aria-label="Send email to ibrahimadnan2320@gmail.com" class="w-11 h-11 sm:w-10 sm:h-10 rounded-xl crystal-card flex items-center justify-center text-[var(--text-main)] hover:text-cyan-400 hover:border-cyan-400 hover:scale-105 active:scale-95 transition shadow-sm">
               <i class="fa-solid fa-envelope text-sm" aria-hidden="true"></i>
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -3169,6 +3169,10 @@
         showCopyToast(`Email: ${text}`);
       }
       return copied;
+    }
+
+    function handleEmailClick(e) {
+      copyToClipboard('ibrahimadnan2320@gmail.com', 'Opening email client & copied address!');
     }
 
     /* ==========================================================
