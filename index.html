@@ -3749,14 +3749,14 @@
       function updateCoverflow() {
         const isMobile = window.innerWidth < 768;
         const isSmallMobile = window.innerWidth < 480;
+        const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
         const isLowEndDevice = document.documentElement.classList.contains('low-end') || 
                                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        const isWidescreen = window.innerWidth >= 1440;
-        // Calibrated overlapping stacked deck geometry: cards slide smoothly over each other without edge clipping
-        const xStep = isSmallMobile ? 24 : (isMobile ? 28 : (isWidescreen ? 38 : 36));
-        const zStep = isMobile ? 40 : 70;
-        const rot = isMobile ? 6 : 10;
+        // Calibrated overlapping stacked deck geometry: active card dead-center, flanking cards cleanly separated
+        const xStep = isSmallMobile ? 22 : (isMobile ? 24 : (isTablet ? 45 : 55));
+        const zStep = isMobile ? 35 : 75;
+        const rot = isMobile ? 5 : 10;
 
         cards.forEach((card, idx) => {
           let diff = idx - currentIndex;
