@@ -4053,6 +4053,7 @@
        ========================================================= */
     function setWhatsAppTopic(topic) {
       const waLink = document.getElementById('whatsapp-link');
+      const emailLink = document.getElementById('email-link');
       const buttons = document.querySelectorAll('.wa-topic-btn');
       
       const templates = {
@@ -4061,9 +4062,20 @@
         project: 'Hi Ibrahim, I have a web platform project and would like to collaborate with you.'
       };
 
+      const emailSubjects = {
+        role: 'Software Engineering Opportunity - Ibrahim Adnan',
+        qa: 'SQA & Quality Assurance Engagement - Ibrahim Adnan',
+        project: 'Web Platform Development Project - Ibrahim Adnan'
+      };
+
       const text = templates[topic] || templates.role;
       if (waLink) {
         waLink.href = `https://wa.me/923218470572?text=${encodeURIComponent(text)}`;
+      }
+
+      if (emailLink) {
+        const subject = emailSubjects[topic] || emailSubjects.role;
+        emailLink.href = `mailto:ibrahimadnan2320@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
       }
 
       buttons.forEach(btn => {
