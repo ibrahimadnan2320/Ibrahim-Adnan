@@ -19,12 +19,13 @@
 
 - 🌐 **Interactive 3D WebGL Core**: Real-time rotating crystal wireframe icosahedron with an ambient starfield particle cloud powered by Three.js. Includes delta-time independent damping (60Hz / 120Hz / 144Hz display parity) and modular time tracking to eliminate IEEE-754 precision drift.
 - 🎴 **3D Overlapping Stacked Deck with Clean Unobstructed 2:1 Preview Geometry**: Hardware-accelerated sliding deck carousel with calibrated 600px wide by 395px high cards and 280px (2.016:1) preview frames displaying entire project screenshots 100% complete without floating buttons or dark gradient obstruction. Features strictly enforced `position: absolute !important; inset: 0 !important; margin: auto !important;` stage anchoring (immune to relative class cascade overrides), fluid `cubic-bezier(0.16, 1, 0.3, 1)` transitions that glide whichever project is active dead-center (`scale(1.08)` at z-index 35), and calibrated 55% fanning slide offsets ensuring flanking cards peek symmetrically on left and right with zero text collision or overlapping clutter.
+- 🖼️ **100% Edge-to-Edge Uncropped Modal & Case Study Viewer**: Fully calibrated `1024 / 508` (~2:1) responsive image containers in the dynamic project case study modal and certificate viewer. Eliminates hardcoded 16:9 crop distortion and bottom obscuring gradients, rendering every pixel, header, and UI element with 100% complete visibility.
 - 🔬 **Instant Live Arsenal Search & Dynamic Counters**: Real-time client-side search input with live reactive category counters, filtering 36+ skills and competencies across Languages, Web & Full-Stack, SQA & Testing, and AI/Tools with zero latency.
 - 💬 **Interactive WhatsApp & Email Inquiry Presets**: One-click recruiter and client message templates pre-filling tailored inquiry briefs into both WhatsApp direct chat and native `mailto:` links with subject/body synchronization, paired with resilient dual-mode clipboard copying.
 - 🔲 **Cyber Architectural Grid & Pure Dark Cyberpunk Aesthetic**: Precision 36px x 36px background grid pattern paired with futuristic `Space Grotesk` display typography for high-impact headlines and numbered cyber telemetry badges in an uncompromising, high-contrast dark crystal design.
 - 🪟 **Ultra-Realistic Frosted Glassmorphism**: Multi-layered glass styling featuring `linear-gradient` face highlights, 1px specular top rims (`inset 0 1px 1px 0 rgba(255, 255, 255, 0.32)`), deep Gaussian blur (`24px`), and color saturation boost (`saturate(190%)`) that refracts colorful ambient glow orbs directly through the cards.
 - 🛡️ **Hardware-Adaptive Performance Engine**: Dynamic detection for low-spec CPUs (`hardwareConcurrency <= 2`), constrained memory (`deviceMemory <= 3`), cellular throttling (`2g`/`slow-2g`), and battery conservation (`battery.level <= 20%`). Bypasses expensive multi-pass Gaussian blurs automatically to lock 60 FPS on any device.
-- 📱 **Progressive Web App (PWA v20)**: Fully installable desktop and mobile app with Service Worker v20, `stale-while-revalidate` caching, offline navigation fallback, and automatic FIFO cache eviction capped at 50 items to protect mobile flash storage.
+- 📱 **Progressive Web App (PWA v21)**: Fully installable desktop and mobile app with Service Worker v21, `stale-while-revalidate` caching, offline navigation fallback, and automatic FIFO cache eviction capped at 50 items to protect mobile flash storage.
 - 🔍 **SEO & Search Architecture**: Complete Schema.org JSON-LD `@graph` (`Person`, `WebSite`, `ProfilePage`, `SoftwareApplication`, `BreadcrumbList`), OpenGraph metadata, Twitter Cards, international `hreflang` alternates, and XML sitemaps with Google Image extensions (`xmlns:image`).
 - ♿ **WCAG 2.1 AAA Accessibility**: Bypass skip-links, ARIA landmarks, carousel live regions, roving tabindex, modal keyboard focus traps with `Tab`/`Shift+Tab` cycling, `Escape` key dismissal, high-contrast mode overrides (`forced-colors: active`), and `prefers-reduced-motion` compliance.
 
@@ -47,7 +48,7 @@
 
 ```text
 ├── index.html                                 # Single-page application entry point & styles
-├── sw.js                                      # Service Worker (v20 cache & offline engine)
+├── sw.js                                      # Service Worker (v21 cache & offline engine)
 ├── manifest.json                              # PWA installation manifest & shortcuts
 ├── vercel.json                                # Edge caching headers & security policies
 ├── sitemap.xml                                # Google XML sitemap with Image extensions
