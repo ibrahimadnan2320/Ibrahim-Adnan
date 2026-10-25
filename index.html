@@ -3937,14 +3937,67 @@
         dot.addEventListener('click', () => goTo(idx));
       });
 
-      stage.setAttribute('tabindex', '0');
-      stage.addEventListener('keydown', (e) => {
+      // Keyboard Navigation Engine (ArrowLeft, ArrowRight, Home, End)
+      function handleArrowNav(e) {
         if (e.key === 'ArrowLeft') {
           prev();
+          resetAutoRotate();
           e.preventDefault();
         } else if (e.key === 'ArrowRight') {
           next();
+          resetAutoRotate();
           e.preventDefault();
+        } else if (e.key === 'Home') {
+          goTo(0);
+          resetAutoRotate();
+          e.preventDefault();
+        } else if (e.key === 'End') {
+          goTo(total - 1);
+          resetAutoRotate();
+          e.preventDefault();
+        }
+      }
+
+      stage.setAttribute('tabindex', '0');
+      stage.setAttribute('aria-label', 'Interactive 3D Projects Showcase. Use Left and Right Arrow keys on your keyboard to navigate slides.');
+      stage.addEventListener('keydown', handleArrowNav);
+      if (prevBtn) prevBtn.addEventListener('keydown', handleArrowNav);
+      if (nextBtn) nextBtn.addEventListener('keydown', handleArrowNav);
+
+      cards.forEach(card => card.addEventListener('keydown', handleArrowNav));
+      dots.forEach(dot => dot.addEventListener('keydown', handleArrowNav));
+
+      // Global document listener: enables arrow navigation whenever the project boxes are viewed or focused
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight' && e.key !== 'Home' && e.key !== 'End') {
+          return;
+        }
+
+        // Do not intercept if user is typing into text inputs, textareas, or selects
+        const target = e.target;
+        const tag = target ? target.tagName : '';
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (target && target.isContentEditable)) {
+          return;
+        }
+
+        // Do not intercept if modal viewer is open
+        if (certModal && certModal.classList.contains('modal-active')) {
+          return;
+        }
+
+        const projectsSection = document.getElementById('projects');
+        if (!projectsSection) return;
+
+        // Check if focus is anywhere inside #projects
+        const isFocusedInProjects = projectsSection.contains(document.activeElement);
+
+        // Check if #projects section is currently visible in viewport
+        const rect = projectsSection.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const isInViewport = (rect.top < vh * 0.75 && rect.bottom > vh * 0.25);
+
+        if (isFocusedInProjects || isInViewport) {
+          handleArrowNav(e);
         }
       });
 
