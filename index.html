@@ -1803,12 +1803,12 @@
       <div class="coverflow-wrapper relative px-2 sm:px-6">
         
         <!-- Left Navigation Arrow -->
-        <button id="coverflow-prev" aria-label="Previous Project" class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-white/15 bg-black/70 backdrop-blur-md text-white hover:bg-cyber-accent hover:text-black hover:border-cyber-accent transition duration-300 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.6)] active:scale-90">
+        <button id="coverflow-prev" aria-label="Previous Project" title="Previous Project (Left Arrow Key ←)" class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-white/15 bg-black/70 backdrop-blur-md text-white hover:bg-cyber-accent hover:text-black hover:border-cyber-accent transition duration-300 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.6)] active:scale-90">
           <i class="fa-solid fa-chevron-left text-sm sm:text-base" aria-hidden="true"></i>
         </button>
 
         <!-- Right Navigation Arrow -->
-        <button id="coverflow-next" aria-label="Next Project" class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-white/15 bg-black/70 backdrop-blur-md text-white hover:bg-cyber-accent hover:text-black hover:border-cyber-accent transition duration-300 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.6)] active:scale-90">
+        <button id="coverflow-next" aria-label="Next Project" title="Next Project (Right Arrow Key →)" class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-white/15 bg-black/70 backdrop-blur-md text-white hover:bg-cyber-accent hover:text-black hover:border-cyber-accent transition duration-300 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.6)] active:scale-90">
           <i class="fa-solid fa-chevron-right text-sm sm:text-base" aria-hidden="true"></i>
         </button>
 
@@ -1999,11 +1999,18 @@
 
         </div>
 
-        <!-- Dot Pagination Indicator -->
-        <div class="flex items-center justify-center gap-2 mt-8 sm:mt-10" role="tablist" aria-label="Projects Pagination">
-          <button class="coverflow-dot h-2.5 rounded-full transition-all duration-300 bg-white/20 w-2.5 hover:bg-cyber-accent" data-dot="0" aria-label="Go to project 1"></button>
-          <button class="coverflow-dot h-2.5 rounded-full transition-all duration-300 bg-cyber-accent w-8 hover:bg-cyber-accent" data-dot="1" aria-label="Go to project 2" aria-current="true"></button>
-          <button class="coverflow-dot h-2.5 rounded-full transition-all duration-300 bg-white/20 w-2.5 hover:bg-cyber-accent" data-dot="2" aria-label="Go to project 3"></button>
+        <!-- Dot Pagination Indicator & Keyboard Guide -->
+        <div class="flex flex-col items-center justify-center gap-2.5 mt-8 sm:mt-10">
+          <div class="flex items-center justify-center gap-2" role="tablist" aria-label="Projects Pagination">
+            <button class="coverflow-dot h-2.5 rounded-full transition-all duration-300 bg-white/20 w-2.5 hover:bg-cyber-accent" data-dot="0" aria-label="Go to project 1"></button>
+            <button class="coverflow-dot h-2.5 rounded-full transition-all duration-300 bg-cyber-accent w-8 hover:bg-cyber-accent" data-dot="1" aria-label="Go to project 2" aria-current="true"></button>
+            <button class="coverflow-dot h-2.5 rounded-full transition-all duration-300 bg-white/20 w-2.5 hover:bg-cyber-accent" data-dot="2" aria-label="Go to project 3"></button>
+          </div>
+          <div class="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono text-[var(--text-muted)] opacity-75 select-none" aria-hidden="true">
+            <kbd class="px-1.5 py-0.5 rounded bg-white/[0.06] border border-white/15 text-[10px] text-white font-mono shadow-xs">←</kbd>
+            <kbd class="px-1.5 py-0.5 rounded bg-white/[0.06] border border-white/15 text-[10px] text-white font-mono shadow-xs">→</kbd>
+            <span class="tracking-wider">Navigate with Arrow Keys</span>
+          </div>
         </div>
 
       </div>
