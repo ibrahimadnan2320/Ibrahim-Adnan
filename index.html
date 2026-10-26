@@ -12,6 +12,26 @@
       document.documentElement.classList.add('dark');
     } catch (e) {}
   </script>
+
+  <!-- Early Device & Hardware Capability Detection (Zero-Layout-Shift Tier Tagging) -->
+  <script>
+    (function() {
+      try {
+        var isTouch = window.matchMedia('(pointer: coarse)').matches;
+        var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var isLowEnd = (
+          (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) ||
+          (navigator.deviceMemory && navigator.deviceMemory <= 3) ||
+          (navigator.connection && (navigator.connection.saveData === true || navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g')) ||
+          /Opera Mini|IEMobile|Android 4|Android 5|Android 6/i.test(navigator.userAgent)
+        );
+        var isMidTier = isTouch && !isLowEnd;
+        if (isLowEnd) document.documentElement.classList.add('low-end');
+        if (isMidTier) document.documentElement.classList.add('mid-tier');
+        if (prefersReducedMotion) document.documentElement.classList.add('reduced-motion');
+      } catch (e) {}
+    })();
+  </script>
   
   <!-- Primary SEO Meta Tags -->
   <title>Ibrahim Adnan | Full-Stack Software Engineer &amp; Web Developer</title>
