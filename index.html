@@ -3334,12 +3334,12 @@
         cursorDot.style.opacity = '0';
         cursorRing.style.opacity = '0';
         document.body.classList.remove('cursor-hover');
-      });
+      }, { passive: true });
 
       document.addEventListener('mouseenter', () => {
         cursorDot.style.opacity = '1';
         cursorRing.style.opacity = '1';
-      });
+      }, { passive: true });
     }
 
     /* Pause marquee animation when scrolled past it or when browser tab is hidden */
@@ -4089,10 +4089,10 @@
         startAutoRotate();
       }
 
-      stage.addEventListener('mouseenter', stopAutoRotate);
-      stage.addEventListener('mouseleave', startAutoRotate);
-      stage.addEventListener('focusin', stopAutoRotate);
-      stage.addEventListener('focusout', startAutoRotate);
+      stage.addEventListener('mouseenter', stopAutoRotate, { passive: true });
+      stage.addEventListener('mouseleave', startAutoRotate, { passive: true });
+      stage.addEventListener('focusin', stopAutoRotate, { passive: true });
+      stage.addEventListener('focusout', startAutoRotate, { passive: true });
 
       if (prevBtn) prevBtn.addEventListener('click', resetAutoRotate);
       if (nextBtn) nextBtn.addEventListener('click', resetAutoRotate);
