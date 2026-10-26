@@ -445,16 +445,18 @@
       box-shadow: 0 0 45px var(--card-active-glow, rgba(168, 85, 247, 0.5)), 0 20px 55px rgba(0, 0, 0, 0.8);
     }
 
-    .coverflow-card.active-card:hover {
-      box-shadow: 0 0 65px var(--card-active-glow, rgba(168, 85, 247, 0.65)), 0 30px 65px rgba(0, 0, 0, 0.9);
-      filter: brightness(1.03);
-    }
+    @media (hover: hover) {
+      .coverflow-card.active-card:hover {
+        box-shadow: 0 0 65px var(--card-active-glow, rgba(168, 85, 247, 0.65)), 0 30px 65px rgba(0, 0, 0, 0.9);
+        filter: brightness(1.03);
+      }
 
-    /* Stacked background cards hover peek animation */
-    .coverflow-card:not(.active-card):hover {
-      filter: brightness(1.06) contrast(1.02);
-      opacity: 0.95;
-      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7);
+      /* Stacked background cards hover peek animation */
+      .coverflow-card:not(.active-card):hover {
+        filter: brightness(1.06) contrast(1.02);
+        opacity: 0.95;
+        box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7);
+      }
     }
 
     /* Interactive Frosted Glass Hover Details Drawer */
@@ -486,7 +488,13 @@
       }
     }
 
-    .coverflow-card.active-card .group\/preview:hover .card-hover-details,
+    @media (hover: hover) {
+      .coverflow-card.active-card .group\/preview:hover .card-hover-details {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+    }
     .coverflow-card.active-card .group\/preview:focus-within .card-hover-details {
       opacity: 1;
       transform: translateY(0);
