@@ -501,17 +501,25 @@
       pointer-events: auto;
     }
 
-    /* Hardware/Motion Fallback */
+    /* Hardware Performance Fallback */
     html.low-end #coverflow-glow {
       display: none !important;
     }
-    html.low-end .coverflow-stage,
+    html.low-end .coverflow-stage {
+      perspective: none !important;
+    }
+    html.low-end .coverflow-card {
+      transition: transform 0.2s ease, opacity 0.2s ease !important;
+    }
+
+    /* Motion Sensitivity Compliance (WCAG 2.1 AAA) */
     @media (prefers-reduced-motion: reduce) {
       .coverflow-stage {
         perspective: none !important;
       }
       .coverflow-card {
-        transition: transform 0.3s ease, opacity 0.3s ease !important;
+        transition: none !important;
+        transform: none !important;
       }
     }
 
