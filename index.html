@@ -3303,13 +3303,14 @@
       let ringX = -100, ringY = -100;
       let cursorRAF = null;
 
-      function updateRing() {
+      function updateCursor() {
         ringX += (mouseX - ringX) * 0.2;
         ringY += (mouseY - ringY) * 0.2;
+        cursorDot.style.transform = `translate3d(${mouseX - 3}px, ${mouseY - 3}px, 0)`;
         cursorRing.style.transform = `translate3d(${ringX - 17}px, ${ringY - 17}px, 0)`;
 
         if (Math.abs(mouseX - ringX) > 0.5 || Math.abs(mouseY - ringY) > 0.5) {
-          cursorRAF = requestAnimationFrame(updateRing);
+          cursorRAF = requestAnimationFrame(updateCursor);
         } else {
           cursorRAF = null;
         }
@@ -3318,10 +3319,9 @@
       window.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
-        cursorDot.style.transform = `translate3d(${mouseX - 3}px, ${mouseY - 3}px, 0)`;
 
         if (!cursorRAF) {
-          cursorRAF = requestAnimationFrame(updateRing);
+          cursorRAF = requestAnimationFrame(updateCursor);
         }
       }, { passive: true });
 
