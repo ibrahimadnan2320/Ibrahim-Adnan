@@ -4100,20 +4100,36 @@
       if (prevBtn) prevBtn.addEventListener('click', resetAutoRotate);
       if (nextBtn) nextBtn.addEventListener('click', resetAutoRotate);
 
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
+      let isCarouselInViewport = false;
+
+      function evaluateAutoRotate() {
+        if (document.hidden || !isCarouselInViewport) {
           stopAutoRotate();
         } else {
           startAutoRotate();
         }
-      });
+      }
+
+      document.addEventListener('visibilitychange', evaluateAutoRotate);
+
+      // Section Viewport Observer: Pause auto-rotation when #projects section is offscreen
+      const projectsSection = document.getElementById('projects');
+      if ('IntersectionObserver' in window && projectsSection) {
+        const coverflowObserver = new IntersectionObserver((entries) => {
+          isCarouselInViewport = entries[0].isIntersecting;
+          evaluateAutoRotate();
+        }, { threshold: 0.15 });
+        coverflowObserver.observe(projectsSection);
+      } else {
+        isCarouselInViewport = true;
+        startAutoRotate();
+      }
 
       window.addEventListener('resize', () => {
         updateCoverflow();
       }, { passive: true });
 
       updateCoverflow();
-      startAutoRotate();
     })();
 
     /* ==========================================================
