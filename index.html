@@ -2913,8 +2913,9 @@
     let currentScrollProgress = 0;
     let threeRunning = false;
     let scrollTicking = false;
+    const prefersReducedData = window.matchMedia('(prefers-reduced-data: reduce)').matches;
 
-    if (typeof THREE !== 'undefined' && container) {
+    if (typeof THREE !== 'undefined' && container && !prefersReducedData) {
       try {
         const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
