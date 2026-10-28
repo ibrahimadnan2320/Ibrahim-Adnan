@@ -19,16 +19,19 @@
       try {
         var isTouch = window.matchMedia('(pointer: coarse)').matches;
         var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var prefersReducedData = window.matchMedia('(prefers-reduced-data: reduce)').matches || (navigator.connection && navigator.connection.saveData === true);
         var isLowEnd = (
           (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) ||
           (navigator.deviceMemory && navigator.deviceMemory <= 3) ||
           (navigator.connection && (navigator.connection.saveData === true || navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g')) ||
-          /Opera Mini|IEMobile|Android 4|Android 5|Android 6/i.test(navigator.userAgent)
+          /Opera Mini|IEMobile|Android 4|Android 5|Android 6/i.test(navigator.userAgent) ||
+          prefersReducedData
         );
         var isMidTier = isTouch && !isLowEnd;
         if (isLowEnd) document.documentElement.classList.add('low-end');
         if (isMidTier) document.documentElement.classList.add('mid-tier');
         if (prefersReducedMotion) document.documentElement.classList.add('reduced-motion');
+        if (prefersReducedData) document.documentElement.classList.add('reduced-data');
       } catch (e) {}
     })();
   </script>
@@ -1001,6 +1004,15 @@
         transform: none !important;
         transition: none !important;
       }
+    }
+    html.reduced-data #canvas-container,
+    html.reduced-data .ambient-well {
+      display: none !important;
+    }
+    html.reduced-data .reveal-3d {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
     }
   </style>
 </head>
