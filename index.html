@@ -4034,15 +4034,19 @@
         const projectsSection = document.getElementById('projects');
         if (!projectsSection) return;
 
-        // Check if focus is anywhere inside #projects
+        // Check if focus is anywhere inside #projects or if carousel is observed in viewport
         const isFocusedInProjects = projectsSection.contains(document.activeElement);
+        if (isFocusedInProjects || isCarouselInViewport) {
+          handleArrowNav(e);
+          return;
+        }
 
-        // Check if #projects section is currently visible in viewport
+        // Fallback for environments where IntersectionObserver is inactive
         const rect = projectsSection.getBoundingClientRect();
         const vh = window.innerHeight || document.documentElement.clientHeight;
         const isInViewport = (rect.top < vh * 0.75 && rect.bottom > vh * 0.25);
 
-        if (isFocusedInProjects || isInViewport) {
+        if (isInViewport) {
           handleArrowNav(e);
         }
       });
