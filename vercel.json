@@ -50,6 +50,10 @@
           "value": "none"
         },
         {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
           "key": "Origin-Agent-Cluster",
           "value": "?1"
         }
