@@ -2644,6 +2644,8 @@
         function checkBattery() {
           if (!battery.charging && battery.level <= 0.20) {
             document.documentElement.classList.add('low-end');
+          } else if (!isLowEnd) {
+            document.documentElement.classList.remove('low-end');
           }
         }
         checkBattery();
