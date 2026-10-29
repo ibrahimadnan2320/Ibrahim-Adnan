@@ -3795,8 +3795,15 @@
     (function initSkillSearch() {
       const searchInput = document.getElementById('skill-search-input');
       const clearBtn = document.getElementById('skill-search-clear');
+      let searchRAF = null;
       if (searchInput) {
-        searchInput.addEventListener('input', applySkillFilters);
+        searchInput.addEventListener('input', () => {
+          if (searchRAF) cancelAnimationFrame(searchRAF);
+          searchRAF = requestAnimationFrame(() => {
+            applySkillFilters();
+            searchRAF = null;
+          });
+        }, { passive: true });
       }
       if (clearBtn) {
         clearBtn.addEventListener('click', () => {
