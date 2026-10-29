@@ -3019,7 +3019,15 @@
       return ((performance.now() / 1000) - startTime) % MODULAR_PERIOD;
     }
 
+    let lastLowEndFrameTime = 0;
     function animateLoop() {
+      // Hardware-Adaptive FPS Capping: throttle to ~30 FPS on low-end hardware to reduce GPU heat and battery drain
+      if (isLowEnd) {
+        const now = performance.now();
+        if (now - lastLowEndFrameTime < 33) return;
+        lastLowEndFrameTime = now;
+      }
+
       const delta = Math.min(clock.getDelta(), 0.1);
       const t = getModularTime();
 
