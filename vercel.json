@@ -11,7 +11,7 @@
         },
         {
           "key": "Accept-CH",
-          "value": "DPR, Width, Viewport-Width, Sec-CH-DPR"
+          "value": "DPR, Width, Viewport-Width, Sec-CH-DPR, Sec-CH-Prefers-Reduced-Motion, Sec-CH-Prefers-Color-Scheme"
         },
         {
           "key": "X-Content-Type-Options",
