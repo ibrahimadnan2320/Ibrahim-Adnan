@@ -2683,6 +2683,7 @@
     function closeCertModal() {
       certModal.classList.remove('modal-active');
       document.body.style.overflow = '';
+      if (typeof window.resumeThree === 'function' && !document.hidden) window.resumeThree();
       setTimeout(() => {
         if (!certModal.classList.contains('modal-active')) {
           modalContent.innerHTML = '';
@@ -2732,6 +2733,7 @@
       `;
       certModal.classList.add('modal-active');
       document.body.style.overflow = 'hidden';
+      if (typeof window.pauseThree === 'function') window.pauseThree();
       const modalCloseBtn = certModal.querySelector('button[aria-label]');
       if (modalCloseBtn) modalCloseBtn.focus();
     }
@@ -3079,6 +3081,10 @@
       clock.stop();
       renderer.setAnimationLoop(null);
     }
+
+    // Expose lifecycle hooks for modal views and low-power states
+    window.pauseThree = stopThree;
+    window.resumeThree = startThree;
 
     startThree();
 
