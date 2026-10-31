@@ -2863,7 +2863,7 @@
       if (p.image) {
         imageHtml = `
           <div class="relative w-full rounded-xl overflow-hidden border border-white/10 bg-black/80 mb-5 flex items-center justify-center shadow-lg" style="aspect-ratio: 1024 / 508;">
-            <img src="${p.image}" alt="${p.title}" width="1024" height="508" loading="lazy" decoding="async" class="w-full h-full object-contain object-center" />
+            <img src="${p.image}" alt="${p.title}" width="1024" height="508" loading="eager" fetchpriority="high" decoding="async" class="w-full h-full object-contain object-center" />
           </div>
         `;
       }
