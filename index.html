@@ -535,7 +535,8 @@
     html.low-end .skill-card-item,
     html.low-end #canvas-container,
     html.low-end #navbar,
-    html.low-end .marquee-strip {
+    html.low-end .marquee-strip,
+    html.low-end #cert-modal {
       will-change: auto !important;
     }
 
@@ -860,6 +861,7 @@
       -webkit-overflow-scrolling: touch;
       touch-action: pan-y;
       isolation: isolate;
+      will-change: opacity;
     }
     #projects,
     #skills {
