@@ -50,6 +50,10 @@
           "value": "none"
         },
         {
+          "key": "X-Robots-Tag",
+          "value": "all, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        },
+        {
           "key": "X-XSS-Protection",
           "value": "1; mode=block"
         },
