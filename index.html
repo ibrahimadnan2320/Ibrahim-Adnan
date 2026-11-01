@@ -3747,6 +3747,17 @@
           }
         });
         inpObserver.observe({ type: 'first-input', buffered: true });
+
+        try {
+          const eventObserver = new PerformanceObserver((entryList) => {
+            for (const entry of entryList.getEntries()) {
+              if (entry.duration > window.__vitals.inp) {
+                window.__vitals.inp = Math.round(entry.duration);
+              }
+            }
+          });
+          eventObserver.observe({ type: 'event', durationThreshold: 16, buffered: true });
+        } catch (_) {}
       } catch (e) {}
     }
 
