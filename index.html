@@ -802,6 +802,8 @@
       opacity: 0;
       transform: translateY(22px);
       transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      backface-visibility: hidden;
+      transform-origin: center top;
     }
     .reveal-3d.revealed {
       opacity: 1;
