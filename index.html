@@ -1014,6 +1014,17 @@
       }
     }
 
+    /* Enhanced Contrast Mode (WCAG 2.1 AAA Contrast Compliance) */
+    @media (prefers-contrast: more) {
+      :root {
+        --text-muted: #cbd5e1;
+        --card-border: rgba(255, 255, 255, 0.40);
+      }
+      .crystal-card {
+        border-color: rgba(255, 255, 255, 0.45) !important;
+      }
+    }
+
     /* Cellular Data Saver Mode (CSS Media Queries Level 4 / User Data Saver Preference) */
     @media (prefers-reduced-data: reduce) {
       #canvas-container,
