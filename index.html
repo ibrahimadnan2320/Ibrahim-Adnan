@@ -976,6 +976,10 @@
     }
     /* Print Media Optimization: cleanly format for PDF export & physical resume printing */
     @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
       #canvas-container,
       .ambient-well,
       #cursor-dot,
