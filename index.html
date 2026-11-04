@@ -4266,7 +4266,16 @@
         });
       }, { passive: true });
 
+      if (typeof performance !== 'undefined' && performance.mark) {
+        performance.mark('coverflow_init_start');
+      }
       updateCoverflow();
+      if (typeof performance !== 'undefined' && performance.mark && performance.measure) {
+        performance.mark('coverflow_init_end');
+        try {
+          performance.measure('coverflow_init', 'coverflow_init_start', 'coverflow_init_end');
+        } catch (_) {}
+      }
     })();
 
     /* ==========================================================
