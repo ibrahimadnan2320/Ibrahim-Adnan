@@ -2726,6 +2726,10 @@
     function closeCertModal() {
       certModal.classList.remove('modal-active');
       document.body.style.overflow = '';
+      const mainElClose = document.getElementById('main-content');
+      const navElClose = document.getElementById('navbar');
+      if (mainElClose) mainElClose.removeAttribute('aria-hidden');
+      if (navElClose) navElClose.removeAttribute('aria-hidden');
       if (typeof window.resumeThree === 'function' && !document.hidden) window.resumeThree();
       setTimeout(() => {
         if (!certModal.classList.contains('modal-active')) {
@@ -2776,6 +2780,10 @@
       `;
       certModal.classList.add('modal-active');
       document.body.style.overflow = 'hidden';
+      const mainEl = document.getElementById('main-content');
+      const navEl = document.getElementById('navbar');
+      if (mainEl) mainEl.setAttribute('aria-hidden', 'true');
+      if (navEl) navEl.setAttribute('aria-hidden', 'true');
       if (typeof window.pauseThree === 'function') window.pauseThree();
       const modalCloseBtn = certModal.querySelector('button[aria-label]');
       if (modalCloseBtn) modalCloseBtn.focus();
