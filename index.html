@@ -4234,8 +4234,13 @@
         startAutoRotate();
       }
 
+      let coverflowResizeRAF = null;
       window.addEventListener('resize', () => {
-        updateCoverflow();
+        if (coverflowResizeRAF) cancelAnimationFrame(coverflowResizeRAF);
+        coverflowResizeRAF = requestAnimationFrame(() => {
+          updateCoverflow();
+          coverflowResizeRAF = null;
+        });
       }, { passive: true });
 
       updateCoverflow();
