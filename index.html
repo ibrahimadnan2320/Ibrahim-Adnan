@@ -3001,6 +3001,11 @@
 
       certModal.classList.add('modal-active');
       document.body.style.overflow = 'hidden';
+      if (typeof window.pauseThree === 'function') window.pauseThree();
+      const mainEl = document.getElementById('main-content');
+      const navEl = document.getElementById('navbar');
+      if (mainEl) mainEl.setAttribute('aria-hidden', 'true');
+      if (navEl) navEl.setAttribute('aria-hidden', 'true');
       const modalCloseBtn = certModal.querySelector('button[aria-label]');
       if (modalCloseBtn) modalCloseBtn.focus();
     }
