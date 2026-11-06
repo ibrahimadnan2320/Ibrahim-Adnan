@@ -3783,7 +3783,7 @@
        Captures official Core Web Vitals: LCP, CLS, and INP/FID
        ========================================================= */
     if ('PerformanceObserver' in window) {
-      window.__vitals = { lcp: 0, cls: 0, inp: 0, fid: 0 };
+      window.__vitals = { fcp: 0, lcp: 0, cls: 0, inp: 0, fid: 0 };
       try {
         const lcpObserver = new PerformanceObserver((entryList) => {
           const entries = entryList.getEntries();
@@ -3791,6 +3791,17 @@
           if (lastEntry) window.__vitals.lcp = Math.round(lastEntry.startTime);
         });
         lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+
+        try {
+          const paintObserver = new PerformanceObserver((entryList) => {
+            for (const entry of entryList.getEntries()) {
+              if (entry.name === 'first-contentful-paint') {
+                window.__vitals.fcp = Math.round(entry.startTime);
+              }
+            }
+          });
+          paintObserver.observe({ type: 'paint', buffered: true });
+        } catch (_) {}
 
         const clsObserver = new PerformanceObserver((entryList) => {
           for (const entry of entryList.getEntries()) {
