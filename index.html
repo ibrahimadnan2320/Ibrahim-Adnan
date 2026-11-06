@@ -3926,6 +3926,9 @@
 
       if (!stage || cards.length === 0) return;
 
+      const cardFocusablesMap = new Map();
+      cards.forEach(card => cardFocusablesMap.set(card, card.querySelectorAll('a, button')));
+
       let currentIndex = 1;
       const total = cards.length;
       let isDragging = false;
@@ -3954,8 +3957,8 @@
           const isCurrent = diff === 0;
           card.setAttribute('aria-hidden', isCurrent ? 'false' : 'true');
 
-          // Roving tabindex on interactive child elements to prevent keyboard traps on background slides
-          const focusables = card.querySelectorAll('a, button');
+          // Roving tabindex on cached interactive child elements to eliminate animation DOM queries
+          const focusables = cardFocusablesMap.get(card) || card.querySelectorAll('a, button');
           focusables.forEach(el => {
             if (isCurrent) {
               el.removeAttribute('tabindex');
