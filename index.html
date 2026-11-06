@@ -4216,7 +4216,7 @@
         } else if (diffX > 45) {
           prev();
         }
-      });
+      }, { passive: true });
 
       // Auto-Rotation Timer with Micro-Interaction & Visibility Awareness
       let autoRotateTimer = null;
