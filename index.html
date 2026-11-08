@@ -3012,6 +3012,8 @@
       certModal.classList.add('modal-active');
       document.body.style.overflow = 'hidden';
       if (typeof window.pauseThree === 'function') window.pauseThree();
+      const liveStatus = document.getElementById('coverflow-live-status');
+      if (liveStatus) liveStatus.textContent = 'Opened case study modal: ' + p.title;
       const mainEl = document.getElementById('main-content');
       const navEl = document.getElementById('navbar');
       if (mainEl) mainEl.setAttribute('aria-hidden', 'true');
