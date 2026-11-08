@@ -3271,32 +3271,46 @@
     }
 
     /* ==========================================================
-       4. 1-CLICK CLIPBOARD COPY WITH TOAST
+       4. 1-CLICK CLIPBOARD COPY WITH AUTO-DISMISS TOAST (2.5s)
        ========================================================= */
     const toast = document.getElementById('copy-toast');
     const toastText = document.getElementById('toast-text');
+    let toastTimeout = null;
+
     function hideCopyToast() {
+      if (!toast) return;
       toast.classList.remove('toast-active');
       toast.style.opacity = '0';
       toast.style.pointerEvents = 'none';
-      clearTimeout(toastTimeout);
+      if (toastTimeout) {
+        clearTimeout(toastTimeout);
+        toastTimeout = null;
+      }
     }
 
-    toast.addEventListener('click', hideCopyToast);
+    if (toast) {
+      toast.addEventListener('click', hideCopyToast);
+    }
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && toast.classList.contains('toast-active')) {
+      if (e.key === 'Escape' && toast && toast.classList.contains('toast-active')) {
         hideCopyToast();
       }
     });
 
     function showCopyToast(message) {
-      toastText.textContent = message || 'Copied to clipboard!';
+      if (!toast) return;
+      if (toastTimeout) {
+        clearTimeout(toastTimeout);
+        toastTimeout = null;
+      }
+      if (toastText) {
+        toastText.textContent = message || 'Copied to clipboard!';
+      }
       toast.classList.add('toast-active');
       toast.style.opacity = '1';
       toast.style.pointerEvents = 'auto';
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(hideCopyToast, 2400);
+      toastTimeout = setTimeout(hideCopyToast, 2500);
     }
 
     async function copyToClipboard(text, customMessage) {
