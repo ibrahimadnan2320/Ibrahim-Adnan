@@ -401,28 +401,28 @@
     .coverflow-stage {
       position: relative;
       width: 100%;
-      max-width: 1200px;
+      max-width: 1260px;
       margin: 0 auto;
-      min-height: 460px;
-      height: 480px;
-      perspective: 1300px;
+      min-height: 500px;
+      height: 525px;
+      perspective: 1350px;
       transform-style: preserve-3d;
       contain: layout style;
     }
 
     @media (max-width: 1024px) {
       .coverflow-stage {
-        min-height: 420px;
-        height: 430px;
-        perspective: 1100px;
+        min-height: 450px;
+        height: 470px;
+        perspective: 1150px;
       }
     }
 
     @media (max-width: 640px) {
       .coverflow-stage {
-        min-height: 330px;
-        height: 340px;
-        perspective: 850px;
+        min-height: 355px;
+        height: 370px;
+        perspective: 900px;
       }
     }
 
@@ -432,8 +432,8 @@
       inset: 0 !important;
       margin: auto !important;
       width: 95%;
-      max-width: 600px;
-      height: 395px;
+      max-width: 660px;
+      height: 435px;
       transform: var(--card-transform);
       transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
                   opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
@@ -451,15 +451,15 @@
 
     @media (max-width: 1024px) {
       .coverflow-card {
-        max-width: 540px;
-        height: 360px;
+        max-width: 585px;
+        height: 395px;
       }
     }
 
     @media (max-width: 640px) {
       .coverflow-card {
-        max-width: 92vw;
-        height: 285px;
+        max-width: 94vw;
+        height: 310px;
         border-radius: 1.25rem;
       }
     }
@@ -1993,7 +1993,7 @@
             </div>
 
             <!-- Preview Image (Calibrated 280px Frame for 100% Complete 2:1 Display) -->
-            <div class="relative w-full h-[180px] sm:h-[250px] md:h-[280px] rounded-2xl overflow-hidden bg-black/85 border border-white/10 mt-auto group/preview flex items-center justify-center">
+            <div class="relative w-full h-[195px] sm:h-[275px] md:h-[310px] rounded-2xl overflow-hidden bg-black/85 border border-white/10 mt-auto group/preview flex items-center justify-center">
               <img src="mak-and-sons.png" alt="MAK &amp; Sons Construction Website" width="1024" height="508" loading="lazy" decoding="async" class="w-full h-full object-contain object-center transition duration-500 group-hover/preview:scale-[1.02]" />
 
               <!-- Interactive Frosted Glass Details Drawer (Reveals on Hover) -->
@@ -2047,7 +2047,7 @@
             </div>
 
             <!-- Preview Image (Calibrated 280px Frame for 100% Complete 2:1 Display) -->
-            <div class="relative w-full h-[180px] sm:h-[250px] md:h-[280px] rounded-2xl overflow-hidden bg-black/85 border border-white/10 mt-auto group/preview flex items-center justify-center">
+            <div class="relative w-full h-[195px] sm:h-[275px] md:h-[310px] rounded-2xl overflow-hidden bg-black/85 border border-white/10 mt-auto group/preview flex items-center justify-center">
               <img src="iqra-academy.png" alt="IQRA Online Quran Academy Website" width="1024" height="509" loading="lazy" decoding="async" class="w-full h-full object-contain object-center transition duration-500 group-hover/preview:scale-[1.02]" />
 
               <!-- Interactive Frosted Glass Details Drawer (Reveals on Hover) -->
@@ -2101,7 +2101,7 @@
             </div>
 
             <!-- Stylized 3D Abstract Artwork Graphic -->
-            <div class="relative w-full h-[180px] sm:h-[250px] md:h-[280px] rounded-2xl overflow-hidden bg-gradient-to-br from-red-950/60 via-slate-950/80 to-black/80 border border-white/10 mt-auto flex items-center justify-center p-4 group/preview">
+            <div class="relative w-full h-[195px] sm:h-[275px] md:h-[310px] rounded-2xl overflow-hidden bg-gradient-to-br from-red-950/60 via-slate-950/80 to-black/80 border border-white/10 mt-auto flex items-center justify-center p-4 group/preview">
               <!-- Radial Glow Orbs -->
               <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(239,68,68,0.25)_0%,transparent_70%)] pointer-events-none"></div>
               
@@ -3955,8 +3955,8 @@
                                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         // Calibrated overlapping stacked deck geometry: active card dead-center, flanking cards cleanly separated
-        const xStep = isSmallMobile ? 22 : (isMobile ? 24 : (isTablet ? 45 : 55));
-        const zStep = isMobile ? 35 : 75;
+        const xStep = isSmallMobile ? 22 : (isMobile ? 24 : (isTablet ? 48 : 58));
+        const zStep = isMobile ? 35 : 80;
         const rot = isMobile ? 5 : 10;
 
         cards.forEach((card, idx) => {
@@ -3998,7 +3998,7 @@
             card.style.setProperty('--card-active-border', activeTheme.border);
             card.style.setProperty('--card-active-glow', activeTheme.glow);
 
-            const activeScale = isMobile ? '1.04' : '1.08';
+            const activeScale = isMobile ? '1.05' : '1.10';
             const activeT = isLowEndDevice 
               ? `translate3d(0, 0, 0) scale(${activeScale})` 
               : `translate3d(0, 0, 75px) rotateY(0deg) scale(${activeScale})`;
