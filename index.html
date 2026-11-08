@@ -4102,6 +4102,9 @@
       function goTo(index) {
         currentIndex = ((index % total) + total) % total;
         updateCoverflow();
+        if (typeof performance !== 'undefined' && performance.mark) {
+          performance.mark('coverflow_nav_complete');
+        }
       }
 
       function next() {
