@@ -2750,6 +2750,7 @@
       setTimeout(() => {
         if (!certModal.classList.contains('modal-active')) {
           modalContent.innerHTML = '';
+          modalContent.textContent = '';
         }
       }, 350);
       if (lastActiveModalTrigger && typeof lastActiveModalTrigger.focus === 'function') {
