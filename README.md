@@ -115,6 +115,7 @@ University of Management and Technology (UMT), Lahore, Pakistan
 
 - 🌐 **Portfolio**: [ibrahim-adnan.vercel.app](https://ibrahim-adnan.vercel.app/)
 - 💼 **LinkedIn**: [linkedin.com/in/ibrahim-adnan-a945263a2](https://linkedin.com/in/ibrahim-adnan-a945263a2)
+- 🎥 **YouTube**: [youtube.com/channel/UCvfooBgjwle-ecwLpTjd4NQ](https://www.youtube.com/channel/UCvfooBgjwle-ecwLpTjd4NQ)
 - 🐙 **GitHub**: [@ibrahimadnan2320](https://github.com/ibrahimadnan2320)
 - 📧 **Email**: [ibrahimadnan2320@gmail.com](mailto:ibrahimadnan2320@gmail.com)
 - 💬 **WhatsApp**: [+92-3218470572](https://wa.me/923218470572)
