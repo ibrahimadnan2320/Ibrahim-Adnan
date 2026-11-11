@@ -247,7 +247,33 @@
         },
         "description": "Curated technical video tutorials and curriculum covering Ruby object-oriented design, algorithmic principles, and clean syntax idioms.",
         "image": "https://ibrahim-adnan.vercel.app/profile.png",
-        "url": "https://ibrahim-adnan.vercel.app/#projects"
+        "url": "https://www.youtube.com/channel/UCvfooBgjwle-ecwLpTjd4NQ"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://ibrahim-adnan.vercel.app/#sqa-suite",
+        "name": "Enterprise SQA & Automation Suite",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web, Cross-Platform",
+        "author": {
+          "@id": "https://ibrahim-adnan.vercel.app/#person"
+        },
+        "description": "Full-spectrum automated and manual software verification suite covering alpha, beta, regression testing, and WCAG AA compliance.",
+        "image": "https://ibrahim-adnan.vercel.app/profile.png",
+        "url": "https://ibrahim-adnan.vercel.app/#capabilities"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://ibrahim-adnan.vercel.app/#venture-engine",
+        "name": "E-Commerce & Venture Engine",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "author": {
+          "@id": "https://ibrahim-adnan.vercel.app/#person"
+        },
+        "description": "Commercial automation platform optimizing digital sales channels, fulfillment tracking, and real-time operations.",
+        "image": "https://ibrahim-adnan.vercel.app/profile.png",
+        "url": "https://ibrahim-adnan.vercel.app/#contact"
       },
       {
         "@type": "BreadcrumbList",
@@ -3792,7 +3818,45 @@
        Captures official Core Web Vitals: LCP, CLS, and INP/FID
        ========================================================= */
     if ('PerformanceObserver' in window) {
-      window.__vitals = { fcp: 0, lcp: 0, cls: 0, inp: 0, fid: 0 };
+      window.__vitals = {
+        fcp: 0,
+        lcp: 0,
+        cls: 0,
+        inp: 0,
+        fid: 0,
+        ttfb: 0,
+        domInteractive: 0,
+        domComplete: 0,
+        load: 0,
+        getReport: function() {
+          return {
+            'TTFB (ms)': this.ttfb,
+            'FCP (ms)': this.fcp,
+            'LCP (ms)': this.lcp,
+            'CLS': this.cls,
+            'INP (ms)': this.inp,
+            'FID (ms)': this.fid,
+            'DOM Interactive (ms)': this.domInteractive,
+            'Load Event (ms)': this.load
+          };
+        }
+      };
+
+      // Navigation Timing Level 2 instrumentation (TTFB, DOM ready, total load)
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          try {
+            const navEntries = performance.getEntriesByType('navigation');
+            if (navEntries && navEntries.length > 0) {
+              const nav = navEntries[0];
+              window.__vitals.ttfb = Math.round(nav.responseStart - nav.requestStart || nav.responseStart || 0);
+              window.__vitals.domInteractive = Math.round(nav.domInteractive || 0);
+              window.__vitals.domComplete = Math.round(nav.domComplete || 0);
+              window.__vitals.load = Math.round(nav.loadEventEnd || 0);
+            }
+          } catch (_) {}
+        }, 0);
+      }, { passive: true, once: true });
       try {
         const lcpObserver = new PerformanceObserver((entryList) => {
           const entries = entryList.getEntries();
