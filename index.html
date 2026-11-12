@@ -927,6 +927,7 @@
       z-index: 0;
       transform: translateZ(0);
       will-change: transform;
+      contain: strict;
     }
     #canvas-container canvas {
       display: block;
@@ -3079,7 +3080,7 @@
       alpha: true,
       antialias: false,
       powerPreference: (isLowEnd || isTouch) ? 'low-power' : 'high-performance',
-      depth: true,
+      depth: false,
       stencil: false,
       precision: 'mediump'
     });
