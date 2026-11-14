@@ -3246,7 +3246,16 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
       }
     }
-    window.addEventListener('resize', updateCanvasSize, { passive: true });
+    let canvasResizeRAF = null;
+    function onCanvasResize() {
+      if (!canvasResizeRAF) {
+        canvasResizeRAF = requestAnimationFrame(() => {
+          updateCanvasSize();
+          canvasResizeRAF = null;
+        });
+      }
+    }
+    window.addEventListener('resize', onCanvasResize, { passive: true });
     window.addEventListener('orientationchange', () => {
       setTimeout(updateCanvasSize, 100);
     }, { passive: true });
