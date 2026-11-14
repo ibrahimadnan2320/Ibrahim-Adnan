@@ -4410,13 +4410,20 @@
     })();
 
     /* ==========================================================
-       18. INTERACTIVE WHATSAPP INQUIRY TEMPLATE SWITCHER
+       18. INTERACTIVE WHATSAPP INQUIRY TEMPLATE SWITCHER (CACHED DOM)
        Pre-populates topic-specific messages for seamless recruiter outreach.
        ========================================================= */
+    let cachedWaLink = null;
+    let cachedEmailLink = null;
+    let cachedWaButtons = null;
+
     function setWhatsAppTopic(topic) {
-      const waLink = document.getElementById('whatsapp-link');
-      const emailLink = document.getElementById('email-link');
-      const buttons = document.querySelectorAll('.wa-topic-btn');
+      if (!cachedWaLink) cachedWaLink = document.getElementById('whatsapp-link');
+      if (!cachedEmailLink) cachedEmailLink = document.getElementById('email-link');
+      if (!cachedWaButtons) cachedWaButtons = document.querySelectorAll('.wa-topic-btn');
+      const waLink = cachedWaLink;
+      const emailLink = cachedEmailLink;
+      const buttons = cachedWaButtons;
       
       const templates = {
         role: 'Hi Ibrahim, I came across your engineering portfolio and would like to discuss a Software Engineering opportunity.',
