@@ -4232,21 +4232,31 @@
         dot.addEventListener('click', () => goTo(idx));
       });
 
-      // Keyboard Navigation Engine (ArrowLeft, ArrowRight, Home, End)
+      // Keyboard Navigation Engine with Frame-Drop Prevention Throttle
+      let lastArrowTime = 0;
       function handleArrowNav(e) {
+        const now = Date.now();
+        if (now - lastArrowTime < 160) {
+          e.preventDefault();
+          return;
+        }
         if (e.key === 'ArrowLeft') {
+          lastArrowTime = now;
           prev();
           resetAutoRotate();
           e.preventDefault();
         } else if (e.key === 'ArrowRight') {
+          lastArrowTime = now;
           next();
           resetAutoRotate();
           e.preventDefault();
         } else if (e.key === 'Home') {
+          lastArrowTime = now;
           goTo(0);
           resetAutoRotate();
           e.preventDefault();
         } else if (e.key === 'End') {
+          lastArrowTime = now;
           goTo(total - 1);
           resetAutoRotate();
           e.preventDefault();
