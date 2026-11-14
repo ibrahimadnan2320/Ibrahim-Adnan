@@ -4,7 +4,7 @@
    stale-while-revalidate asset caching for PWA performance.
    ========================================================= */
 
-const CACHE_NAME = 'ibrahim-adnan-v38';
+const CACHE_NAME = 'ibrahim-adnan-v39';
 const MAX_CACHE_ITEMS = 50;
 const PRECACHE_ASSETS = [
   '/',
@@ -14,7 +14,9 @@ const PRECACHE_ASSETS = [
   '/mak-and-sons.png',
   '/iqra-academy.png',
   '/CodeWingz_Internship_Certificate.jpg',
-  '/BigBrains-Certificate-BB-F6ADD430C125.jpg'
+  '/BigBrains-Certificate-BB-F6ADD430C125.jpg',
+  '/InShot_20260903_195145647.jpg',
+  '/Grow Online - Practical Digital Marketing.jpg'
 ];
 
 self.addEventListener('install', (event) => {
