@@ -907,7 +907,9 @@
       -webkit-overflow-scrolling: touch;
       touch-action: pan-y;
       isolation: isolate;
-      will-change: opacity;
+      will-change: opacity, transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
     #projects,
     #skills {
