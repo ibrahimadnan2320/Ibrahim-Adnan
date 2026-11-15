@@ -4322,7 +4322,7 @@
       }, { passive: true });
 
       stage.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
+        if (!isDragging || !e.touches || e.touches.length === 0) return;
         currentX = e.touches[0].clientX;
       }, { passive: true });
 
