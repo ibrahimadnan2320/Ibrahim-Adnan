@@ -3121,6 +3121,7 @@
     }
     const particlesGeometry = new THREE.BufferGeometry();
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    particlesGeometry.computeBoundingSphere();
     const particlesMaterial = new THREE.PointsMaterial({
       size: (isLowEnd || isTouch) ? 0.38 : 0.32,
       color: 0xffffff,
